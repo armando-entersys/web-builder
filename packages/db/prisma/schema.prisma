@@ -1,0 +1,177 @@
+// Prisma Schema para Web Builder
+// Optimizado para AI-first development
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// CORE MODELS
+// ==========================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  projects Project[]
+
+  @@map("users")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  industry    String? // SaaS, eCommerce, etc.
+  status      ProjectStatus @default(DRAFT)
+
+  // JSON fields para flexibilidad
+  sitemap     Json? // Estructura del sitemap
+  styleGuide  Json? // Design tokens y configuración de estilo
+  settings    Json? // Configuración general del proyecto
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  publishedAt DateTime?
+
+  // Relations
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pages  Page[]
+
+  @@index([userId])
+  @@index([status])
+  @@map("projects")
+}
+
+model Page {
+  id          String   @id @default(cuid())
+  slug        String   // URL slug (e.g., "/pricing", "/about")
+  title       String
+  description String?
+
+  // Estructura de la página
+  wireframe   Json? // Estructura de componentes
+  content     Json? // Contenido generado por IA
+  schema      Json? // Schema.org markup
+
+  // SEO & Metadata
+  metaTitle       String?
+  metaDescription String?
+  ogImage         String?
+
+  // AI Optimization
+  aiOptimization  Json? // Datos de optimización para búsqueda conversacional
+
+  // Orden y visibilidad
+  order       Int      @default(0)
+  isPublished Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  template  Template? @relation(fields: [templateId], references: [id])
+  templateId String?
+
+  @@unique([projectId, slug])
+  @@index([projectId])
+  @@index([isPublished])
+  @@map("pages")
+}
+
+model Template {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  category    TemplateCategory
+  industry    String? // SaaS, eCommerce, etc.
+
+  // Estructura del template
+  structure   Json // Estructura de componentes predefinida
+  preview     String? // URL de imagen preview
+
+  // Metadata
+  tags        String[]
+  isPremium   Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  pages       Page[]
+
+  @@index([category])
+  @@index([industry])
+  @@map("templates")
+}
+
+// ==========================================
+// AI GENERATION HISTORY
+// ==========================================
+
+model AIGeneration {
+  id          String   @id @default(cuid())
+  type        AIGenerationType
+  prompt      String   @db.Text
+  response    Json
+  model       String // gpt-4o, claude-3.7, gemini-2.0
+  tokensUsed  Int
+  cost        Float?
+
+  // Context
+  projectId   String?
+  pageId      String?
+  metadata    Json? // Contexto adicional
+
+  createdAt   DateTime @default(now())
+
+  @@index([type])
+  @@index([projectId])
+  @@index([createdAt])
+  @@map("ai_generations")
+}
+
+// ==========================================
+// ENUMS
+// ==========================================
+
+enum ProjectStatus {
+  DRAFT
+  IN_PROGRESS
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum TemplateCategory {
+  HOMEPAGE
+  PRICING
+  FEATURES
+  BLOG
+  CONTACT
+  ABOUT
+  CUSTOM
+}
+
+enum AIGenerationType {
+  SITEMAP
+  CONTENT
+  STYLE_GUIDE
+  SEO_OPTIMIZATION
+  SCHEMA_MARKUP
+  IMAGE
+  OTHER
+}
