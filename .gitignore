@@ -47,3 +47,8 @@ Thumbs.db
 
 # Build outputs
 *.tsbuildinfo
+# Temporary files
+temp-react-bits/
+*.png
+categories.txt
+.claude/

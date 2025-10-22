@@ -1,0 +1,25 @@
+// Text Animations from React Bits
+export { default as ASCIIText } from './ASCIIText/ASCIIText';
+export { default as BlurText } from './BlurText/BlurText';
+export { default as CircularText } from './CircularText/CircularText';
+export { default as CountUp } from './CountUp/CountUp';
+export { default as CurvedLoop } from './CurvedLoop/CurvedLoop';
+export { default as DecryptedText } from './DecryptedText/DecryptedText';
+export { default as FallingText } from './FallingText/FallingText';
+export { default as FuzzyText } from './FuzzyText/FuzzyText';
+export { default as GlitchText } from './GlitchText/GlitchText';
+export { default as GradientText } from './GradientText/GradientText';
+export { default as RotatingText } from './RotatingText/RotatingText';
+export { default as ScrambledText } from './ScrambledText/ScrambledText';
+export { default as ScrollFloat } from './ScrollFloat/ScrollFloat';
+export { default as ScrollReveal } from './ScrollReveal/ScrollReveal';
+export { default as ScrollVelocity } from './ScrollVelocity/ScrollVelocity';
+export { default as ShinyText } from './ShinyText/ShinyText';
+export { default as Shuffle } from './Shuffle/Shuffle';
+export { default as SplitText } from './SplitText/SplitText';
+export { default as TextCursor } from './TextCursor/TextCursor';
+export { default as TextPressure } from './TextPressure/TextPressure';
+export { default as TextTrail } from './TextTrail/TextTrail';
+export { default as TextType } from './TextType/TextType';
+export { default as TrueFocus } from './TrueFocus/TrueFocus';
+export { default as VariableProximity } from './VariableProximity/VariableProximity';

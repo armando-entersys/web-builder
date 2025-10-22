@@ -38,9 +38,20 @@ services:
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
       GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY}
 
+      # NextAuth
+      AUTH_SECRET: ${AUTH_SECRET:-change-this-to-a-random-secret-in-production}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+
+      # Google OAuth (optional)
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+
       # App
-      NEXT_PUBLIC_APP_URL: "http://localhost:3000"
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
       NODE_ENV: "production"
+
+      # Database seeding (set to true to seed on first run)
+      SEED_DB: ${SEED_DB:-false}
     depends_on:
       postgres:
         condition: service_healthy
