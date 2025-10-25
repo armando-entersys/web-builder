@@ -97,7 +97,7 @@ export default function WebBuilder() {
     URL.revokeObjectURL(url)
   }
 
-  const tabs = [
+  const tabs: { id: string; label: string; shortcut: string; badge?: string }[] = [
     { id: 'builder', label: 'Builder', shortcut: '⌘1' },
     { id: 'wireframe', label: 'Wireframe', shortcut: '⌘2' },
     { id: 'styleguide', label: 'Style Guide', shortcut: '⌘3' },
