@@ -430,6 +430,11 @@ class Y extends MeshPhysicalMaterial {
     thicknessScale: { value: 10 }
   };
 
+  // @ts-ignore - Extended properties for custom shader
+  defines: { [key: string]: any };
+  // @ts-ignore - Custom shader compilation
+  onBeforeCompile: (shader: any) => void;
+
   constructor(params: any) {
     super(params);
     this.defines = { USE_UV: '' };
