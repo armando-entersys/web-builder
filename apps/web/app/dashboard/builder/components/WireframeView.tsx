@@ -45,7 +45,7 @@ interface Props {
   setWireframeComponents: (components: WireframeComponent[]) => void
 }
 
-export { WireframeComponent, ComponentType }
+export type { WireframeComponent, ComponentType }
 
 // Biblioteca de componentes con variantes (estilo Relume.io)
 const COMPONENT_LIBRARY: Record<ComponentType, { name: string; icon: string; variants: { id: number; name: string; description: string }[] }> = {
