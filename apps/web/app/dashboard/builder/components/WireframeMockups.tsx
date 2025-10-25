@@ -33,7 +33,7 @@ const Box = ({ className = '', children, label }: { className?: string; children
   </div>
 )
 
-const Text = ({ size = 'base', children }: { size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl'; children: React.ReactNode }) => {
+const Text = ({ size = 'base', children }: { size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl'; children?: React.ReactNode }) => {
   const sizeClasses = {
     xs: 'h-2 w-16',
     sm: 'h-3 w-20',
