@@ -52,3 +52,4 @@ temp-react-bits/
 *.png
 categories.txt
 .claude/
+transfer-env.sh

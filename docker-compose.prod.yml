@@ -1,0 +1,78 @@
+services:
+  # Base de datos PostgreSQL
+  postgres:
+    image: postgres:16-alpine
+    container_name: webbuilder-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-WebBuilder2025SecurePass}
+      POSTGRES_DB: webbuilder
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - webbuilder_internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Aplicación Web Builder
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webbuilder-app
+    restart: unless-stopped
+    environment:
+      # Database
+      DATABASE_URL: "postgresql://postgres:${POSTGRES_PASSWORD:-WebBuilder2025SecurePass}@postgres:5432/webbuilder?schema=public"
+
+      # AI APIs
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY}
+
+      # NextAuth
+      AUTH_SECRET: ${AUTH_SECRET}
+      NEXTAUTH_URL: https://web-builder.scram2k.com
+
+      # Google OAuth (optional)
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+
+      # App
+      NEXT_PUBLIC_APP_URL: https://web-builder.scram2k.com
+      NODE_ENV: production
+
+      # Database seeding (set to true to seed on first run)
+      SEED_DB: ${SEED_DB:-true}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - webbuilder_internal
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webbuilder.rule=Host(`web-builder.scram2k.com`)"
+      - "traefik.http.routers.webbuilder.entrypoints=websecure"
+      - "traefik.http.routers.webbuilder.tls.certresolver=letsencrypt"
+      - "traefik.http.services.webbuilder.loadbalancer.server.port=3000"
+      - "traefik.docker.network=traefik"
+      # Redirect HTTP to HTTPS
+      - "traefik.http.middlewares.webbuilder-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.webbuilder-http.rule=Host(`web-builder.scram2k.com`)"
+      - "traefik.http.routers.webbuilder-http.entrypoints=web"
+      - "traefik.http.routers.webbuilder-http.middlewares=webbuilder-redirect"
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  webbuilder_internal:
+    driver: bridge
+  traefik:
+    external: true
