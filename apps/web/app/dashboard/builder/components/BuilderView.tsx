@@ -123,7 +123,7 @@ export default function BuilderView({ projectName, setProjectName, pages, setPag
       xPos: number,
       yPos: number,
       parentId?: string
-    ): number => {
+    ): void => {
       const currentNodeId = `node-${nodeId++}`
 
       newNodes.push({
@@ -161,8 +161,6 @@ export default function BuilderView({ projectName, setProjectName, pages, setPag
           processNode(child, level + 1, childX, childY, currentNodeId)
         })
       }
-
-      return currentNodeId
     }
 
     pagesData.forEach((page, index) => {
