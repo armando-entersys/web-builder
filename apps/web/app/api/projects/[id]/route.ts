@@ -1,14 +1,16 @@
 import { NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
-import { prisma } from "@repo/db"
 
 export const dynamic = "force-dynamic"
+export const runtime = "nodejs"
 
 // GET - Obtener un proyecto específico
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Import Prisma dinámicamente
+  const { prisma } = await import("@repo/db")
   try {
     const session = await auth()
 
@@ -59,7 +61,9 @@ export async function PATCH(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  try {
+  // Import Prisma dinámicamente
+  const { prisma } = await import("@repo/db")
+  try{
     const session = await auth()
 
     if (!session?.user) {
@@ -120,6 +124,8 @@ export async function DELETE(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // Import Prisma dinámicamente
+  const { prisma } = await import("@repo/db")
   try {
     const session = await auth()
 

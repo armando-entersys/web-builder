@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
-import { prisma } from "@repo/db"
 
 export const dynamic = "force-dynamic"
+export const runtime = "nodejs"
 
 // GET - Listar proyectos del usuario (o todos si es admin)
 export async function GET(req: Request) {
+  // Import Prisma dinámicamente
+  const { prisma } = await import("@repo/db")
   try {
     const session = await auth()
 
@@ -73,6 +75,8 @@ export async function GET(req: Request) {
 
 // POST - Crear nuevo proyecto
 export async function POST(req: Request) {
+  // Import Prisma dinámicamente
+  const { prisma } = await import("@repo/db")
   try {
     const session = await auth()
 
