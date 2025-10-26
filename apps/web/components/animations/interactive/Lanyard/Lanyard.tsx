@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unknown-property */
+/// <reference path="../../../../types/react-three-fiber.d.ts" />
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
@@ -236,7 +237,9 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
         </RigidBody>
       </group>
       <mesh ref={band}>
+        {/* @ts-expect-error - meshLineGeometry is extended via @react-three/fiber extend() */}
         <meshLineGeometry />
+        {/* @ts-expect-error - meshLineMaterial is extended via @react-three/fiber extend() */}
         <meshLineMaterial
           color="white"
           depthTest={false}
