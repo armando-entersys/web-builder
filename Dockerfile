@@ -23,13 +23,10 @@ RUN pnpm install --frozen-lockfile
 # ===== BUILDER =====
 FROM base AS builder
 
-# Copiar node_modules desde deps
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/packages/db/node_modules ./packages/db/node_modules
-COPY --from=deps /app/packages/ui/node_modules ./packages/ui/node_modules
-COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
+# Copiar todo desde deps (incluye node_modules con estructura completa de pnpm)
+COPY --from=deps /app ./
 
-# Copiar código fuente
+# Copiar código fuente (esto sobrescribirá los package.json pero mantendrá node_modules)
 COPY . .
 
 # Generar Prisma Client
