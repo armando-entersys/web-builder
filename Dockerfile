@@ -35,7 +35,9 @@ RUN pnpm prisma generate
 
 # Copiar Prisma Client generado al node_modules raíz para resolución en apps/web
 RUN mkdir -p /app/node_modules/.prisma && \
-    cp -r /app/packages/db/node_modules/.prisma/client /app/node_modules/.prisma/
+    cp -r /app/packages/db/node_modules/.prisma/client /app/node_modules/.prisma/ && \
+    rm -rf /app/node_modules/@prisma/client && \
+    cp -r /app/packages/db/node_modules/@prisma/client /app/node_modules/@prisma/
 
 WORKDIR /app
 
