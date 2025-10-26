@@ -4,15 +4,22 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 import { z } from 'zod'
 
 // Zod schemas para validación de estructura
-const PageNodeSchema = z.object({
+// Definir el tipo primero
+export type PageNode = {
+  id: string
+  title: string
+  slug: string
+  description?: string
+  children?: PageNode[]
+}
+
+const PageNodeSchema: z.ZodType<PageNode> = z.object({
   id: z.string(),
   title: z.string(),
   slug: z.string(),
   description: z.string().optional(),
   children: z.array(z.lazy(() => PageNodeSchema)).optional(),
 })
-
-export type PageNode = z.infer<typeof PageNodeSchema>
 
 const SitemapResponseSchema = z.object({
   sitemap: z.array(PageNodeSchema),

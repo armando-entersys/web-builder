@@ -1,7 +1,9 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
-import type { UserRole } from "@prisma/client"
+
+// UserRole type definition (from Prisma schema)
+type UserRole = "USER" | "ADMIN"
 
 declare module "next-auth" {
   interface Session {
@@ -25,7 +27,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   pages: {
     signIn: "/auth/login",
-    signUp: "/auth/register",
   },
   providers: [
     GoogleProvider({
