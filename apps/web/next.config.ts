@@ -1,8 +1,19 @@
 import type { NextConfig } from 'next'
+import path from 'path'
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@repo/ui'],
+  transpilePackages: ['@repo/ui', '@repo/db'],
   output: 'standalone',
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      // Marcar Prisma Client como externo para evitar bundling
+      config.externals = config.externals || []
+      if (Array.isArray(config.externals)) {
+        config.externals.push('@prisma/client', '.prisma/client')
+      }
+    }
+    return config
+  },
   turbopack: {
     rules: {
       '*.svg': {
