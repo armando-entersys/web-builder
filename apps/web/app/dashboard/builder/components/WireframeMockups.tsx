@@ -132,9 +132,9 @@ function HeroMockup({ variant, content, style }: { variant: number; content: any
     return (
       <div className="text-center py-20 px-8">
         <div className="max-w-4xl mx-auto space-y-6">
-          <Text size="3xl" />
-          <div className="flex justify-center"><Text size="lg" /></div>
-          <div className="flex justify-center"><Text size="lg" /></div>
+            <Text size="3xl" > </Text>
+          <div className="flex justify-center">  <Text size="lg" > </Text></div>
+          <div className="flex justify-center">  <Text size="lg" > </Text></div>
           <div className="flex gap-4 justify-center mt-8">
             <Button />
             <Button />
@@ -151,9 +151,9 @@ function HeroMockup({ variant, content, style }: { variant: number; content: any
     return (
       <div className="grid grid-cols-2 gap-12 items-center py-16 px-8">
         <div className="space-y-6">
-          <Text size="3xl" />
-          <Text size="lg" />
-          <Text size="base" />
+            <Text size="3xl" > </Text>
+            <Text size="lg" > </Text>
+            <Text size="base" > </Text>
           <div className="flex gap-4 mt-8">
             <Button />
             <Button />
@@ -168,8 +168,8 @@ function HeroMockup({ variant, content, style }: { variant: number; content: any
     return (
       <Box className="relative py-32 px-8 h-[500px] w-full" label="">
         <div className="absolute inset-0 flex flex-col items-center justify-center space-y-6">
-          <Text size="3xl" />
-          <Text size="xl" />
+            <Text size="3xl" > </Text>
+            <Text size="xl" > </Text>
           <div className="mt-4">
             <Button />
           </div>
@@ -188,16 +188,16 @@ function FeaturesMockup({ variant, content }: { variant: number; content: any })
     return (
       <div className="py-16 px-8">
         <div className="text-center mb-12 space-y-4">
-          <Text size="2xl" />
-          <div className="flex justify-center"><Text size="base" /></div>
+            <Text size="2xl" > </Text>
+          <div className="flex justify-center">  <Text size="base" > </Text></div>
         </div>
         <div className="grid grid-cols-3 gap-8">
           {[1, 2, 3].map((i) => (
             <div key={i} className="space-y-4">
               <Box className="h-16 w-16 mx-auto" label="Icon" />
-              <div className="flex justify-center"><Text size="lg" /></div>
-              <div className="flex justify-center"><Text size="sm" /></div>
-              <div className="flex justify-center"><Text size="sm" /></div>
+              <div className="flex justify-center">  <Text size="lg" > </Text></div>
+              <div className="flex justify-center">  <Text size="sm" > </Text></div>
+              <div className="flex justify-center">  <Text size="sm" > </Text></div>
             </div>
           ))}
         </div>
@@ -209,14 +209,14 @@ function FeaturesMockup({ variant, content }: { variant: number; content: any })
     return (
       <div className="py-16 px-8">
         <div className="text-center mb-12">
-          <Text size="2xl" />
+            <Text size="2xl" > </Text>
         </div>
         <div className="grid grid-cols-4 gap-6">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="space-y-3">
               <Box className="h-12 w-12 mx-auto" label="Icon" />
-              <div className="flex justify-center"><Text size="base" /></div>
-              <div className="flex justify-center"><Text size="xs" /></div>
+              <div className="flex justify-center">  <Text size="base" > </Text></div>
+              <div className="flex justify-center">  <Text size="xs" > </Text></div>
             </div>
           ))}
         </div>
@@ -228,15 +228,15 @@ function FeaturesMockup({ variant, content }: { variant: number; content: any })
     return (
       <div className="py-16 px-8">
         <div className="text-center mb-12">
-          <Text size="2xl" />
+            <Text size="2xl" > </Text>
         </div>
         <div className="grid grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
             <div className="border-2 border-gray-300 rounded-xl p-6 space-y-4">
               <Box className="h-14 w-14" label="Icon" />
-              <Text size="lg" />
-              <Text size="sm" />
-              <Text size="xs" />
+                <Text size="lg" > </Text>
+                <Text size="sm" > </Text>
+                <Text size="xs" > </Text>
             </div>
           ))}
         </div>
@@ -253,7 +253,7 @@ function TestimonialsMockup({ variant, content }: { variant: number; content: an
     return (
       <div className="py-16 px-8">
         <div className="text-center mb-12">
-          <Text size="2xl" />
+            <Text size="2xl" > </Text>
         </div>
         <div className="grid grid-cols-2 gap-8">
           {[1, 2].map((i) => (
@@ -261,14 +261,14 @@ function TestimonialsMockup({ variant, content }: { variant: number; content: an
               <div className="flex items-center gap-4">
                 <Box className="h-14 w-14 rounded-full" label="" />
                 <div className="space-y-2">
-                  <Text size="base" />
-                  <Text size="xs" />
+                    <Text size="base" > </Text>
+                    <Text size="xs" > </Text>
                 </div>
               </div>
               <div className="space-y-2">
-                <Text size="base" />
-                <Text size="sm" />
-                <Text size="sm" />
+                  <Text size="base" > </Text>
+                  <Text size="sm" > </Text>
+                  <Text size="sm" > </Text>
               </div>
               <div className="flex gap-1">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -290,8 +290,8 @@ function CTAMockup({ variant, content, style }: { variant: number; content: any;
   if (variant === 1) {
     return (
       <div className="py-20 text-center px-8 space-y-6">
-        <Text size="3xl" />
-        <div className="flex justify-center"><Text size="lg" /></div>
+          <Text size="3xl" > </Text>
+        <div className="flex justify-center">  <Text size="lg" > </Text></div>
         <div className="flex justify-center mt-8">
           <Button className="h-16 px-10" />
         </div>
@@ -303,8 +303,8 @@ function CTAMockup({ variant, content, style }: { variant: number; content: any;
     return (
       <div className="grid grid-cols-2 gap-12 items-center py-16 px-8">
         <div className="space-y-6">
-          <Text size="2xl" />
-          <Text size="lg" />
+            <Text size="2xl" > </Text>
+            <Text size="lg" > </Text>
           <div className="mt-6">
             <Button />
           </div>
@@ -323,19 +323,19 @@ function FormMockup({ variant, content }: { variant: number; content: any }) {
     return (
       <div className="max-w-2xl mx-auto py-16 px-8">
         <div className="text-center mb-8">
-          <Text size="2xl" />
+            <Text size="2xl" > </Text>
         </div>
         <div className="space-y-4">
           <div>
-            <div className="mb-2"><Text size="xs" /></div>
+            <div className="mb-2">  <Text size="xs" > </Text></div>
             <Box className="h-12 w-full" label="[Input]" />
           </div>
           <div>
-            <div className="mb-2"><Text size="xs" /></div>
+            <div className="mb-2">  <Text size="xs" > </Text></div>
             <Box className="h-12 w-full" label="[Input]" />
           </div>
           <div>
-            <div className="mb-2"><Text size="xs" /></div>
+            <div className="mb-2">  <Text size="xs" > </Text></div>
             <Box className="h-32 w-full" label="[Textarea]" />
           </div>
           <Button className="w-full mt-6" />
@@ -347,8 +347,8 @@ function FormMockup({ variant, content }: { variant: number; content: any }) {
   if (variant === 2) {
     return (
       <div className="max-w-xl mx-auto py-16 px-8 text-center space-y-6">
-        <Text size="xl" />
-        <Text size="sm" />
+          <Text size="xl" > </Text>
+          <Text size="sm" > </Text>
         <div className="flex gap-2 mt-6">
           <Box className="flex-1 h-14" label="[Email Input]" />
           <Button />
@@ -385,8 +385,8 @@ function StatsMockup({ variant, content }: { variant: number; content: any }) {
         <div className="grid grid-cols-4 gap-8 text-center">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="space-y-3">
-              <Text size="3xl" />
-              <Text size="base" />
+                <Text size="3xl" > </Text>
+                <Text size="base" > </Text>
             </div>
           ))}
         </div>
@@ -403,8 +403,8 @@ function LogosMockup({ variant, content }: { variant: number; content: any }) {
     return (
       <div className="py-16 px-8">
         <div className="text-center mb-12 space-y-3">
-          <Text size="xs" />
-          <Text size="xl" />
+            <Text size="xs" > </Text>
+            <Text size="xl" > </Text>
         </div>
         <div className="grid grid-cols-5 gap-8 items-center">
           {[1, 2, 3, 4, 5].map((i) => (
@@ -426,17 +426,17 @@ function FooterMockup({ variant }: { variant: number }) {
         <div className="grid grid-cols-4 gap-8 mb-8">
           {[1, 2, 3, 4].map((col) => (
             <div key={col} className="space-y-3">
-              <Text size="base" />
+                <Text size="base" > </Text>
               <div className="space-y-2">
                 {[1, 2, 3, 4].map((i) => (
-                  <Text key={i} size="xs" />
+                    <Text key={i} size="xs" > </Text>
                 ))}
               </div>
             </div>
           ))}
         </div>
         <div className="pt-8 border-t border-gray-300 flex items-center justify-between">
-          <Text size="xs" />
+            <Text size="xs" > </Text>
           <div className="flex gap-4">
             {[1, 2, 3].map((i) => (
               <Box key={i} className="h-8 w-8 rounded-full" label="" />
@@ -451,10 +451,10 @@ function FooterMockup({ variant }: { variant: number }) {
     return (
       <div className="py-8 px-8 border-t-2 border-gray-300">
         <div className="flex items-center justify-between">
-          <Text size="xs" />
+            <Text size="xs" > </Text>
           <div className="flex gap-6">
             {[1, 2, 3].map((i) => (
-              <Text key={i} size="xs" />
+                <Text key={i} size="xs" > </Text>
             ))}
           </div>
         </div>
