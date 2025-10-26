@@ -29,8 +29,8 @@ COPY --from=deps /app ./
 # Copiar código fuente (esto sobrescribirá los package.json pero mantendrá node_modules)
 COPY . .
 
-# Generar Prisma Client
-RUN cd packages/db && pnpm prisma generate
+# Generar Prisma Client desde el workspace root
+RUN pnpm --filter @repo/db db:generate
 
 # Build con Turbo
 ENV NEXT_TELEMETRY_DISABLED=1
