@@ -29,15 +29,9 @@ COPY --from=deps /app ./
 # Copiar código fuente (esto sobrescribirá los package.json pero mantendrá node_modules)
 COPY . .
 
-# Generar Prisma Client
+# Generar Prisma Client directamente en workspace root
 WORKDIR /app/packages/db
 RUN pnpm prisma generate
-
-# Copiar Prisma Client generado al node_modules raíz para resolución en apps/web
-RUN mkdir -p /app/node_modules/.prisma && \
-    cp -r /app/packages/db/node_modules/.prisma/client /app/node_modules/.prisma/ && \
-    rm -rf /app/node_modules/@prisma/client && \
-    cp -r /app/packages/db/node_modules/@prisma/client /app/node_modules/@prisma/
 
 WORKDIR /app
 
