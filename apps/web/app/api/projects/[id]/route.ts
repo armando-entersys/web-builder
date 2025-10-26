@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { prisma } from "@repo/db"
 
+export const dynamic = "force-dynamic"
+
 // GET - Obtener un proyecto específico
 export async function GET(
   req: Request,

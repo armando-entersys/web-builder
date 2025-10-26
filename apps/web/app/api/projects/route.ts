@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { prisma } from "@repo/db"
 
+export const dynamic = "force-dynamic"
+
 // GET - Listar proyectos del usuario (o todos si es admin)
 export async function GET(req: Request) {
   try {
