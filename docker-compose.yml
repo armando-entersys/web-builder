@@ -49,14 +49,15 @@ services:
 
       # NextAuth
       AUTH_SECRET: ${AUTH_SECRET:-change-this-to-a-random-secret-in-production}
-      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-https://web-builder.scram2k.com}
+      AUTH_TRUST_HOST: "true"
 
       # Google OAuth (optional)
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
 
       # App
-      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://web-builder.scram2k.com}
       NODE_ENV: "production"
 
       # Database seeding (set to true to seed on first run)
