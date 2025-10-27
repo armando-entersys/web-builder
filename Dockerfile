@@ -55,8 +55,10 @@ COPY --from=builder /app/apps/web/public ./apps/web/public
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
 
-# Copiar Prisma Client generado (solo .prisma, el standalone ya tiene el resto)
+# Copiar Prisma Client y los paquetes del workspace necesarios
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/node_modules/.pnpm ./node_modules/.pnpm
+COPY --from=builder /app/packages ./packages
 
 USER nextjs
 
