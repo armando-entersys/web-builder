@@ -8,8 +8,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: webbuilder
-    ports:
-      - "5432:5432"
+    # Puerto 5432 solo accesible dentro de la red Docker (no expuesto al host)
+    # ports:
+    #   - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
