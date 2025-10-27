@@ -26,8 +26,18 @@ services:
       dockerfile: Dockerfile
     container_name: webbuilder-app
     restart: unless-stopped
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
+    networks:
+      - default
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.web-builder.rule=Host(`web-builder.scram2k.com`)"
+      - "traefik.http.routers.web-builder.entrypoints=websecure"
+      - "traefik.http.routers.web-builder.tls.certresolver=letsencrypt"
+      - "traefik.http.services.web-builder.loadbalancer.server.port=3000"
     environment:
       # Database
       DATABASE_URL: "postgresql://postgres:password@postgres:5432/webbuilder?schema=public"
@@ -62,3 +72,7 @@ services:
 volumes:
   postgres_data:
   node_modules:
+
+networks:
+  traefik-public:
+    external: true
