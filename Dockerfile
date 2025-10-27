@@ -51,6 +51,10 @@ RUN adduser --system --uid 1001 nextjs
 # Primero copiar node_modules completo del builder
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 
+# Crear symlink para @prisma desde .pnpm store
+RUN ln -sf /app/node_modules/.pnpm/node_modules/@prisma /app/node_modules/@prisma && \
+    ln -sf /app/node_modules/.pnpm/node_modules/prisma /app/node_modules/prisma
+
 # Copiar packages del workspace
 COPY --from=builder --chown=nextjs:nodejs /app/packages ./packages
 
