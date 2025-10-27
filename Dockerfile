@@ -48,18 +48,17 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copiar archivos necesarios del standalone build
-COPY --from=builder /app/apps/web/public ./apps/web/public
-
-# Copiar el servidor standalone generado por Next.js
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
-
-# Copiar todo node_modules del builder (incluye Prisma y dependencias)
+# Primero copiar node_modules completo del builder
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 
 # Copiar packages del workspace
 COPY --from=builder --chown=nextjs:nodejs /app/packages ./packages
+
+# Copiar archivos del standalone (sin node_modules ya que tenemos el completo)
+COPY --from=builder /app/apps/web/public ./apps/web/public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone/apps/web/.next ./apps/web/.next
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone/apps/web/server.js ./apps/web/server.js
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
 
 USER nextjs
 
