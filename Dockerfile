@@ -48,18 +48,15 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copiar archivos necesarios
-COPY --from=builder /app/apps/web/next.config.ts ./apps/web/
-COPY --from=builder /app/apps/web/package.json ./apps/web/
+# Copiar archivos necesarios del standalone build
 COPY --from=builder /app/apps/web/public ./apps/web/public
 
-# Copiar archivos de build
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next ./apps/web/.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/packages ./packages
+# Copiar el servidor standalone generado por Next.js
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
 
-# Copiar Prisma
-COPY --from=builder /app/packages/db/prisma ./packages/db/prisma
+# Copiar Prisma Client generado
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
 USER nextjs
 
@@ -68,6 +65,7 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-WORKDIR /app/apps/web
+WORKDIR /app
 
-CMD ["pnpm", "start"]
+# Usar el servidor standalone de Next.js
+CMD ["node", "apps/web/server.js"]
