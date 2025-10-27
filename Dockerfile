@@ -48,21 +48,21 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Primero copiar node_modules completo del builder
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+# Copiar standalone completo (incluye node_modules mínimos y servidor)
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+COPY --from=builder /app/apps/web/public ./apps/web/public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
 
-# Crear symlink para @prisma desde .pnpm store
+# Copiar node_modules completo de pnpm desde builder (para Prisma y workspace)
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm ./node_modules/.pnpm
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modules/.prisma
+
+# Crear symlinks para @prisma y prisma
 RUN ln -sf /app/node_modules/.pnpm/node_modules/@prisma /app/node_modules/@prisma && \
     ln -sf /app/node_modules/.pnpm/node_modules/prisma /app/node_modules/prisma
 
 # Copiar packages del workspace
 COPY --from=builder --chown=nextjs:nodejs /app/packages ./packages
-
-# Copiar archivos del standalone (sin node_modules ya que tenemos el completo)
-COPY --from=builder /app/apps/web/public ./apps/web/public
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone/apps/web/.next ./apps/web/.next
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone/apps/web/server.js ./apps/web/server.js
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
 
 USER nextjs
 
