@@ -74,6 +74,11 @@ RUN mkdir -p /app/apps/web/node_modules && \
     cp -r /app/node_modules/@prisma /app/apps/web/node_modules/ && \
     chown -R nextjs:nodejs /app/apps/web/node_modules
 
+# Copiar @repo/db al standalone node_modules para que pueda ser resuelto
+RUN mkdir -p /app/apps/web/node_modules/@repo && \
+    cp -r /app/packages/db /app/apps/web/node_modules/@repo/db && \
+    chown -R nextjs:nodejs /app/apps/web/node_modules/@repo
+
 WORKDIR /app
 
 USER nextjs
