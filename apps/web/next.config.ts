@@ -7,6 +7,16 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     '/api/**/*': ['../../packages/db/prisma/schema.prisma', '../../../node_modules/.prisma/client/**/*', '../../../node_modules/@prisma/client/**/*'],
   },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      // Marcar Prisma Client y @repo/db como externos
+      config.externals = config.externals || []
+      if (Array.isArray(config.externals)) {
+        config.externals.push('@prisma/client', '.prisma/client')
+      }
+    }
+    return config
+  },
   turbopack: {
     rules: {
       '*.svg': {

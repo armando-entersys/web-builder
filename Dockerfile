@@ -83,5 +83,8 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
+# Configurar ruta del schema de Prisma para el runtime
+ENV PRISMA_SCHEMA_PATH="/app/packages/db/prisma/schema.prisma"
+
 # Usar el servidor standalone de Next.js
 CMD ["node", "apps/web/server.js"]
