@@ -1,4 +1,4 @@
-# Dockerfile para Web Builder con Next.js 15 + Turbopack
+# Dockerfile para Web Builder con Next.js 15 + Turbopack (sin standalone)
 FROM node:20-alpine AS base
 
 # Instalar pnpm
@@ -26,10 +26,10 @@ FROM base AS builder
 # Copiar todo desde deps (incluye node_modules con estructura completa de pnpm)
 COPY --from=deps /app ./
 
-# Copiar código fuente (esto sobrescribirá los package.json pero mantendrá node_modules)
+# Copiar código fuente
 COPY . .
 
-# Generar Prisma Client directamente en workspace root
+# Generar Prisma Client
 WORKDIR /app/packages/db
 RUN pnpm prisma generate
 
@@ -37,6 +37,7 @@ WORKDIR /app
 
 # Build con Turbo
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 RUN pnpm turbo build --filter=web
 
 # ===== RUNNER =====
@@ -48,38 +49,24 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copiar standalone completo (incluye node_modules mínimos y servidor)
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
-COPY --from=builder /app/apps/web/public ./apps/web/public
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
+# Copiar node_modules completo de pnpm
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 
-# Copiar node_modules completo de pnpm desde builder (para Prisma y workspace)
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm ./node_modules/.pnpm
-
-# Crear symlinks para @prisma y prisma en el root de node_modules
-RUN ln -sf /app/node_modules/.pnpm/node_modules/@prisma /app/node_modules/@prisma && \
-    ln -sf /app/node_modules/.pnpm/node_modules/prisma /app/node_modules/prisma
-
-# Copiar packages del workspace (necesario para prisma schema)
+# Copiar packages del workspace
 COPY --from=builder --chown=nextjs:nodejs /app/packages ./packages
 
-# Regenerar Prisma Client en el runner (necesario para standalone)
-WORKDIR /app/packages/db
-RUN pnpm prisma generate
+# Copiar aplicación web compilada
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next ./apps/web/.next
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/package.json ./apps/web/package.json
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/next.config.ts ./apps/web/next.config.ts
 
-# Copiar Prisma Client y @prisma/client al standalone node_modules
-RUN mkdir -p /app/apps/web/node_modules && \
-    rm -rf /app/apps/web/node_modules/.prisma /app/apps/web/node_modules/@prisma && \
-    cp -r /app/node_modules/.prisma /app/apps/web/node_modules/ && \
-    cp -r /app/node_modules/@prisma /app/apps/web/node_modules/ && \
-    chown -R nextjs:nodejs /app/apps/web/node_modules
+# Copiar archivos de configuración del monorepo
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nodejs /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY --from=builder --chown=nextjs:nodejs /app/turbo.json ./turbo.json
 
-# Copiar @repo/db al standalone node_modules para que pueda ser resuelto
-RUN mkdir -p /app/apps/web/node_modules/@repo && \
-    cp -r /app/packages/db /app/apps/web/node_modules/@repo/db && \
-    chown -R nextjs:nodejs /app/apps/web/node_modules/@repo
-
-WORKDIR /app
+WORKDIR /app/apps/web
 
 USER nextjs
 
@@ -88,8 +75,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Configurar ruta del schema de Prisma para el runtime
-ENV PRISMA_SCHEMA_PATH="/app/packages/db/prisma/schema.prisma"
-
-# Usar el servidor standalone de Next.js
-CMD ["node", "apps/web/server.js"]
+# Usar Next.js start en lugar de standalone
+CMD ["../../node_modules/.bin/next", "start"]
