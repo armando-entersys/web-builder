@@ -4,6 +4,9 @@ import path from 'path'
 const nextConfig: NextConfig = {
   transpilePackages: ['@repo/ui', '@repo/db'],
   output: 'standalone',
+  outputFileTracingIncludes: {
+    '/api/**/*': ['../../packages/db/prisma/schema.prisma', '../../../node_modules/.prisma/client/**/*', '../../../node_modules/@prisma/client/**/*'],
+  },
   webpack: (config, { isServer }) => {
     if (isServer) {
       // Marcar Prisma Client como externo para evitar bundling
