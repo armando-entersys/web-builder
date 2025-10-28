@@ -55,14 +55,19 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/
 
 # Copiar node_modules completo de pnpm desde builder (para Prisma y workspace)
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm ./node_modules/.pnpm
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modules/.prisma
 
-# Crear symlinks para @prisma y prisma
+# Crear symlinks para @prisma y prisma en el root de node_modules
 RUN ln -sf /app/node_modules/.pnpm/node_modules/@prisma /app/node_modules/@prisma && \
     ln -sf /app/node_modules/.pnpm/node_modules/prisma /app/node_modules/prisma
 
-# Copiar packages del workspace
+# Copiar packages del workspace (necesario para prisma schema)
 COPY --from=builder --chown=nextjs:nodejs /app/packages ./packages
+
+# Regenerar Prisma Client en el runner (necesario para standalone)
+WORKDIR /app/packages/db
+RUN pnpm prisma generate
+
+WORKDIR /app
 
 USER nextjs
 
@@ -70,8 +75,6 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
-
-WORKDIR /app
 
 # Usar el servidor standalone de Next.js
 CMD ["node", "apps/web/server.js"]
