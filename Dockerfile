@@ -67,6 +67,11 @@ COPY --from=builder --chown=nextjs:nodejs /app/packages ./packages
 WORKDIR /app/packages/db
 RUN pnpm prisma generate
 
+# Copiar Prisma Client al standalone node_modules también
+RUN mkdir -p /app/apps/web/node_modules && \
+    cp -r /app/node_modules/.prisma /app/apps/web/node_modules/ && \
+    chown -R nextjs:nodejs /app/apps/web/node_modules
+
 WORKDIR /app
 
 USER nextjs
