@@ -75,5 +75,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Usar Next.js start en lugar de standalone
-CMD ["../../node_modules/.bin/next", "start"]
+# Usar node directamente con next (compatible con pnpm)
+CMD ["node", "../../node_modules/next/dist/bin/next", "start"]
