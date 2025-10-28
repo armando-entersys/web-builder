@@ -69,6 +69,7 @@ RUN pnpm prisma generate
 
 # Copiar Prisma Client y @prisma/client al standalone node_modules
 RUN mkdir -p /app/apps/web/node_modules && \
+    rm -rf /app/apps/web/node_modules/.prisma /app/apps/web/node_modules/@prisma && \
     cp -r /app/node_modules/.prisma /app/apps/web/node_modules/ && \
     cp -r /app/node_modules/@prisma /app/apps/web/node_modules/ && \
     chown -R nextjs:nodejs /app/apps/web/node_modules
