@@ -75,5 +75,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Ejecutar desde la raíz del monorepo con --filter
-CMD ["pnpm", "--filter", "web", "start"]
+# Usar pnpm exec para encontrar el binario de next
+CMD ["pnpm", "exec", "next", "start", "--hostname", "0.0.0.0"]
