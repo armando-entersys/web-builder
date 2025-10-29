@@ -10,5 +10,9 @@ if [ -z "$NEXT_BIN" ]; then
 fi
 
 echo "Iniciando Next.js desde: $NEXT_BIN"
+
+# Configurar NODE_PATH para que Next.js encuentre los módulos en pnpm
+export NODE_PATH=/app/node_modules:/app/node_modules/.pnpm/node_modules
+
 cd /app/apps/web
 exec node "$NEXT_BIN" start --hostname 0.0.0.0
