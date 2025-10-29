@@ -66,6 +66,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 COPY --from=builder --chown=nextjs:nodejs /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY --from=builder --chown=nextjs:nodejs /app/turbo.json ./turbo.json
 
+# Copiar script de inicio
+COPY start-server.sh /app/start-server.sh
+RUN chmod +x /app/start-server.sh && chown nextjs:nodejs /app/start-server.sh
+
 USER nextjs
 
 WORKDIR /app
@@ -75,5 +79,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Usar pnpm exec para encontrar el binario de next
-CMD ["pnpm", "exec", "next", "start", "--hostname", "0.0.0.0"]
+# Usar script personalizado para encontrar y ejecutar Next.js
+CMD ["/app/start-server.sh"]
