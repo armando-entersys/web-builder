@@ -66,14 +66,14 @@ COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 COPY --from=builder --chown=nextjs:nodejs /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY --from=builder --chown=nextjs:nodejs /app/turbo.json ./turbo.json
 
-WORKDIR /app/apps/web
-
 USER nextjs
+
+WORKDIR /app
 
 EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Ejecutar el script start del package.json
-CMD ["pnpm", "start"]
+# Ejecutar desde la raíz del monorepo con --filter
+CMD ["pnpm", "--filter", "web", "start"]
