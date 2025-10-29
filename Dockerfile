@@ -75,5 +75,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Usar pnpm para ejecutar next (funciona con workspaces)
-CMD ["pnpm", "next", "start"]
+# Ejecutar el script start del package.json
+CMD ["pnpm", "start"]
