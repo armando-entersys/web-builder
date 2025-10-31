@@ -3,7 +3,8 @@ import path from 'path'
 
 const nextConfig: NextConfig = {
   transpilePackages: ['@repo/ui', '@repo/db'],
-  // Removido output: 'standalone' para mejor compatibilidad con Prisma
+  // Excluir Prisma del bundling para evitar problemas de inicialización
+  serverExternalPackages: ['@prisma/client', '.prisma/client'],
   turbopack: {
     rules: {
       '*.svg': {
