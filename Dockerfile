@@ -33,8 +33,12 @@ COPY . .
 WORKDIR /app/packages/db
 RUN pnpm prisma generate
 
-# Copiar cliente generado a la ubicación donde pnpm lo resuelve
-RUN cp -r ../../node_modules/.prisma ../../node_modules/.pnpm/@prisma+client@6.17.1_prisma@6.17.1_typescript@5.9.3__typescript@5.9.3/node_modules/@prisma/ || true
+# Crear symlink del cliente generado en la ubicación donde pnpm lo resuelve
+RUN PRISMA_CLIENT_DIR=$(find ../../node_modules/.pnpm -type d -path "*/@prisma/client" | head -n 1) && \
+    if [ -n "$PRISMA_CLIENT_DIR" ]; then \
+      ln -sf ../../../../.prisma/client "$PRISMA_CLIENT_DIR/.prisma" || \
+      cp -r ../../node_modules/.prisma "$PRISMA_CLIENT_DIR/"; \
+    fi
 
 WORKDIR /app
 
