@@ -16,9 +16,13 @@
     "type-check": "turbo type-check",
     "db:push": "pnpm --filter @repo/db db:push",
     "db:seed": "pnpm --filter @repo/db db:seed",
-    "db:studio": "pnpm --filter @repo/db db:studio"
+    "db:studio": "pnpm --filter @repo/db db:studio",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug"
   },
   "devDependencies": {
+    "@playwright/test": "^1.56.1",
     "@turbo/gen": "^2.3.3",
     "prettier": "^3.4.2",
     "turbo": "^2.3.3",
