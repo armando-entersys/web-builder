@@ -8,12 +8,27 @@ const nextConfig: NextConfig = {
   // Configurar webpack para external izar Prisma completamente
   webpack: (config, { isServer }) => {
     if (isServer) {
-      // Externe izar Prisma en server-side para evitar bundling
-      config.externals = config.externals || []
-      config.externals.push({
-        '@prisma/client': 'commonjs @prisma/client',
-        '.prisma/client': 'commonjs .prisma/client',
-      })
+      // Externe izar Prisma y @repo/db completamente con función personalizada
+      const originalExternals = config.externals || []
+
+      config.externals = [
+        ...Array.isArray(originalExternals) ? originalExternals : [originalExternals],
+        // Función que externe liza cualquier import que contenga prisma o @repo/db
+        async (context: any, request: string, callback: Function) => {
+          // Externe lizar completamente @prisma/client, .prisma/client y @repo/db
+          if (
+            request === '@prisma/client' ||
+            request === '.prisma/client' ||
+            request === '@repo/db' ||
+            request.startsWith('@prisma/client/') ||
+            request.startsWith('.prisma/client/') ||
+            request.startsWith('@repo/db/')
+          ) {
+            return callback(null, `commonjs ${request}`)
+          }
+          callback()
+        },
+      ]
     }
     return config
   },
