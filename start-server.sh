@@ -1,6 +1,11 @@
 #!/bin/sh
 set -e
 
+# Generar Prisma Client en runtime
+echo "Generando Prisma Client..."
+cd /app/packages/db
+pnpm prisma generate
+
 # Encontrar el binario de Next.js en la estructura de pnpm
 NEXT_BIN=$(find /app/node_modules/.pnpm -name "next" -type f -path "*/bin/next" | head -n 1)
 
