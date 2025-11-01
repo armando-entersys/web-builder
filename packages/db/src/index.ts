@@ -4,9 +4,8 @@ import { PrismaClient } from '@prisma/client'
 // exhausting your database connection limit.
 // Learn more: https://pris.ly/d/help/next-js-best-practices
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
-}
+// @ts-ignore - avoid type assertions for runtime compatibility
+const globalForPrisma = globalThis
 
 export const prisma =
   globalForPrisma.prisma ??
