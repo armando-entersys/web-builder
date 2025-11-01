@@ -3,27 +3,25 @@ import path from 'path'
 
 const nextConfig: NextConfig = {
   transpilePackages: ['@repo/ui'],
-  // Excluir Prisma y @repo/db del bundling para evitar problemas de inicialización
-  serverExternalPackages: ['@prisma/client', '.prisma/client', '@repo/db'],
-  // Configurar webpack para external izar Prisma completamente
+  // Excluir solo Prisma del bundling, bundlear @repo/db con Next.js
+  serverExternalPackages: ['@prisma/client', '.prisma/client'],
+  // Configurar webpack para externalizar solo Prisma
   webpack: (config, { isServer }) => {
     if (isServer) {
-      // Externe izar Prisma y @repo/db completamente con función personalizada
+      // Externalizar solo Prisma, bundlear @repo/db
       const originalExternals = config.externals || []
 
       config.externals = [
         ...Array.isArray(originalExternals) ? originalExternals : [originalExternals],
-        // Función que externe liza cualquier import que contenga prisma o @repo/db
+        // Función que externaliza solo @prisma/client y .prisma/client
         // @ts-ignore - webpack externals function
         ({ context, request }, callback) => {
-          // Externe lizar completamente @prisma/client, .prisma/client y @repo/db
+          // Externalizar completamente solo @prisma/client y .prisma/client
           if (
             request === '@prisma/client' ||
             request === '.prisma/client' ||
-            request === '@repo/db' ||
             request.startsWith('@prisma/client/') ||
-            request.startsWith('.prisma/client/') ||
-            request.startsWith('@repo/db/')
+            request.startsWith('.prisma/client/')
           ) {
             return callback(null, `commonjs ${request}`)
           }
