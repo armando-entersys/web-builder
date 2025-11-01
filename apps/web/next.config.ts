@@ -14,7 +14,8 @@ const nextConfig: NextConfig = {
       config.externals = [
         ...Array.isArray(originalExternals) ? originalExternals : [originalExternals],
         // Función que externe liza cualquier import que contenga prisma o @repo/db
-        ({ context, request }: any, callback: any) => {
+        // @ts-ignore - webpack externals function
+        ({ context, request }, callback) => {
           // Externe lizar completamente @prisma/client, .prisma/client y @repo/db
           if (
             request === '@prisma/client' ||
