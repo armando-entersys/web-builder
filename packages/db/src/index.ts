@@ -6,8 +6,8 @@ import { PrismaClient } from '@prisma/client'
 
 const globalForPrisma = globalThis
 
-// @ts-ignore - globalThis prisma property added dynamically
 export const prisma =
+  // @ts-ignore - globalThis prisma property added dynamically
   globalForPrisma.prisma ??
   new PrismaClient({
     log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
