@@ -5,8 +5,8 @@ export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
 
 export async function POST(req: Request) {
-  // Import Prisma dinámicamente para evitar ejecución durante build
-  const { prisma } = await import("@repo/db")
+  // Import Prisma desde lib local
+  const { prisma } = await import("@/lib/db")
   try {
     const { email, password, name } = await req.json()
 

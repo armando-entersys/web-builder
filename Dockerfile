@@ -29,16 +29,9 @@ COPY --from=deps /app ./
 # Copiar código fuente
 COPY . .
 
-# Generar Prisma Client
-WORKDIR /app/packages/db
+# Generar Prisma Client en apps/web
+WORKDIR /app/apps/web
 RUN pnpm prisma generate
-
-# Crear symlink del cliente generado en la ubicación donde pnpm lo resuelve
-RUN PRISMA_CLIENT_DIR=$(find ../../node_modules/.pnpm -type d -path "*/@prisma/client" | head -n 1) && \
-    if [ -n "$PRISMA_CLIENT_DIR" ]; then \
-      ln -sf ../../../../.prisma/client "$PRISMA_CLIENT_DIR/.prisma" || \
-      cp -r ../../node_modules/.prisma "$PRISMA_CLIENT_DIR/"; \
-    fi
 
 WORKDIR /app
 

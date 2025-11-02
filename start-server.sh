@@ -3,7 +3,7 @@ set -e
 
 # Generar Prisma Client en runtime
 echo "Generando Prisma Client..."
-cd /app/packages/db
+cd /app/apps/web
 pnpm prisma generate
 
 # Encontrar el binario de Next.js en la estructura de pnpm
