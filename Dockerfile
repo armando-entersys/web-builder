@@ -60,6 +60,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next ./apps/web/.next
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/package.json ./apps/web/package.json
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/next.config.ts ./apps/web/next.config.ts
+# Copiar directorio Prisma (necesario para que Prisma Client se inicialice)
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/prisma ./apps/web/prisma
 
 # Copiar archivos de configuración del monorepo
 COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
