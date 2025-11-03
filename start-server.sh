@@ -1,10 +1,8 @@
 #!/bin/sh
 set -e
 
-# Generar Prisma Client en runtime
-echo "Generando Prisma Client..."
-cd /app/apps/web
-pnpm prisma generate
+# Prisma Client ya fue generado durante el build de Docker
+# No es necesario regenerarlo en runtime
 
 # Encontrar el binario de Next.js en la estructura de pnpm
 NEXT_BIN=$(find /app/node_modules/.pnpm -name "next" -type f -path "*/bin/next" | head -n 1)
