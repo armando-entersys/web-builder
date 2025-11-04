@@ -9,7 +9,10 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['@prisma/client', '.prisma/client', '@prisma/engines'],
   // Asegurar que Prisma Client está incluido en el output
   outputFileTracingIncludes: {
-    '/api/**/*': ['../../node_modules/.prisma/client/**/*'],
+    '/api/**/*': [
+      '../../node_modules/.prisma/client/**/*',
+      '../../node_modules/@prisma/client/**/*',
+    ],
   },
   turbopack: {
     rules: {
