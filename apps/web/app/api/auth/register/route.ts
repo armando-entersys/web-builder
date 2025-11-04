@@ -4,9 +4,13 @@ import { hash } from "bcryptjs"
 export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
 
-// Dynamic require to prevent bundling Prisma Client
+// Dynamic require using eval to prevent webpack bundling
 function getPrisma() {
-  return require("@/lib/db").prisma
+  // Use eval to force true dynamic require that webpack cannot bundle
+  const requireFunc = eval('require')
+  const dbPath = require.resolve("@/lib/db")
+  const db = requireFunc(dbPath)
+  return db.prisma
 }
 
 export async function POST(req: Request) {
