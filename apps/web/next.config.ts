@@ -14,6 +14,13 @@ const nextConfig: NextConfig = {
       '../../node_modules/@prisma/client/**/*',
     ],
   },
+  // Configuración webpack para forzar Prisma como external
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals.push('@prisma/client', '.prisma/client')
+    }
+    return config
+  },
   turbopack: {
     rules: {
       '*.svg': {
