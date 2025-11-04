@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server"
 import { hash } from "bcryptjs"
-import { prisma } from "@/lib/db"
 
 export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
+
+// Dynamic require to prevent bundling Prisma Client
+function getPrisma() {
+  return require("@/lib/db").prisma
+}
 
 export async function POST(req: Request) {
   try {
@@ -15,6 +19,9 @@ export async function POST(req: Request) {
         { status: 400 }
       )
     }
+
+    // Get Prisma Client dynamically at runtime
+    const prisma = getPrisma()
 
     // Verificar si el usuario ya existe
     const existingUser = await prisma.user.findUnique({
