@@ -1,4 +1,4 @@
-# Dockerfile para Web Builder con Next.js 15 + Turbopack (sin standalone)
+# Dockerfile para Web Builder con Next.js 15 + Turbopack (standalone mode)
 FROM node:20-alpine AS base
 
 # Instalar pnpm
@@ -35,7 +35,7 @@ RUN pnpm prisma generate
 
 WORKDIR /app
 
-# Build con Turbo
+# Build con Turbo - genera .next/standalone
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 RUN pnpm turbo build --filter=web
@@ -49,32 +49,14 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copiar node_modules completo de pnpm
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
+# Copiar el output standalone de Next.js (incluye node_modules trazados)
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
 
-# Copiar packages del workspace
-COPY --from=builder --chown=nextjs:nodejs /app/packages ./packages
+# Copiar archivos estáticos de Next.js
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
 
-# Copiar aplicación web compilada
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next ./apps/web/.next
+# Copiar archivos públicos
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/package.json ./apps/web/package.json
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/next.config.ts ./apps/web/next.config.ts
-# Copiar directorio Prisma (necesario para que Prisma Client se inicialice)
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/prisma ./apps/web/prisma
-# Copiar directorio lib con db.ts (necesario para imports de Prisma)
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/lib ./apps/web/lib
-# Copiar directorio app con las rutas de Next.js
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/app ./apps/web/app
-
-# Copiar archivos de configuración del monorepo
-COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
-COPY --from=builder --chown=nextjs:nodejs /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
-COPY --from=builder --chown=nextjs:nodejs /app/turbo.json ./turbo.json
-
-# Copiar script de inicio
-COPY start-server.sh /app/start-server.sh
-RUN chmod +x /app/start-server.sh && chown nextjs:nodejs /app/start-server.sh
 
 USER nextjs
 
@@ -85,5 +67,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Usar script personalizado para encontrar y ejecutar Next.js
-CMD ["/app/start-server.sh"]
+# Ejecutar el servidor standalone de Next.js
+CMD ["node", "apps/web/server.js"]
