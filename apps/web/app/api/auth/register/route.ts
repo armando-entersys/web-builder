@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server"
 import { hash } from "bcryptjs"
+import { prisma } from "@/lib/db"
 
 export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
 
 export async function POST(req: Request) {
-  // Import Prisma desde lib local
-  const { prisma } = await import("@/lib/db")
   try {
     const { email, password, name } = await req.json()
 
