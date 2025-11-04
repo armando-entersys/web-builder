@@ -8,7 +8,8 @@ export const runtime = "nodejs"
 function getPrisma() {
   // Use eval to force true dynamic require that webpack cannot bundle
   const requireFunc = eval('require')
-  const dbPath = require.resolve("@/lib/db")
+  const resolveFunc = requireFunc.resolve
+  const dbPath = resolveFunc("@/lib/db")
   const db = requireFunc(dbPath)
   return db.prisma
 }
