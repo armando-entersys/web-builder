@@ -1,18 +1,9 @@
 import { NextResponse } from "next/server"
 import { hash } from "bcryptjs"
+import { prisma } from "@/lib/db"
 
 export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
-
-// Dynamic require using eval to prevent webpack bundling
-function getPrisma() {
-  // Use eval to force true dynamic require that webpack cannot bundle
-  const requireFunc = eval('require')
-  const resolveFunc = requireFunc.resolve
-  const dbPath = resolveFunc("@/lib/db")
-  const db = requireFunc(dbPath)
-  return db.prisma
-}
 
 export async function POST(req: Request) {
   try {
@@ -24,9 +15,6 @@ export async function POST(req: Request) {
         { status: 400 }
       )
     }
-
-    // Get Prisma Client dynamically at runtime
-    const prisma = getPrisma()
 
     // Verificar si el usuario ya existe
     const existingUser = await prisma.user.findUnique({
