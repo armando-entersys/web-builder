@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { hash } from "bcryptjs"
+import { createId } from "@paralleldrive/cuid2"
 import { query } from "@/lib/db"
 
 export const dynamic = "force-dynamic"
@@ -42,12 +43,15 @@ export async function POST(req: Request) {
     // Hash password
     const hashedPassword = await hash(password, 12)
 
+    // Generate ID
+    const userId = createId()
+
     // Create user
     const newUsers = await query<User>(
-      `INSERT INTO users (email, password, name, role, "createdAt", "updatedAt")
-       VALUES ($1, $2, $3, $4, NOW(), NOW())
+      `INSERT INTO users (id, email, password, name, role, "createdAt", "updatedAt")
+       VALUES ($1, $2, $3, $4, $5, NOW(), NOW())
        RETURNING id, email, name, role`,
-      [email, hashedPassword, name || null, "USER"]
+      [userId, email, hashedPassword, name || null, "USER"]
     )
 
     const user = newUsers[0]
