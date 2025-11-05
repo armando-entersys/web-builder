@@ -59,9 +59,14 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
 
 # Copiar manualmente Prisma Client packages desde la estructura de pnpm
+# .pnpm contiene todos los paquetes reales, incluyendo @prisma
+# .prisma contiene el cliente generado
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm ./node_modules/.pnpm
+# Crear symlinks para @prisma apuntando a .pnpm
+RUN mkdir -p node_modules/@prisma && \
+    ln -sf ../.pnpm/node_modules/@prisma/client node_modules/@prisma/client && \
+    ln -sf ../.pnpm/node_modules/@prisma/engines node_modules/@prisma/engines
 
 USER nextjs
 
