@@ -11,8 +11,8 @@ interface User {
   name: string | null
   password: string
   role: string
-  created_at: Date
-  updated_at: Date
+  createdAt: Date
+  updatedAt: Date
 }
 
 export async function POST(req: Request) {
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
     // Check if user already exists
     const existingUsers = await query<User>(
-      'SELECT * FROM "User" WHERE email = $1',
+      'SELECT * FROM users WHERE email = $1',
       [email]
     )
 
@@ -44,7 +44,7 @@ export async function POST(req: Request) {
 
     // Create user
     const newUsers = await query<User>(
-      `INSERT INTO "User" (email, password, name, role, created_at, updated_at)
+      `INSERT INTO users (email, password, name, role, "createdAt", "updatedAt")
        VALUES ($1, $2, $3, $4, NOW(), NOW())
        RETURNING id, email, name, role`,
       [email, hashedPassword, name || null, "USER"]
