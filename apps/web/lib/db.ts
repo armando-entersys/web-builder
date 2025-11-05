@@ -1,37 +1,26 @@
-import { PrismaClient } from '@prisma/client'
+import { Pool } from 'pg'
 
-// PrismaClient is attached to the `global` object in development to prevent
-// exhausting your database connection limit.
-// Learn more: https://pris.ly/d/help/next-js-best-practices
+// Create a singleton connection pool
+let pool: Pool | null = null
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
-}
-
-// Lazy loading: Don't initialize PrismaClient at module load time
-// This prevents initialization during Next.js build "Collecting page data" phase
-let _prisma: PrismaClient | undefined
-
-function getPrismaClient() {
-  if (!_prisma) {
-    _prisma = globalForPrisma.prisma ?? new PrismaClient({
-      log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+export function getDb(): Pool {
+  if (!pool) {
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      max: 20,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
     })
-
-    if (process.env.NODE_ENV !== 'production') {
-      globalForPrisma.prisma = _prisma
-    }
   }
-  return _prisma
+  return pool
 }
 
-// Export a proxy that lazily initializes the client
-export const prisma = new Proxy({} as PrismaClient, {
-  get(target, prop) {
-    const client = getPrismaClient()
-    return client[prop as keyof PrismaClient]
-  }
-})
+// Helper function to execute queries with better error handling
+export async function query<T = any>(text: string, params?: any[]): Promise<T[]> {
+  const db = getDb()
+  const result = await db.query(text, params)
+  return result.rows
+}
 
-// Re-export Prisma types
-export * from '@prisma/client'
+// Export types for convenience
+export type { Pool, PoolClient, QueryResult } from 'pg'

@@ -1,9 +1,19 @@
 import { NextResponse } from "next/server"
 import { hash } from "bcryptjs"
-import { prisma } from "@/lib/db"
+import { query } from "@/lib/db"
 
 export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
+
+interface User {
+  id: string
+  email: string
+  name: string | null
+  password: string
+  role: string
+  created_at: Date
+  updated_at: Date
+}
 
 export async function POST(req: Request) {
   try {
@@ -16,30 +26,31 @@ export async function POST(req: Request) {
       )
     }
 
-    // Verificar si el usuario ya existe
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    })
+    // Check if user already exists
+    const existingUsers = await query<User>(
+      'SELECT * FROM "User" WHERE email = $1',
+      [email]
+    )
 
-    if (existingUser) {
+    if (existingUsers.length > 0) {
       return NextResponse.json(
         { error: "User already exists" },
         { status: 400 }
       )
     }
 
-    // Hash de la contraseña
+    // Hash password
     const hashedPassword = await hash(password, 12)
 
-    // Crear usuario
-    const user = await prisma.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-        name,
-        role: "USER", // Por defecto es USER
-      },
-    })
+    // Create user
+    const newUsers = await query<User>(
+      `INSERT INTO "User" (email, password, name, role, created_at, updated_at)
+       VALUES ($1, $2, $3, $4, NOW(), NOW())
+       RETURNING id, email, name, role`,
+      [email, hashedPassword, name || null, "USER"]
+    )
+
+    const user = newUsers[0]
 
     return NextResponse.json(
       {

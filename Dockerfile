@@ -29,12 +29,6 @@ COPY --from=deps /app ./
 # Copiar código fuente
 COPY . .
 
-# Generar Prisma Client en apps/web
-WORKDIR /app/apps/web
-RUN pnpm prisma generate
-
-WORKDIR /app
-
 # Build con Turbo - genera .next/standalone
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
@@ -57,16 +51,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/
 
 # Copiar archivos públicos
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
-
-# Copiar manualmente Prisma Client packages desde la estructura de pnpm
-# .pnpm contiene todos los paquetes reales, incluyendo @prisma
-# .prisma contiene el cliente generado
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm ./node_modules/.pnpm
-# Crear symlinks para @prisma apuntando a .pnpm
-RUN mkdir -p node_modules/@prisma && \
-    ln -sf ../.pnpm/node_modules/@prisma/client node_modules/@prisma/client && \
-    ln -sf ../.pnpm/node_modules/@prisma/engines node_modules/@prisma/engines
 
 USER nextjs
 
