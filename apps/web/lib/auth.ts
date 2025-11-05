@@ -22,6 +22,7 @@ declare module "next-auth" {
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   session: {
     strategy: "jwt",
   },
@@ -44,39 +45,42 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null
         }
 
-        // Importar Prisma dinámicamente solo cuando se usa
-        const { PrismaClient } = await import("@prisma/client")
         const { compare } = await import("bcryptjs")
-        const prisma = new PrismaClient()
+        const { query } = await import("@/lib/db")
 
-        try {
-          const user = await prisma.user.findUnique({
-            where: {
-              email: credentials.email as string,
-            },
-          })
+        interface User {
+          id: string
+          email: string
+          name: string | null
+          password: string
+          role: UserRole
+        }
 
-          if (!user || !user.password) {
-            return null
-          }
+        const users = await query<User>(
+          'SELECT id, email, name, password, role FROM users WHERE email = $1',
+          [credentials.email as string]
+        )
 
-          const isPasswordValid = await compare(
-            credentials.password as string,
-            user.password
-          )
+        const user = users[0]
 
-          if (!isPasswordValid) {
-            return null
-          }
+        if (!user || !user.password) {
+          return null
+        }
 
-          return {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-            role: user.role,
-          }
-        } finally {
-          await prisma.$disconnect()
+        const isPasswordValid = await compare(
+          credentials.password as string,
+          user.password
+        )
+
+        if (!isPasswordValid) {
+          return null
+        }
+
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
         }
       },
     }),
