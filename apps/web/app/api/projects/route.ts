@@ -195,6 +195,7 @@ export async function POST(req: Request) {
     const response = {
       ...project,
       user: userResult[0],
+      pages: [], // Un nuevo proyecto no tiene páginas aún
     }
 
     return NextResponse.json(response, { status: 201 })
