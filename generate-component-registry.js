@@ -84,7 +84,7 @@ export function getAllComponentPaths(): string[] {
 `;
 
 // Guardar el archivo
-const outputPath = path.join(__dirname, 'apps/web/lib/component-registry.ts');
+const outputPath = path.join(__dirname, 'apps/web/lib/component-registry.tsx');
 fs.writeFileSync(outputPath, registryCode);
 
 console.log(`✅ Component registry generated: ${outputPath}`);
