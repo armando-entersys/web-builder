@@ -52,6 +52,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/
 # Copiar archivos públicos
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
 
+# Copiar archivos de Prisma para migraciones
+COPY --from=builder --chown=nextjs:nodejs /app/packages/db/prisma ./packages/db/prisma
+COPY --from=builder --chown=nextjs:nodejs /app/packages/db/package.json ./packages/db/package.json
+
 USER nextjs
 
 WORKDIR /app
