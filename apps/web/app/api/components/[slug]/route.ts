@@ -7,10 +7,10 @@ export const runtime = "nodejs"
 // GET - Obtener componente específico por slug
 export async function GET(
   req: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug } = params
+    const { slug } = await params
 
     // Query para obtener el componente
     const componentQuery = `
@@ -78,10 +78,10 @@ export async function GET(
 // PATCH - Actualizar contador de uso o favoritos (sin autenticación para analytics)
 export async function PATCH(
   req: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const { slug } = params
+    const { slug } = await params
     const body = await req.json()
     const { action } = body
 
