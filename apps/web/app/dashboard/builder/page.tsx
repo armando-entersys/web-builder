@@ -35,7 +35,7 @@ interface StyleGuide {
   }
 }
 
-type ComponentType = 'hero' | 'header' | 'features' | 'cta' | 'testimonials' | 'footer' | 'form' | 'gallery' | 'stats' | 'logos' | 'pricing' | 'faq' | 'contact'
+type ComponentType = 'hero' | 'header' | 'features' | 'cta' | 'testimonials' | 'footer' | 'form' | 'gallery' | 'stats' | 'logos' | 'pricing' | 'faq' | 'contact' | 'background'
 
 interface WireframeComponent {
   id: string
