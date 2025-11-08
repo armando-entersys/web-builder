@@ -6,6 +6,7 @@ import { Monitor, Tablet, Smartphone, Download, Code, X, ChevronLeft, Image as I
 import { Button } from '@/components/ui/button'
 import { Section } from './LandingPageBuilder'
 import { WireframeComponent } from './WireframeView'
+import { getComponent } from '@/lib/component-registry'
 
 interface Props {
   sections: Section[]
@@ -190,6 +191,24 @@ ${page.innerHTML}
       color: scheme.textColor,
     }
 
+    // Try to load actual component from registry if componentPath exists
+    if (component.componentPath) {
+      const DynamicComponent = getComponent(component.componentPath)
+
+      if (DynamicComponent) {
+        return (
+          <div
+            id={`component-${component.id}`}
+            className="transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
+            onClick={() => handleComponentClick(component)}
+          >
+            <DynamicComponent />
+          </div>
+        )
+      }
+    }
+
+    // Fallback to basic HTML rendering if no componentPath or component not found
     switch (component.type) {
       case 'header':
         return (

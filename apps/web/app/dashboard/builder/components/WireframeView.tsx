@@ -50,6 +50,7 @@ interface WireframeComponent {
   name: string
   description: string
   dbComponentId?: string // Link to database component
+  componentPath?: string // Path to actual component for dynamic loading
   content: {
     heading?: string
     subheading?: string
@@ -74,7 +75,7 @@ export type { WireframeComponent, ComponentType }
 type ComponentLibrary = Record<ComponentType, {
   name: string
   icon: string
-  variants: { id: number; name: string; description: string; dbComponentId?: string }[]
+  variants: { id: number; name: string; description: string; dbComponentId?: string; componentPath?: string }[]
 }>
 
 export default function WireframeView({ sections, wireframeComponents, setWireframeComponents }: Props) {
@@ -114,7 +115,8 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
               id: comp.variantId,
               name: comp.displayName,
               description: comp.description,
-              dbComponentId: comp.id
+              dbComponentId: comp.id,
+              componentPath: comp.componentPath
             })
           })
 
@@ -153,6 +155,8 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
           variant: 1,
           name: library?.variants[0]?.name || section.title,
           description: library?.variants[0]?.description || section.description,
+          dbComponentId: library?.variants[0]?.dbComponentId,
+          componentPath: library?.variants[0]?.componentPath,
           content: {
             heading: section.title,
             subheading: section.description,
@@ -181,6 +185,8 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
       variant: 1,
       name: library.variants[0]?.name || 'Component',
       description: library.variants[0]?.description || 'Description',
+      dbComponentId: library.variants[0]?.dbComponentId,
+      componentPath: library.variants[0]?.componentPath,
       content: {
         heading: 'Your heading here',
         subheading: 'Your subheading here',
