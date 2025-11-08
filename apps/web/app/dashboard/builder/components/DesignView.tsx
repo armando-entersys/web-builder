@@ -6,7 +6,7 @@ import { Monitor, Tablet, Smartphone, Download, Code, X, ChevronLeft, Image as I
 import { Button } from '@/components/ui/button'
 import { Section } from './LandingPageBuilder'
 import { WireframeComponent } from './WireframeView'
-import { getComponent } from '@/lib/component-registry'
+// import { getComponent } from '@/lib/component-registry' // Disabled temporarily
 
 interface Props {
   sections: Section[]
@@ -191,24 +191,24 @@ ${page.innerHTML}
       color: scheme.textColor,
     }
 
-    // Try to load actual component from registry if componentPath exists
-    if (component.componentPath) {
-      const DynamicComponent = getComponent(component.componentPath)
+    // TODO: Dynamic component loading disabled due to build issues with some components
+    // Need to fix component imports (glb files, missing images, etc.) before enabling
+    // if (component.componentPath) {
+    //   const DynamicComponent = getComponent(component.componentPath)
+    //   if (DynamicComponent) {
+    //     return (
+    //       <div
+    //         id={`component-${component.id}`}
+    //         className="transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
+    //         onClick={() => handleComponentClick(component)}
+    //       >
+    //         <DynamicComponent />
+    //       </div>
+    //     )
+    //   }
+    // }
 
-      if (DynamicComponent) {
-        return (
-          <div
-            id={`component-${component.id}`}
-            className="transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
-            onClick={() => handleComponentClick(component)}
-          >
-            <DynamicComponent />
-          </div>
-        )
-      }
-    }
-
-    // Fallback to basic HTML rendering if no componentPath or component not found
+    // Fallback to basic HTML rendering
     switch (component.type) {
       case 'header':
         return (
