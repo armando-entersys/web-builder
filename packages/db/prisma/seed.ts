@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { hash } from 'bcryptjs'
+import { componentsData } from './components-data'
 
 const prisma = new PrismaClient()
 
@@ -8,6 +9,7 @@ async function main() {
 
   // Limpiar datos existentes
   console.log('🗑️  Cleaning existing data...')
+  await prisma.component.deleteMany()
   await prisma.page.deleteMany()
   await prisma.project.deleteMany()
   await prisma.account.deleteMany()
@@ -266,15 +268,45 @@ async function main() {
   })
   console.log('✅ Page created: Menu (Restaurant Website)')
 
+  // Crear componentes
+  console.log('\n🎨 Creating components library...')
+
+  let componentsCreated = 0
+  const batchSize = 50 // Crear en lotes para mejor performance
+
+  for (let i = 0; i < componentsData.length; i += batchSize) {
+    const batch = componentsData.slice(i, i + batchSize)
+    await prisma.component.createMany({
+      data: batch,
+      skipDuplicates: true,
+    })
+    componentsCreated += batch.length
+    console.log(`   ✅ Created ${componentsCreated}/${componentsData.length} components`)
+  }
+
+  console.log(`✅ ${componentsCreated} components created successfully`)
+
   // Estadísticas finales
   console.log('\n📊 Seed Summary:')
   const userCount = await prisma.user.count()
   const projectCount = await prisma.project.count()
   const pageCount = await prisma.page.count()
+  const componentCount = await prisma.component.count()
 
   console.log(`   Users: ${userCount}`)
   console.log(`   Projects: ${projectCount}`)
   console.log(`   Pages: ${pageCount}`)
+  console.log(`   Components: ${componentCount}`)
+
+  // Desglose por categoría
+  console.log('\n📦 Components by Category:')
+  const categories = await prisma.component.groupBy({
+    by: ['category'],
+    _count: { category: true },
+  })
+  categories.forEach(cat => {
+    console.log(`   ${cat.category}: ${cat._count.category}`)
+  })
 
   console.log('\n🎉 Database seeded successfully!\n')
   console.log('📝 Test Credentials:')

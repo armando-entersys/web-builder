@@ -1,10 +1,10 @@
 # Componentes de Secciones Web
 
-Esta carpeta contiene componentes de secciones completas para construir páginas web, organizados según las categorías de Relume.io.
+Esta carpeta contiene componentes de secciones completas para construir páginas web, organizados según las categorías de Scram.io.
 
 ## Categorías Disponibles
 
-Basado en el archivo `categories.txt` de Relume, el proyecto soporta las siguientes categorías:
+Basado en el archivo `categories.txt` de Scram, el proyecto soporta las siguientes categorías:
 
 ### Secciones Principales
 - **about** - Secciones About/Acerca de
@@ -33,15 +33,15 @@ Basado en el archivo `categories.txt` de Relume, el proyecto soporta las siguien
 
 ## Fuentes de Componentes
 
-### 1. Relume.io (Secciones Completas)
-**URL**: https://www.relume.io/react/components
+### 1. Scram.io (Secciones Completas)
+**URL**: https://www.scram.io/react/components
 - **Licencia**: Paga (ya adquirida)
 - **Cantidad**: 1,400+ componentes de secciones completas
 - **Uso**: Copy/paste desde el sitio web
 - **Organización**: Copiar en la carpeta correspondiente según categoría
 
-#### Cómo agregar componentes de Relume:
-1. **Acceso**: Ve a https://www.relume.io/react/components (requiere login con licencia paga)
+#### Cómo agregar componentes de Scram:
+1. **Acceso**: Ve a https://www.scram.io/react/components (requiere login con licencia paga)
 2. **Explorar**: Navega por las categorías en el menú lateral:
    - Hero
    - Header
@@ -58,18 +58,18 @@ Basado en el archivo `categories.txt` de Relume, el proyecto soporta las siguien
 4. **Copiar código**: Usa el botón "Copy code" para copiar el componente React
 5. **Crear archivo**: Crea un archivo en la carpeta correspondiente:
    ```
-   components/relume/hero/Hero1.tsx
-   components/relume/feature/Feature44.tsx
-   components/relume/cta/CTA8.tsx
+   components/scram/hero/Hero1.tsx
+   components/scram/feature/Feature44.tsx
+   components/scram/cta/CTA8.tsx
    ```
 6. **Pegar y ajustar**:
    - Pega el código copiado
-   - Verifica que las importaciones usen `@relume_io/relume-ui`
+   - Verifica que las importaciones usen `@scram_io/scram-ui`
    - Ajusta PropTypes si es necesario
 
 **Ejemplo de componente Hero1:**
 ```tsx
-import { Button } from "@relume_io/relume-ui";
+import { Button } from "@scram_io/scram-ui";
 
 type ImageProps = {
   src: string;
@@ -163,7 +163,7 @@ export { Hero3 } from './Hero3';
 Los componentes se mapean por variante:
 
 ```tsx
-import { Hero1, Hero2, Hero3 } from '@/components/relume/hero';
+import { Hero1, Hero2, Hero3 } from '@/components/scram/hero';
 
 const HeroVariants = {
   1: Hero1,
@@ -180,7 +180,7 @@ Los componentes se renderizan con design tokens aplicados automáticamente.
 
 ## Prioridades de Implementación
 
-### Fase 1: Componentes Esenciales de Relume (Copiar desde relume.io)
+### Fase 1: Componentes Esenciales de Scram (Copiar desde scram.io)
 - [ ] 5 Navbars
 - [ ] 10 Heroes
 - [ ] 5 Headers
@@ -192,7 +192,7 @@ Los componentes se renderizan con design tokens aplicados automáticamente.
 - [ ] 3 FAQs
 - [ ] 3 Contact
 
-### Fase 2: Componentes Secundarios de Relume
+### Fase 2: Componentes Secundarios de Scram
 - [ ] 3 About
 - [ ] 2 Announcement Banners
 - [ ] 3 Benefits
@@ -202,7 +202,7 @@ Los componentes se renderizan con design tokens aplicados automáticamente.
 - [ ] 3 Team
 - [ ] 3 Logo Lists
 
-### Fase 3: Componentes Especializados de Relume
+### Fase 3: Componentes Especializados de Scram
 - [ ] 2 How It Works
 - [ ] 2 Events
 - [ ] 2 Job Listings
@@ -224,20 +224,20 @@ Los componentes se renderizan con design tokens aplicados automáticamente.
 
 ## Dependencias Instaladas
 
-- `@relume_io/relume-ui@^1.3.1` - Componentes UI base de Relume
+- `@scram_io/scram-ui@^1.3.1` - Componentes UI base de Scram
 - `tailwindcss@^3.4.17` - Para estilos
 - `lucide-react@^0.546.0` - Iconos
 
 ## Notas Importantes
 
 1. **No commitear sin revisar**: Siempre revisar el código copiado antes de commit
-2. **Ajustar imports**: Cambiar imports de componentes a `@relume_io/relume-ui`
+2. **Ajustar imports**: Cambiar imports de componentes a `@scram_io/scram-ui`
 3. **Mantener tipado**: Todos los componentes deben estar correctamente tipados
 4. **Documentar variantes**: Agregar comentarios indicando de dónde viene cada componente
 
 ## Recursos
 
-- **Relume React Components**: https://www.relume.io/react/components (requiere login con licencia paga)
-- **Relume Docs**: https://react-docs.relume.io/
+- **Scram React Components**: https://www.scram.io/react/components (requiere login con licencia paga)
+- **Scram Docs**: https://react-docs.scram.io/
 - **React Bits**: https://reactbits.dev (open source)
 - **React Bits GitHub**: https://github.com/DavidHDev/react-bits

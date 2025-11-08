@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ComponentMockup } from './WireframeMockups'
 import { Section } from './LandingPageBuilder'
 import { Button } from '@/components/ui/button'
@@ -16,10 +16,32 @@ import {
   Sparkles,
   Plus,
   X,
-  Layers
+  Layers,
+  Loader2
 } from 'lucide-react'
 
-type ComponentType = 'hero' | 'header' | 'features' | 'cta' | 'testimonials' | 'footer' | 'form' | 'gallery' | 'stats' | 'logos' | 'pricing' | 'faq' | 'contact'
+type ComponentType = 'hero' | 'header' | 'features' | 'cta' | 'testimonials' | 'footer' | 'form' | 'gallery' | 'stats' | 'logos' | 'pricing' | 'faq' | 'contact' | 'background'
+
+interface DBComponent {
+  id: string
+  name: string
+  displayName: string
+  slug: string
+  category: string
+  subcategory: string | null
+  type: string
+  description: string
+  icon: string
+  tags: string[]
+  componentPath: string
+  thumbnail: string | null
+  variantId: number
+  variantName: string | null
+  parentSlug: string | null
+  isActive: boolean
+  isPremium: boolean
+  isNew: boolean
+}
 
 interface WireframeComponent {
   id: string
@@ -27,6 +49,7 @@ interface WireframeComponent {
   variant: number
   name: string
   description: string
+  dbComponentId?: string // Link to database component
   content: {
     heading?: string
     subheading?: string
@@ -47,125 +70,82 @@ interface Props {
 
 export type { WireframeComponent, ComponentType }
 
-// Biblioteca de componentes con variantes (estilo Relume.io)
-const COMPONENT_LIBRARY: Record<ComponentType, { name: string; icon: string; variants: { id: number; name: string; description: string }[] }> = {
-  header: {
-    name: 'Header',
-    icon: '📱',
-    variants: [
-      { id: 1, name: 'Header 1 - Simple', description: 'Logo + navigation links' },
-      { id: 2, name: 'Header 2 - With CTA', description: 'Logo + links + CTA button' },
-      { id: 3, name: 'Header 3 - Center Logo', description: 'Centered logo with side navigation' },
-    ]
-  },
-  hero: {
-    name: 'Hero Section',
-    icon: '🎯',
-    variants: [
-      { id: 1, name: 'Hero 1 - Centered', description: 'Centered text with CTA buttons' },
-      { id: 2, name: 'Hero 2 - Split Image', description: 'Text on left, image on right' },
-      { id: 3, name: 'Hero 3 - Full Background', description: 'Full width background image' },
-    ]
-  },
-  features: {
-    name: 'Features',
-    icon: '⭐',
-    variants: [
-      { id: 1, name: 'Features 1 - 3 Columns', description: '3 column grid with icons' },
-      { id: 2, name: 'Features 2 - 4 Columns', description: '4 column grid layout' },
-      { id: 3, name: 'Features 3 - Cards', description: 'Feature cards with shadows' },
-    ]
-  },
-  testimonials: {
-    name: 'Testimonials',
-    icon: '💬',
-    variants: [
-      { id: 1, name: 'Testimonials 1 - Grid', description: '2 column testimonial grid' },
-    ]
-  },
-  cta: {
-    name: 'Call to Action',
-    icon: '📢',
-    variants: [
-      { id: 1, name: 'CTA 1 - Centered', description: 'Centered call to action' },
-      { id: 2, name: 'CTA 2 - Split', description: 'Split layout with image' },
-    ]
-  },
-  pricing: {
-    name: 'Pricing',
-    icon: '💰',
-    variants: [
-      { id: 1, name: 'Pricing 1 - 3 Tiers', description: '3 column pricing table' },
-    ]
-  },
-  faq: {
-    name: 'FAQ',
-    icon: '❓',
-    variants: [
-      { id: 1, name: 'FAQ 1 - Accordion', description: 'Accordion style FAQ' },
-    ]
-  },
-  contact: {
-    name: 'Contact',
-    icon: '📧',
-    variants: [
-      { id: 1, name: 'Contact 1 - Form', description: 'Simple contact form' },
-    ]
-  },
-  form: {
-    name: 'Form',
-    icon: '📝',
-    variants: [
-      { id: 1, name: 'Form 1 - Contact', description: 'Simple contact form' },
-      { id: 2, name: 'Form 2 - Newsletter', description: 'Email newsletter signup' },
-    ]
-  },
-  gallery: {
-    name: 'Gallery',
-    icon: '🖼️',
-    variants: [
-      { id: 1, name: 'Gallery 1 - Grid', description: '4 column image grid' },
-    ]
-  },
-  stats: {
-    name: 'Statistics',
-    icon: '📊',
-    variants: [
-      { id: 1, name: 'Stats 1 - 4 Columns', description: '4 column stat display' },
-    ]
-  },
-  logos: {
-    name: 'Logo Cloud',
-    icon: '🏢',
-    variants: [
-      { id: 1, name: 'Logos 1 - Grid', description: 'Simple logo grid' },
-    ]
-  },
-  footer: {
-    name: 'Footer',
-    icon: '📄',
-    variants: [
-      { id: 1, name: 'Footer 1 - 4 Columns', description: '4 column link footer' },
-      { id: 2, name: 'Footer 2 - Simple', description: 'Single row simple footer' },
-    ]
-  },
-}
+// Tipo para la biblioteca de componentes cargada desde la BD
+type ComponentLibrary = Record<ComponentType, {
+  name: string
+  icon: string
+  variants: { id: number; name: string; description: string; dbComponentId?: string }[]
+}>
 
 export default function WireframeView({ sections, wireframeComponents, setWireframeComponents }: Props) {
   const [selectedComponentId, setSelectedComponentId] = useState<string | null>(null)
   const [showReplacementModal, setShowReplacementModal] = useState(false)
   const [showAddMenu, setShowAddMenu] = useState<number | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
+  const [componentLibrary, setComponentLibrary] = useState<ComponentLibrary | null>(null)
+  const [isLoadingComponents, setIsLoadingComponents] = useState(true)
 
   const selectedComponent = wireframeComponents.find(c => c.id === selectedComponentId)
 
+  // Cargar componentes desde la base de datos
+  useEffect(() => {
+    async function loadComponents() {
+      try {
+        setIsLoadingComponents(true)
+        const response = await fetch('/api/components?limit=200')
+        const data = await response.json()
+
+        if (data.components) {
+          // Convertir la lista de componentes de BD a formato COMPONENT_LIBRARY
+          const library: Partial<ComponentLibrary> = {}
+
+          data.components.forEach((comp: DBComponent) => {
+            const type = comp.type as ComponentType
+
+            if (!library[type]) {
+              library[type] = {
+                name: comp.displayName || comp.name,
+                icon: comp.icon,
+                variants: []
+              }
+            }
+
+            library[type]!.variants.push({
+              id: comp.variantId,
+              name: comp.displayName,
+              description: comp.description,
+              dbComponentId: comp.id
+            })
+          })
+
+          // Ordenar variantes por variantId
+          Object.values(library).forEach(cat => {
+            cat!.variants.sort((a, b) => a.id - b.id)
+          })
+
+          setComponentLibrary(library as ComponentLibrary)
+        }
+      } catch (error) {
+        console.error('Error loading components:', error)
+        // Fallback a una versión básica en caso de error
+        setComponentLibrary({} as ComponentLibrary)
+      } finally {
+        setIsLoadingComponents(false)
+      }
+    }
+
+    loadComponents()
+  }, [])
+
   // Convert sections to wireframe components
   const generateWireframeFromSections = () => {
+    if (!componentLibrary) return
+
     setIsGenerating(true)
     setTimeout(() => {
       const newWireframeComponents: WireframeComponent[] = sections.map((section, index) => {
         const type = section.type as ComponentType
-        const library = COMPONENT_LIBRARY[type]
+        const library = componentLibrary[type]
 
         return {
           id: `component-${Date.now()}-${index}`,
@@ -191,13 +171,16 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
 
   // Agregar componente
   const addComponent = (type: ComponentType, index: number) => {
-    const library = COMPONENT_LIBRARY[type]
+    if (!componentLibrary) return
+    const library = componentLibrary[type]
+    if (!library) return
+
     const newComponent: WireframeComponent = {
       id: `component-${Date.now()}`,
       type,
       variant: 1,
-      name: library.variants[0].name,
-      description: library.variants[0].description,
+      name: library.variants[0]?.name || 'Component',
+      description: library.variants[0]?.description || 'Description',
       content: {
         heading: 'Your heading here',
         subheading: 'Your subheading here',
@@ -218,9 +201,11 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
 
   // Reemplazar variante de componente
   const replaceComponentVariant = (variantId: number) => {
-    if (!selectedComponent) return
+    if (!selectedComponent || !componentLibrary) return
 
-    const library = COMPONENT_LIBRARY[selectedComponent.type]
+    const library = componentLibrary[selectedComponent.type]
+    if (!library) return
+
     const variant = library.variants.find(v => v.id === variantId)
     if (!variant) return
 
@@ -256,6 +241,23 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
     const targetIndex = direction === 'up' ? index - 1 : index + 1
     ;[newComponents[index], newComponents[targetIndex]] = [newComponents[targetIndex], newComponents[index]]
     setWireframeComponents(newComponents)
+  }
+
+  // Loading state while components load from database
+  if (isLoadingComponents) {
+    return (
+      <div className="h-full flex items-center justify-center bg-muted/30">
+        <Card className="w-full max-w-md mx-auto">
+          <CardContent className="pt-6 text-center">
+            <Loader2 className="h-10 w-10 animate-spin mx-auto mb-4 text-primary" />
+            <h3 className="text-lg font-semibold mb-2">Loading Components...</h3>
+            <p className="text-sm text-muted-foreground">
+              Fetching 160 components from database
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   if (sections.length === 0) {
@@ -294,7 +296,7 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
               <Label>Component</Label>
               <Card>
                 <CardContent className="p-3 flex items-center gap-2">
-                  <span className="text-lg">{COMPONENT_LIBRARY[selectedComponent.type].icon}</span>
+                  <span className="text-lg">{componentLibrary?.[selectedComponent.type]?.icon || '📦'}</span>
                   <div className="flex-1">
                     <div className="text-sm font-medium">{selectedComponent.name}</div>
                     <div className="text-xs text-muted-foreground">Variant {selectedComponent.variant}</div>
@@ -420,7 +422,7 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
                 <Card className="absolute top-full left-0 right-0 mt-2 z-20">
                   <CardContent className="p-4">
                     <div className="grid grid-cols-2 gap-2 max-h-96 overflow-auto">
-                      {Object.entries(COMPONENT_LIBRARY).map(([type, data]) => (
+                      {Object.entries(componentLibrary || {}).map(([type, data]) => (
                         <Button
                           key={type}
                           onClick={() => addComponent(type as ComponentType, 0)}
@@ -528,7 +530,7 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
 
                           {/* Component Label */}
                           <div className="absolute top-2 left-2 px-3 py-1 rounded-md bg-background/90 backdrop-blur text-xs font-medium border shadow-sm">
-                            {COMPONENT_LIBRARY[component.type].icon} {component.name}
+                            {componentLibrary?.[component.type]?.icon || '📦'} {component.name}
                           </div>
 
                           {/* Mockup */}
@@ -555,7 +557,7 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
                         <Card className="absolute top-full left-0 right-0 mt-2 z-20">
                           <CardContent className="p-4">
                             <div className="grid grid-cols-2 gap-2 max-h-96 overflow-auto">
-                              {Object.entries(COMPONENT_LIBRARY).map(([type, data]) => (
+                              {Object.entries(componentLibrary || {}).map(([type, data]) => (
                                 <Button
                                   key={type}
                                   onClick={() => addComponent(type as ComponentType, index + 1)}
@@ -599,7 +601,7 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
             <CardHeader className="border-b">
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle>Replace {COMPONENT_LIBRARY[selectedComponent.type].name}</CardTitle>
+                  <CardTitle>Replace {componentLibrary?.[selectedComponent.type]?.name || 'Component'}</CardTitle>
                   <p className="text-sm text-muted-foreground mt-1">
                     Choose a variant to replace the current component
                   </p>
@@ -617,7 +619,7 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
 
             <CardContent className="p-6 overflow-auto flex-1">
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                {COMPONENT_LIBRARY[selectedComponent.type].variants.map((variant) => (
+                {componentLibrary?.[selectedComponent.type]?.variants.map((variant) => (
                   <Button
                     key={variant.id}
                     onClick={() => replaceComponentVariant(variant.id)}
@@ -625,12 +627,12 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
                     className="h-auto p-4 flex-col items-start text-left"
                   >
                     <div className="aspect-video bg-muted rounded-lg mb-3 w-full flex items-center justify-center">
-                      <span className="text-4xl">{COMPONENT_LIBRARY[selectedComponent.type].icon}</span>
+                      <span className="text-4xl">{componentLibrary?.[selectedComponent.type]?.icon || '📦'}</span>
                     </div>
                     <div className="font-medium text-sm mb-1">{variant.name}</div>
                     <div className="text-xs text-muted-foreground">{variant.description}</div>
                   </Button>
-                ))}
+                )) || <p className="text-sm text-muted-foreground">No variants available</p>}
               </div>
             </CardContent>
           </Card>

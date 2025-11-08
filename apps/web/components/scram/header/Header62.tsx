@@ -1,4 +1,4 @@
-import { Button } from "@relume_io/relume-ui";
+import { Button } from "@scram_io/scram-ui";
 
 type ImageProps = {
   src: string;

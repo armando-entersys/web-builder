@@ -1,6 +1,6 @@
 /**
  * Design Tokens System
- * Inspired by Relume.io and Tailwind CSS 4.0 @theme directive
+ * Inspired by Scram.io and Tailwind CSS 4.0 @theme directive
  */
 
 export interface ColorToken {

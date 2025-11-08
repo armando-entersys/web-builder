@@ -1,6 +1,6 @@
 // Navbar Components
-// Plantillas basadas en Relume.io
-// Reemplazar con código real de https://www.relume.io/react/components
+// Plantillas basadas en Scram.io
+// Reemplazar con código real de https://www.scram.io/react/components
 
 export { Navbar1 } from './Navbar1';
 export { Navbar2 } from './Navbar2';

@@ -1,5 +1,5 @@
-// Componentes de Relume.io
-// Para agregar más componentes, copia desde https://www.relume.io/react/components
+// Componentes de Scram.io
+// Para agregar más componentes, copia desde https://www.scram.io/react/components
 // y colócalos en la carpeta de categoría correspondiente
 
 // ✅ Componentes implementados (plantillas de ejemplo)

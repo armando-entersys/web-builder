@@ -186,7 +186,7 @@ import { AnimatedGradientText, DotPattern, Meteors } from '@/components/effects'
 
 ### Hero con Background Pattern
 ```tsx
-import { Header1 } from '@/components/relume/header';
+import { Header1 } from '@/components/scram/header';
 import { GridPattern } from '@/components/effects/background';
 
 export function HeroSection() {
@@ -210,7 +210,7 @@ export function HeroSection() {
 
 ### CTA con Efectos de Texto
 ```tsx
-import { CTA8 } from '@/components/relume/cta';
+import { CTA8 } from '@/components/scram/cta';
 import { FlipText, ShimmerButton } from '@/components/effects/text';
 
 export function CTASection() {
@@ -257,14 +257,14 @@ export function TestimonialSection() {
 }
 ```
 
-## 🎨 Integración con Relume
+## 🎨 Integración con Scram
 
-Estos efectos funcionan perfectamente con componentes de Relume:
+Estos efectos funcionan perfectamente con componentes de Scram:
 
 ```tsx
-import { Navbar1 } from '@/components/relume/navbar';
-import { Header26 } from '@/components/relume/header';
-import { Footer1 } from '@/components/relume/footer';
+import { Navbar1 } from '@/components/scram/navbar';
+import { Header26 } from '@/components/scram/header';
+import { Footer1 } from '@/components/scram/footer';
 import { AnimatedGradientText, DotPattern } from '@/components/effects';
 
 export default function HomePage() {
@@ -340,4 +340,4 @@ Para agregar más componentes de Magic UI o Aceternity UI:
 - ✅ React 19
 - ✅ TypeScript
 - ✅ Tailwind CSS v3
-- ✅ Compatible con todos los componentes de Relume y shadcn/ui
+- ✅ Compatible con todos los componentes de Scram y shadcn/ui

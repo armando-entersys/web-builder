@@ -4,7 +4,7 @@ Este documento lista todas las fuentes oficiales de componentes gratuitos de alt
 
 ## ✅ Instaladas
 
-### 1. @relume_io/relume-ui
+### 1. @scram_io/scram-ui
 - **Instalado**: ✅ v1.3.1
 - **Tipo**: Componentes UI base
 - **Licencia**: Paga (adquirida)
@@ -88,9 +88,9 @@ Este documento lista todas las fuentes oficiales de componentes gratuitos de alt
   - Componentes accesibles
   - Lanzado en Julio 2025
 
-## 📋 Componentes Gratuitos de Relume
+## 📋 Componentes Gratuitos de Scram
 
-De https://www.relume.io/react/free-components (30 componentes):
+De https://www.scram.io/react/free-components (30 componentes):
 
 ### Navbars (3)
 - Navbar 1, 2, 3
@@ -145,7 +145,7 @@ components/
 │   ├── hero-effects/
 │   ├── text-effects/
 │   └── background-effects/
-└── relume/                    # Relume sections
+└── scram/                    # Scram sections
     ├── navbar/
     ├── hero/
     ├── feature/
@@ -182,17 +182,17 @@ components/
 3. ✅ Crear archivos index.ts para exportaciones
 4. ✅ Crear documentación completa (README.md)
 
-### Fase 3: Secciones Relume (Configuración completada) - ✅ LISTA PARA USAR
-1. ✅ Instalar @relume_io/relume-ui v1.3.1
-2. ✅ Instalar @relume_io/relume-tailwind v1.3.0
-3. ✅ Configurar Tailwind con preset de Relume
+### Fase 3: Secciones Scram (Configuración completada) - ✅ LISTA PARA USAR
+1. ✅ Instalar @scram_io/scram-ui v1.3.1
+2. ✅ Instalar @scram_io/scram-tailwind v1.3.0
+3. ✅ Configurar Tailwind con preset de Scram
 4. ✅ Crear estructura de 24 carpetas de categorías
 5. ✅ Crear 3 componentes Navbar de ejemplo (plantillas)
-6. ✅ Crear guía completa paso a paso en `COMO_COPIAR_COMPONENTES_RELUME.md`
-7. ✅ Documentar proceso en `components/relume/README.md`
-8. 📝 Listo para copiar los 30 componentes gratuitos desde https://www.relume.io/react/components
+6. ✅ Crear guía completa paso a paso en `COMO_COPIAR_COMPONENTES_SCRAM.md`
+7. ✅ Documentar proceso en `components/scram/README.md`
+8. 📝 Listo para copiar los 30 componentes gratuitos desde https://www.scram.io/react/components
 
-**Instrucciones**: Sigue la guía en `COMO_COPIAR_COMPONENTES_RELUME.md` para copiar componentes desde Relume.io usando tu licencia paga. Todo está configurado y listo para recibir los componentes.
+**Instrucciones**: Sigue la guía en `COMO_COPIAR_COMPONENTES_SCRAM.md` para copiar componentes desde Scram.io usando tu licencia paga. Todo está configurado y listo para recibir los componentes.
 
 ### Fase 4: Efectos Visuales (Magic UI + Aceternity UI) - ✅ COMPLETADA
 1. ✅ Crear componentes de texto animados (4 componentes)
@@ -243,7 +243,7 @@ npx shadcn@latest add tabs accordion separator
 - **Origin UI**: https://originui.com/
 - **Untitled UI**: https://www.untitledui.com/
 - **React Bits**: https://reactbits.dev/
-- **Relume Free**: https://www.relume.io/react/free-components
+- **Scram Free**: https://www.scram.io/react/free-components
 
 ## ⚠️ Notas Importantes
 
@@ -251,12 +251,12 @@ npx shadcn@latest add tabs accordion separator
 2. **Magic UI complementa shadcn**: Usar juntos
 3. **Aceternity para wow factor**: Usar selectivamente en secciones clave
 4. **React Bits para microinteracciones**: Cursores, hover effects, etc.
-5. **Relume para secciones completas**: Layout y estructura
+5. **Scram para secciones completas**: Layout y estructura
 
 ## 🎨 Combinación Recomendada
 
 Para una landing page completa:
-- **Estructura**: Relume sections (navbar, hero, features, CTA, footer)
+- **Estructura**: Scram sections (navbar, hero, features, CTA, footer)
 - **Componentes base**: shadcn/ui (buttons, forms, cards)
 - **Animaciones**: Magic UI (text reveals, fade ins)
 - **Efectos especiales**: Aceternity UI (hero backgrounds, text effects)

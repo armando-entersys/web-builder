@@ -196,8 +196,71 @@ model AIGeneration {
 }
 
 // ==========================================
+// COMPONENT LIBRARY
+// ==========================================
+
+model Component {
+  id          String   @id @default(cuid())
+  name        String   // Nombre del componente (ej: "Carousel")
+  displayName String   // Nombre para mostrar (ej: "Image Carousel")
+  slug        String   @unique // URL-friendly (ej: "carousel")
+
+  // Categorización
+  category    ComponentCategory // animations, ui, scram, etc.
+  subcategory String?  // interactive, text, backgrounds, header, etc.
+  type        String   // hero, features, cta, etc. (para wireframes)
+
+  // Metadata
+  description String   @db.Text
+  icon        String   // Emoji o icono
+  tags        String[] // Para búsqueda
+
+  // Archivos y rutas
+  componentPath String // Ruta al archivo (ej: components/animations/interactive/Carousel.tsx)
+  thumbnail   String?  // URL de preview image
+  demoUrl     String?  // URL de demo en vivo
+
+  // Variantes
+  variantId   Int      @default(1) // ID de variante (1, 2, 3, etc)
+  variantName String?  // Nombre de variante (ej: "Centered", "Split")
+  parentSlug  String?  // Slug del componente padre si es variante
+
+  // Estado
+  isActive    Boolean  @default(true)
+  isPremium   Boolean  @default(false)
+  isNew       Boolean  @default(false)
+
+  // Configuración
+  props       Json?    // Props por defecto del componente
+  styleConfig Json?    // Configuración de estilos
+
+  // Analytics
+  usageCount  Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([subcategory])
+  @@index([type])
+  @@index([slug])
+  @@index([isActive])
+  @@map("components")
+}
+
+// ==========================================
 // ENUMS
 // ==========================================
+
+enum ComponentCategory {
+  ANIMATIONS
+  UI
+  SCRAM
+  ADVANCED
+  EFFECTS
+  BUILDER
+  PROVIDERS
+}
 
 enum ProjectStatus {
   DRAFT

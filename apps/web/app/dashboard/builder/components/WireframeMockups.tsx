@@ -3,7 +3,7 @@ import React from 'react'
 /**
  * Wireframe Mockups - Structure ONLY (No Colors, No Styles)
  * Colors and styles will be applied in the Design tab using Design Tokens
- * Following Relume.io pattern: Wireframe → Style Guide (Tokens) → Design (Wireframe + Tokens)
+ * Following Scram.io pattern: Wireframe → Style Guide (Tokens) → Design (Wireframe + Tokens)
  */
 
 interface WireframeComponent {

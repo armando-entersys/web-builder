@@ -1,0 +1,284 @@
+LISTADO COMPLETO DE COMPONENTES - WEB BUILDER
+================================================
+
+TOTAL: 160 componentes
+
+1. ANIMATIONS - 115 COMPONENTES
+================================
+
+1.1 ANIMATIONS > BACKGROUNDS (30 componentes)
+----------------------------------------------
+1. Aurora.tsx
+2. Balatro.tsx
+3. Ballpit.tsx
+4. Beams.tsx
+5. DarkVeil.tsx
+6. Dither.tsx
+7. DotGrid.tsx
+8. FaultyTerminal.tsx
+9. Galaxy.tsx
+10. GradientBlinds.tsx
+11. GridDistortion.tsx
+12. GridMotion.tsx
+13. Hyperspeed.tsx
+14. Iridescence.tsx
+15. LetterGlitch.tsx
+16. Lightning.tsx
+17. LightRays.tsx
+18. LiquidChrome.tsx
+19. LiquidEther.tsx
+20. Orb.tsx
+21. Particles.tsx
+22. PixelBlast.tsx
+23. Plasma.tsx
+24. Prism.tsx
+25. PrismaticBurst.tsx
+26. RippleGrid.tsx
+27. Silk.tsx
+28. Squares.tsx
+29. Threads.tsx
+30. Waves.tsx
+
+1.2 ANIMATIONS > INTERACTIVE (36 componentes)
+----------------------------------------------
+1. AnimatedList.tsx
+2. BounceCards.tsx
+3. BubbleMenu.tsx
+4. CardNav.tsx
+5. CardSwap.tsx
+6. Carousel.tsx
+7. ChromaGrid.tsx
+8. CircularGallery.tsx
+9. Counter.tsx
+10. DecayCard.tsx
+11. Dock.tsx
+12. DomeGallery.tsx
+13. ElasticSlider.tsx
+14. FlowingMenu.tsx
+15. FluidGlass.tsx
+16. FlyingPosters.tsx
+17. Folder.tsx
+18. GlassIcons.tsx
+19. GlassSurface.tsx
+20. GooeyNav.tsx
+21. InfiniteMenu.tsx
+22. InfiniteScroll.tsx
+23. Lanyard.tsx
+24. MagicBento.tsx
+25. Masonry.tsx
+26. ModelViewer.tsx
+27. PillNav.tsx
+28. PixelCard.tsx
+29. ProfileCard.tsx
+30. RollingGallery.tsx
+31. ScrollStack.tsx
+32. SpotlightCard.tsx
+33. Stack.tsx
+34. StaggeredMenu.tsx
+35. Stepper.tsx
+36. TiltedCard.tsx
+
+1.3 ANIMATIONS > TEXT (24 componentes)
+--------------------------------------
+1. ASCIIText.tsx
+2. BlurText.tsx
+3. CircularText.tsx
+4. CountUp.tsx
+5. CurvedLoop.tsx
+6. DecryptedText.tsx
+7. FallingText.tsx
+8. FuzzyText.tsx
+9. GlitchText.tsx
+10. GradientText.tsx
+11. RotatingText.tsx
+12. ScrambledText.tsx
+13. ScrollFloat.tsx
+14. ScrollReveal.tsx
+15. ScrollVelocity.tsx
+16. ShinyText.tsx
+17. Shuffle.tsx
+18. SplitText.tsx
+19. TextCursor.tsx
+20. TextPressure.tsx
+21. TextTrail.tsx
+22. TextType.tsx
+23. TrueFocus.tsx
+24. VariableProximity.tsx
+
+1.4 ANIMATIONS > TRANSITIONS (25 componentes)
+---------------------------------------------
+1. AnimatedContent.tsx
+2. BlobCursor.tsx
+3. ClickSpark.tsx
+4. Crosshair.tsx
+5. Cubes.tsx
+6. ElectricBorder.tsx
+7. FadeContent.tsx
+8. GlareHover.tsx
+9. GradualBlur.tsx
+10. ImageTrail.tsx
+11. LaserFlow.tsx
+12. LogoLoop.tsx
+13. Magnet.tsx
+14. MagnetLines.tsx
+15. MetaBalls.tsx
+16. MetallicPaint.tsx
+17. Noise.tsx
+18. PixelTrail.tsx
+19. PixelTransition.tsx
+20. Ribbons.tsx
+21. ShapeBlur.tsx
+22. SplashCursor.tsx
+23. StarBorder.tsx
+24. StickerPeel.tsx
+25. TargetCursor.tsx
+
+2. UI - 12 COMPONENTES
+======================
+1. accordion.tsx
+2. badge.tsx
+3. button.tsx
+4. card.tsx
+5. dialog.tsx
+6. dropdown-menu.tsx
+7. input.tsx
+8. label.tsx
+9. separator.tsx
+10. tabs.tsx
+11. textarea.tsx
+12. tooltip.tsx
+
+3. ADVANCED - 8 COMPONENTES
+=============================
+
+3.1 ADVANCED > FEEDBACK (3 componentes)
+--------------------------------------
+1. ProgressBar.tsx
+2. Skeleton.tsx
+3. Toast.tsx
+
+3.2 ADVANCED > FORMS (3 componentes)
+-----------------------------------
+1. FileUpload.tsx
+2. InputOTP.tsx
+3. SearchInput.tsx
+
+3.3 ADVANCED > LAYOUT (2 componentes)
+-----------------------------------
+1. Container.tsx
+2. EmptyState.tsx
+
+4. EFFECTS - 7 COMPONENTES
+==========================
+
+4.1 EFFECTS > BACKGROUND (3 componentes)
+--------------------------------------
+1. DotPattern.tsx
+2. GridPattern.tsx
+3. Meteors.tsx
+
+4.2 EFFECTS > TEXT (4 componentes)
+-------------------------------
+1. AnimatedGradientText.tsx
+2. FlipText.tsx
+3. ShimmerButton.tsx
+4. TypingAnimation.tsx
+
+5. RELUME - 11 COMPONENTES
+==========================
+
+5.1 RELUME > HEADER (4 componentes)
+---------------------------------
+1. Header1.tsx
+2. Header26.tsx
+3. Header44.tsx
+4. Header62.tsx
+
+5.2 RELUME > NAVBAR (3 componentes)
+---------------------------------
+1. Navbar1.tsx
+2. Navbar2.tsx
+3. Navbar3.tsx
+
+5.3 RELUME > FOOTER (2 componentes)
+---------------------------------
+1. Footer1.tsx
+2. Footer3.tsx
+
+5.4 RELUME > CTA (2 componentes)
+------------------------------
+1. CTA25.tsx
+2. CTA8.tsx
+
+CATEGORIAS RELUME VACIAS (19 - con potencial para expansion):
+- about
+- announcement-banner
+- benefits
+- blog-list
+- blog-post
+- contact
+- events
+- faq
+- feature
+- gallery
+- hero
+- how-it-works
+- job-listings
+- logo-list
+- portfolio
+- pricing
+- product
+- team
+- testimonial
+
+6. BUILDER - 6 COMPONENTES
+==========================
+
+Ubicacion: C:\web-builder\apps\web\app\dashboard\builder\components
+
+1. BuilderView.tsx
+2. DesignView.tsx
+3. LandingPageBuilder.tsx
+4. StyleGuideView.tsx
+5. WireframeMockups.tsx
+6. WireframeView.tsx
+
+7. PROVIDERS - 1 COMPONENTE
+===========================
+
+1. session-provider.tsx
+
+================================================
+RESUMEN ESTADISTICO
+================================================
+
+Total de componentes: 160
+
+Distribucion por seccion:
+- ANIMATIONS: 115 (71.9%)
+- UI: 12 (7.5%)
+- RELUME: 11 (6.9%)
+- ADVANCED: 8 (5.0%)
+- EFFECTS: 7 (4.4%)
+- BUILDER: 6 (3.8%)
+- PROVIDERS: 1 (0.6%)
+
+Distribucion de ANIMATIONS por subseccion:
+- INTERACTIVE: 36 (31.3%)
+- BACKGROUNDS: 30 (26.1%)
+- TRANSITIONS: 25 (21.7%)
+- TEXT: 24 (20.9%)
+
+Tipos de componentes:
+- Animaciones/Efectos visuales: 122 (76.3%)
+- Componentes base/utilidad: 21 (13.1%)
+- Componentes estructurales: 17 (10.6%)
+
+Potencial de expansion:
+- RELUME puede expandirse a 30 secciones (actualmente 11/30)
+- Se pueden agregar mas variantes de componentes existentes
+
+Ubicaciones principales:
+- Componentes principales: C:\web-builder\apps\web\components\
+- Builder: C:\web-builder\apps\web\app\dashboard\builder\components\
+

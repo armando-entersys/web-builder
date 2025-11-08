@@ -1,21 +1,21 @@
-# Cómo Copiar Componentes de Relume.io
+# Cómo Copiar Componentes de Scram.io
 
-Esta guía te muestra paso a paso cómo copiar los 30 componentes gratuitos (y todos los de tu licencia paga) desde Relume.io.
+Esta guía te muestra paso a paso cómo copiar los 30 componentes gratuitos (y todos los de tu licencia paga) desde Scram.io.
 
 ## ✅ Configuración Completada
 
 Ya hemos configurado todo lo necesario:
-- ✅ `@relume_io/relume-ui@1.3.1` instalado
-- ✅ `@relume_io/relume-tailwind@1.3.0` instalado
-- ✅ `tailwind.config.js` configurado con preset de Relume
+- ✅ `@scram_io/scram-ui@1.3.1` instalado
+- ✅ `@scram_io/scram-tailwind@1.3.0` instalado
+- ✅ `tailwind.config.js` configurado con preset de Scram
 - ✅ Estructura de carpetas creada (24 categorías)
 - ✅ 3 Navbars de ejemplo creados como plantilla
 
 ## 📝 Pasos para Copiar Componentes
 
-### 1. Acceder a Relume
+### 1. Acceder a Scram
 
-1. **Ve a**: https://www.relume.io/react/components
+1. **Ve a**: https://www.scram.io/react/components
 2. **Inicia sesión** con tu cuenta de licencia paga
 3. Verás el menú lateral con categorías:
    - Hero
@@ -59,23 +59,23 @@ En la vista detallada del componente:
 2. **Crea el archivo** en la carpeta correspondiente:
 
 ```bash
-components/relume/[categoría]/[ComponenteNumero].tsx
+components/scram/[categoría]/[ComponenteNumero].tsx
 ```
 
 **Ejemplos:**
 ```
-components/relume/hero/Hero1.tsx
-components/relume/hero/Hero26.tsx
-components/relume/feature/Layout141.tsx
-components/relume/cta/CTA8.tsx
-components/relume/navbar/Navbar1.tsx
-components/relume/footer/Footer1.tsx
+components/scram/hero/Hero1.tsx
+components/scram/hero/Hero26.tsx
+components/scram/feature/Layout141.tsx
+components/scram/cta/CTA8.tsx
+components/scram/navbar/Navbar1.tsx
+components/scram/footer/Footer1.tsx
 ```
 
 ### 5. Pegar y Ajustar
 
 1. **Pega el código** copiado en el archivo
-2. **Verifica imports**: Deben usar `@relume_io/relume-ui`
+2. **Verifica imports**: Deben usar `@scram_io/scram-ui`
 3. **Exporta el componente**:
 
 ```typescript
@@ -93,61 +93,61 @@ Aquí está la lista de los 30 componentes gratuitos que debes copiar:
 - ✅ Navbar 1 (plantilla)
 - ✅ Navbar 2 (plantilla)
 - ✅ Navbar 3 (plantilla)
-- 📝 Reemplazar con código real de Relume.io
+- 📝 Reemplazar con código real de Scram.io
 
 ### Headers/Hero (4)
-- [ ] Header 1 → `components/relume/header/Header1.tsx`
-- [ ] Header 26 → `components/relume/header/Header26.tsx`
-- [ ] Header 44 → `components/relume/header/Header44.tsx`
-- [ ] Header 62 → `components/relume/header/Header62.tsx`
+- [ ] Header 1 → `components/scram/header/Header1.tsx`
+- [ ] Header 26 → `components/scram/header/Header26.tsx`
+- [ ] Header 44 → `components/scram/header/Header44.tsx`
+- [ ] Header 62 → `components/scram/header/Header62.tsx`
 
 ### Features (6)
-- [ ] Layout 1 → `components/relume/feature/Layout1.tsx`
-- [ ] Layout 141 → `components/relume/feature/Layout141.tsx`
-- [ ] Layout 192 → `components/relume/feature/Layout192.tsx`
-- [ ] Layout 239 → `components/relume/feature/Layout239.tsx`
-- [ ] Layout 242 → `components/relume/feature/Layout242.tsx`
-- [ ] Layout 250 → `components/relume/feature/Layout250.tsx`
+- [ ] Layout 1 → `components/scram/feature/Layout1.tsx`
+- [ ] Layout 141 → `components/scram/feature/Layout141.tsx`
+- [ ] Layout 192 → `components/scram/feature/Layout192.tsx`
+- [ ] Layout 239 → `components/scram/feature/Layout239.tsx`
+- [ ] Layout 242 → `components/scram/feature/Layout242.tsx`
+- [ ] Layout 250 → `components/scram/feature/Layout250.tsx`
 
 ### CTAs (2)
-- [ ] CTA 8 → `components/relume/cta/CTA8.tsx`
-- [ ] CTA 25 → `components/relume/cta/CTA25.tsx`
+- [ ] CTA 8 → `components/scram/cta/CTA8.tsx`
+- [ ] CTA 25 → `components/scram/cta/CTA25.tsx`
 
 ### Testimonials (2)
-- [ ] Testimonial 1 → `components/relume/testimonial/Testimonial1.tsx`
-- [ ] Testimonial 17 → `components/relume/testimonial/Testimonial17.tsx`
+- [ ] Testimonial 1 → `components/scram/testimonial/Testimonial1.tsx`
+- [ ] Testimonial 17 → `components/scram/testimonial/Testimonial17.tsx`
 
 ### Team (2)
-- [ ] Team 5 → `components/relume/team/Team5.tsx`
-- [ ] Team 8 → `components/relume/team/Team8.tsx`
+- [ ] Team 5 → `components/scram/team/Team5.tsx`
+- [ ] Team 8 → `components/scram/team/Team8.tsx`
 
 ### Blog (2)
-- [ ] Blog 33 → `components/relume/blog-list/Blog33.tsx`
-- [ ] Blog 44 → `components/relume/blog-list/Blog44.tsx`
+- [ ] Blog 33 → `components/scram/blog-list/Blog33.tsx`
+- [ ] Blog 44 → `components/scram/blog-list/Blog44.tsx`
 
 ### Gallery (2)
-- [ ] Gallery 7 → `components/relume/gallery/Gallery7.tsx`
-- [ ] Gallery 21 → `components/relume/gallery/Gallery21.tsx`
+- [ ] Gallery 7 → `components/scram/gallery/Gallery7.tsx`
+- [ ] Gallery 21 → `components/scram/gallery/Gallery21.tsx`
 
 ### FAQs (2)
-- [ ] FAQ 1 → `components/relume/faq/FAQ1.tsx`
-- [ ] FAQ 6 → `components/relume/faq/FAQ6.tsx`
+- [ ] FAQ 1 → `components/scram/faq/FAQ1.tsx`
+- [ ] FAQ 6 → `components/scram/faq/FAQ6.tsx`
 
 ### Footers (2)
-- [ ] Footer 1 → `components/relume/footer/Footer1.tsx`
-- [ ] Footer 3 → `components/relume/footer/Footer3.tsx`
+- [ ] Footer 1 → `components/scram/footer/Footer1.tsx`
+- [ ] Footer 3 → `components/scram/footer/Footer3.tsx`
 
 ### Otros (3)
-- [ ] Contact 1 → `components/relume/contact/Contact1.tsx`
-- [ ] Pricing 18 → `components/relume/pricing/Pricing18.tsx`
-- [ ] Logo 1 → `components/relume/logo-list/Logo1.tsx`
+- [ ] Contact 1 → `components/scram/contact/Contact1.tsx`
+- [ ] Pricing 18 → `components/scram/pricing/Pricing18.tsx`
+- [ ] Logo 1 → `components/scram/logo-list/Logo1.tsx`
 
 ## 🔄 Después de Copiar Cada Categoría
 
 Cuando termines de copiar todos los componentes de una categoría, crea/actualiza su `index.ts`:
 
 ```typescript
-// Ejemplo: components/relume/hero/index.ts
+// Ejemplo: components/scram/hero/index.ts
 export { Hero1 } from './Hero1';
 export { Hero26 } from './Hero26';
 export { Hero44 } from './Hero44';
@@ -158,7 +158,7 @@ export { Hero62 } from './Hero62';
 
 ### Paso a Paso para Copiar "Hero 1"
 
-1. **Ir a**: https://www.relume.io/react/components
+1. **Ir a**: https://www.scram.io/react/components
 2. **Menú lateral** → Click en "Hero"
 3. **Buscar** "Hero 1" en la lista
 4. **Click** en el componente
@@ -168,13 +168,13 @@ export { Hero62 } from './Hero62';
 
 8. **En tu proyecto**, crear archivo:
    ```
-   C:\web-builder\apps\web\components\relume\hero\Hero1.tsx
+   C:\web-builder\apps\web\components\scram\hero\Hero1.tsx
    ```
 
 9. **Pegar el código** (ejemplo aproximado):
 
 ```typescript
-import { Button } from "@relume_io/relume-ui";
+import { Button } from "@scram_io/scram-ui";
 
 type ImageProps = {
   src: string;
@@ -239,7 +239,7 @@ Hero1.defaultProps = {
 };
 ```
 
-10. **Actualizar** `components/relume/hero/index.ts`:
+10. **Actualizar** `components/scram/hero/index.ts`:
 
 ```typescript
 export { Hero1 } from './Hero1';
@@ -264,14 +264,14 @@ type ButtonProps = {
 
 Si ves imports como:
 ```typescript
-import { Button, Input, Badge } from "@relume_io/relume-ui";
+import { Button, Input, Badge } from "@scram_io/scram-ui";
 ```
 
-Todos estos componentes están disponibles en `@relume_io/relume-ui` que ya instalamos.
+Todos estos componentes están disponibles en `@scram_io/scram-ui` que ya instalamos.
 
 ### Si hay clases de Tailwind personalizadas
 
-El preset `@relume_io/relume-tailwind` que instalamos ya incluye las clases personalizadas de Relume.
+El preset `@scram_io/scram-tailwind` que instalamos ya incluye las clases personalizadas de Scram.
 
 ## 🔥 Tips
 
@@ -283,10 +283,10 @@ El preset `@relume_io/relume-tailwind` que instalamos ya incluye las clases pers
 
 ## 📚 Recursos
 
-- **Sitio de componentes**: https://www.relume.io/react/components
-- **Documentación React**: https://react-docs.relume.io/
-- **Figma**: https://www.relume.io/figma (para ver diseños)
-- **Componentes instalados**: `components/relume/` (en tu proyecto)
+- **Sitio de componentes**: https://www.scram.io/react/components
+- **Documentación React**: https://react-docs.scram.io/
+- **Figma**: https://www.scram.io/figma (para ver diseños)
+- **Componentes instalados**: `components/scram/` (en tu proyecto)
 
 ## ✅ Verificación
 
@@ -295,7 +295,7 @@ Después de copiar un componente, verifica:
 1. ✅ El archivo tiene extensión `.tsx`
 2. ✅ El componente está exportado con `export const`
 3. ✅ Los tipos TypeScript están correctos
-4. ✅ Las importaciones usan `@relume_io/relume-ui`
+4. ✅ Las importaciones usan `@scram_io/scram-ui`
 5. ✅ El componente está agregado al `index.ts` de su categoría
 
 ## 🚀 Uso en el Proyecto
@@ -303,9 +303,9 @@ Después de copiar un componente, verifica:
 Una vez copiados, puedes usar los componentes:
 
 ```typescript
-import { Hero1 } from '@/components/relume/hero';
-import { Feature141 } from '@/components/relume/feature';
-import { CTA8 } from '@/components/relume/cta';
+import { Hero1 } from '@/components/scram/hero';
+import { Feature141 } from '@/components/scram/feature';
+import { CTA8 } from '@/components/scram/cta';
 
 export default function LandingPage() {
   return (
@@ -327,4 +327,4 @@ export default function LandingPage() {
 
 ---
 
-**Nota**: Este proceso lo debes hacer manualmente porque los componentes de Relume requieren autenticación y no pueden ser descargados automáticamente. Sin embargo, una vez copiados, tendrás acceso completo al código y podrás modificarlos como quieras.
+**Nota**: Este proceso lo debes hacer manualmente porque los componentes de Scram requieren autenticación y no pueden ser descargados automáticamente. Sin embargo, una vez copiados, tendrás acceso completo al código y podrás modificarlos como quieras.

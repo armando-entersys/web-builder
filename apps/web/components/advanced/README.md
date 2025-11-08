@@ -442,9 +442,9 @@ export function DocumentUploader() {
 
 ## 🎨 Integración con Otros Componentes
 
-### Con Relume
+### Con Scram
 ```tsx
-import { Header1 } from '@/components/relume/header';
+import { Header1 } from '@/components/scram/header';
 import { Container, EmptyState } from '@/components/advanced/layout';
 
 <Header1 {...props} />

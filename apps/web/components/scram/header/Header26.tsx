@@ -1,28 +1,30 @@
-import { Button } from "@relume_io/relume-ui";
+import { Button } from "@scram_io/scram-ui";
 
-type VideoProps = {
+type ImageProps = {
   src: string;
-  poster?: string;
+  alt?: string;
 };
 
 type Props = {
+  tagline: string;
   heading: string;
   description: string;
   buttons: Array<{
     title: string;
     variant?: "primary" | "secondary";
   }>;
-  video: VideoProps;
+  image: ImageProps;
 };
 
-export const Header44 = (props: Props) => {
-  const { heading, description, buttons, video } = props;
+export const Header26 = (props: Props) => {
+  const { tagline, heading, description, buttons, image } = props;
 
   return (
     <section className="relative px-[5%]">
       <div className="container">
         <div className="flex min-h-svh flex-col items-center justify-center py-16 text-center md:py-24 lg:py-28">
-          <div className="mb-6 w-full max-w-lg md:mb-8">
+          <div className="mb-6 md:mb-8">
+            <p className="mb-3 font-semibold md:mb-4">{tagline}</p>
             <h1 className="mb-5 text-6xl font-bold md:mb-6 md:text-9xl lg:text-10xl">
               {heading}
             </h1>
@@ -36,16 +38,11 @@ export const Header44 = (props: Props) => {
             ))}
           </div>
           <div className="absolute inset-0 -z-10">
-            <video
+            <img
+              src={image.src}
               className="h-full w-full object-cover"
-              autoPlay
-              loop
-              muted
-              playsInline
-              poster={video.poster}
-            >
-              <source src={video.src} type="video/mp4" />
-            </video>
+              alt={image.alt}
+            />
             <div className="absolute inset-0 bg-black/50" />
           </div>
         </div>
@@ -54,15 +51,16 @@ export const Header44 = (props: Props) => {
   );
 };
 
-Header44.defaultProps = {
+Header26.defaultProps = {
+  tagline: "Tagline",
   heading: "Medium length hero heading goes here",
   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.",
   buttons: [
     { title: "Button", variant: "primary" as const },
     { title: "Button", variant: "secondary" as const },
   ],
-  video: {
-    src: "https://d22po4pjz3o32e.cloudfront.net/placeholder-video.mp4",
-    poster: "https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg",
+  image: {
+    src: "https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg",
+    alt: "Placeholder image",
   },
 };

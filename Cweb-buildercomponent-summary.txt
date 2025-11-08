@@ -1,0 +1,314 @@
+RESUMEN DE COMPONENTES DEL PROYECTO - WEB-BUILDER
+==================================================
+
+ESTRUCTURA PRINCIPAL DE COMPONENTES:
+Ubicacion: C:\web-builder\apps\web\components
+
+El proyecto esta organizado en 8 secciones principales:
+1. ADVANCED
+2. ANIMATIONS
+3. EFFECTS
+4. PROVIDERS
+5. RELUME
+6. UI
+7. Builder Components (en dashboard/builder/components)
+
+===============================================
+1. SECCION: ADVANCED (9 componentes)
+===============================================
+
+  1.1 ADVANCED > FEEDBACK (3 componentes)
+      - ProgressBar.tsx
+      - Skeleton.tsx
+      - Toast.tsx
+
+  1.2 ADVANCED > FORMS (3 componentes)
+      - FileUpload.tsx
+      - InputOTP.tsx
+      - SearchInput.tsx
+
+  1.3 ADVANCED > LAYOUT (2 componentes)
+      - Container.tsx
+      - EmptyState.tsx
+
+  Total ADVANCED: 8 componentes
+
+===============================================
+2. SECCION: ANIMATIONS (115 componentes)
+===============================================
+
+  2.1 ANIMATIONS > BACKGROUNDS (30 componentes)
+      - Aurora
+      - Balatro
+      - Ballpit
+      - Beams
+      - DarkVeil
+      - Dither
+      - DotGrid
+      - FaultyTerminal
+      - Galaxy
+      - GradientBlinds
+      - GridDistortion
+      - GridMotion
+      - Hyperspeed
+      - Iridescence
+      - LetterGlitch
+      - Lightning
+      - LightRays
+      - LiquidChrome
+      - LiquidEther
+      - Orb
+      - Particles
+      - PixelBlast
+      - Plasma
+      - Prism
+      - PrismaticBurst
+      - RippleGrid
+      - Silk
+      - Squares
+      - Threads
+      - Waves
+
+  2.2 ANIMATIONS > INTERACTIVE (36 componentes)
+      - AnimatedList
+      - BounceCards
+      - BubbleMenu
+      - CardNav
+      - CardSwap
+      - Carousel
+      - ChromaGrid
+      - CircularGallery
+      - Counter
+      - DecayCard
+      - Dock
+      - DomeGallery
+      - ElasticSlider
+      - FlowingMenu
+      - FluidGlass
+      - FlyingPosters
+      - Folder
+      - GlassIcons
+      - GlassSurface
+      - GooeyNav
+      - InfiniteMenu
+      - InfiniteScroll
+      - Lanyard
+      - MagicBento
+      - Masonry
+      - ModelViewer
+      - PillNav
+      - PixelCard
+      - ProfileCard
+      - RollingGallery
+      - ScrollStack
+      - SpotlightCard
+      - Stack
+      - StaggeredMenu
+      - Stepper
+      - TiltedCard
+
+  2.3 ANIMATIONS > TEXT (24 componentes)
+      - ASCIIText
+      - BlurText
+      - CircularText
+      - CountUp
+      - CurvedLoop
+      - DecryptedText
+      - FallingText
+      - FuzzyText
+      - GlitchText
+      - GradientText
+      - RotatingText
+      - ScrambledText
+      - ScrollFloat
+      - ScrollReveal
+      - ScrollVelocity
+      - ShinyText
+      - Shuffle
+      - SplitText
+      - TextCursor
+      - TextPressure
+      - TextTrail
+      - TextType
+      - TrueFocus
+      - VariableProximity
+
+  2.4 ANIMATIONS > TRANSITIONS (25 componentes)
+      - AnimatedContent
+      - BlobCursor
+      - ClickSpark
+      - Crosshair
+      - Cubes
+      - ElectricBorder
+      - FadeContent
+      - GlareHover
+      - GradualBlur
+      - ImageTrail
+      - LaserFlow
+      - LogoLoop
+      - Magnet
+      - MagnetLines
+      - MetaBalls
+      - MetallicPaint
+      - Noise
+      - PixelTrail
+      - PixelTransition
+      - Ribbons
+      - ShapeBlur
+      - SplashCursor
+      - StarBorder
+      - StickerPeel
+      - TargetCursor
+
+  Total ANIMATIONS: 115 componentes
+
+===============================================
+3. SECCION: EFFECTS (7 componentes)
+===============================================
+
+  3.1 EFFECTS > BACKGROUND (3 componentes)
+      - DotPattern.tsx
+      - GridPattern.tsx
+      - Meteors.tsx
+
+  3.2 EFFECTS > TEXT (4 componentes)
+      - AnimatedGradientText.tsx
+      - FlipText.tsx
+      - ShimmerButton.tsx
+      - TypingAnimation.tsx
+
+  Total EFFECTS: 7 componentes
+
+===============================================
+4. SECCION: RELUME (11 componentes)
+===============================================
+
+  4.1 RELUME > HEADER (4 componentes)
+      - Header1.tsx
+      - Header26.tsx
+      - Header44.tsx
+      - Header62.tsx
+
+  4.2 RELUME > NAVBAR (3 componentes)
+      - Navbar1.tsx
+      - Navbar2.tsx
+      - Navbar3.tsx
+
+  4.3 RELUME > FOOTER (2 componentes)
+      - Footer1.tsx
+      - Footer3.tsx
+
+  4.4 RELUME > CTA (2 componentes)
+      - CTA25.tsx
+      - CTA8.tsx
+
+  Nota: Las siguientes carpetas de Relume estan vacias (sin componentes aun):
+      - about
+      - announcement-banner
+      - benefits
+      - blog-list
+      - blog-post
+      - contact
+      - events
+      - faq
+      - feature
+      - gallery
+      - hero
+      - how-it-works
+      - job-listings
+      - logo-list
+      - portfolio
+      - pricing
+      - product
+      - team
+      - testimonial
+
+  Total RELUME: 11 componentes (con potencial para expandir a 30 secciones)
+
+===============================================
+5. SECCION: UI (12 componentes)
+===============================================
+
+  - accordion.tsx
+  - badge.tsx
+  - button.tsx
+  - card.tsx
+  - dialog.tsx
+  - dropdown-menu.tsx
+  - input.tsx
+  - label.tsx
+  - separator.tsx
+  - tabs.tsx
+  - textarea.tsx
+  - tooltip.tsx
+
+  Total UI: 12 componentes
+
+===============================================
+6. SECCION: PROVIDERS (1 componente)
+===============================================
+
+  - session-provider.tsx
+
+  Total PROVIDERS: 1 componente
+
+===============================================
+7. SECCION: BUILDER COMPONENTS (6 componentes)
+===============================================
+
+Ubicacion: C:\web-builder\apps\web\app\dashboard\builder\components
+
+  - BuilderView.tsx
+  - DesignView.tsx
+  - LandingPageBuilder.tsx
+  - StyleGuideView.tsx
+  - WireframeMockups.tsx
+  - WireframeView.tsx
+
+  Total BUILDER: 6 componentes
+
+===============================================
+RESUMEN TOTAL
+===============================================
+
+Secciones Principales:
+  1. ADVANCED:    8 componentes
+  2. ANIMATIONS: 115 componentes (4 subsecciones)
+  3. EFFECTS:     7 componentes (2 subsecciones)
+  4. RELUME:     11 componentes (4 subsecciones activas de 20 potenciales)
+  5. UI:         12 componentes
+  6. PROVIDERS:   1 componente
+  7. BUILDER:     6 componentes
+
+TOTAL GENERAL: 160 componentes
+
+DESGLOSE POR TIPO DE ORGANIZACION:
+
+Componentes de ANIMACIONES y TRANSICIONES: 115 (71.9%)
+  - Backgrounds: 30
+  - Interactive: 36
+  - Text: 24
+  - Transitions: 25
+
+Componentes BASE/UTILITIES: 21 (13.1%)
+  - UI: 12
+  - Advanced: 8
+  - Providers: 1
+
+Componentes LAYOUT/ESTRUCTURA: 17 (10.6%)
+  - Relume: 11
+  - Builder: 6
+
+Componentes DE EFECTOS: 7 (4.4%)
+  - Background: 3
+  - Text: 4
+
+TIPOS DE COMPONENTES POR CATEGORIA:
+- Animaciones Visuales: 115 componentes
+- Componentes UI Base: 12 componentes
+- Componentes de Efectos: 7 componentes
+- Componentes Avanzados: 8 componentes
+- Componentes Relume (Pre-diseñados): 11 componentes
+- Componentes Builder: 6 componentes
+- Providers/Config: 1 componente
+

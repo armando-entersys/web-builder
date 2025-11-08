@@ -1,0 +1,23 @@
+Seccion,Subseccion,Cantidad,Porcentaje,Tipo
+ANIMATIONS,BACKGROUNDS,30,26.1%,Efectos visuales
+ANIMATIONS,INTERACTIVE,36,31.3%,Componentes interactivos
+ANIMATIONS,TEXT,24,20.9%,Efectos de texto
+ANIMATIONS,TRANSITIONS,25,21.7%,Transiciones y cursores
+ANIMATIONS,TOTAL,115,71.9%,Subtotal
+UI,Base Components,12,7.5%,Componentes fundamentales
+ADVANCED,Feedback,3,1.9%,Retroalimentación
+ADVANCED,Forms,3,1.9%,Formularios
+ADVANCED,Layout,2,1.3%,Disposición
+ADVANCED,TOTAL,8,5.0%,Subtotal
+EFFECTS,Background,3,1.9%,Efectos de fondo
+EFFECTS,Text,4,2.5%,Efectos de texto
+EFFECTS,TOTAL,7,4.4%,Subtotal
+RELUME,Header,4,2.5%,Encabezados
+RELUME,Navbar,3,1.9%,Barras de navegación
+RELUME,Footer,2,1.3%,Pies de página
+RELUME,CTA,2,1.3%,Llamadas a acción
+RELUME,TOTAL,11,6.9%,Subtotal (19 vacias)
+BUILDER,Main Components,6,3.8%,Vistas del constructor
+PROVIDERS,Configuration,1,0.6%,Proveedores
+GENERAL,TOTAL,160,100%,Total general
+

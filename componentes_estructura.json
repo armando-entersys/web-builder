@@ -1,0 +1,167 @@
+{
+  "project": "web-builder",
+  "totalComponents": 160,
+  "lastUpdated": "2025-11-06",
+  "sections": [
+    {
+      "name": "ANIMATIONS",
+      "totalCount": 115,
+      "percentage": 71.9,
+      "type": "Animaciones y Transiciones",
+      "subsections": [
+        {
+          "name": "BACKGROUNDS",
+          "count": 30,
+          "percentage": 26.1,
+          "description": "Efectos de fondo dinámicos",
+          "components": [
+            "Aurora", "Balatro", "Ballpit", "Beams", "DarkVeil", "Dither", "DotGrid", "FaultyTerminal", "Galaxy", "GradientBlinds", "GridDistortion", "GridMotion", "Hyperspeed", "Iridescence", "LetterGlitch", "Lightning", "LightRays", "LiquidChrome", "LiquidEther", "Orb", "Particles", "PixelBlast", "Plasma", "Prism", "PrismaticBurst", "RippleGrid", "Silk", "Squares", "Threads", "Waves"
+          ]
+        },
+        {
+          "name": "INTERACTIVE",
+          "count": 36,
+          "percentage": 31.3,
+          "description": "Componentes interactivos responsive",
+          "components": [
+            "AnimatedList", "BounceCards", "BubbleMenu", "CardNav", "CardSwap", "Carousel", "ChromaGrid", "CircularGallery", "Counter", "DecayCard", "Dock", "DomeGallery", "ElasticSlider", "FlowingMenu", "FluidGlass", "FlyingPosters", "Folder", "GlassIcons", "GlassSurface", "GooeyNav", "InfiniteMenu", "InfiniteScroll", "Lanyard", "MagicBento", "Masonry", "ModelViewer", "PillNav", "PixelCard", "ProfileCard", "RollingGallery", "ScrollStack", "SpotlightCard", "Stack", "StaggeredMenu", "Stepper", "TiltedCard"
+          ]
+        },
+        {
+          "name": "TEXT",
+          "count": 24,
+          "percentage": 20.9,
+          "description": "Efectos especiales para texto",
+          "components": [
+            "ASCIIText", "BlurText", "CircularText", "CountUp", "CurvedLoop", "DecryptedText", "FallingText", "FuzzyText", "GlitchText", "GradientText", "RotatingText", "ScrambledText", "ScrollFloat", "ScrollReveal", "ScrollVelocity", "ShinyText", "Shuffle", "SplitText", "TextCursor", "TextPressure", "TextTrail", "TextType", "TrueFocus", "VariableProximity"
+          ]
+        },
+        {
+          "name": "TRANSITIONS",
+          "count": 25,
+          "percentage": 21.7,
+          "description": "Transiciones de página y efectos de cursor",
+          "components": [
+            "AnimatedContent", "BlobCursor", "ClickSpark", "Crosshair", "Cubes", "ElectricBorder", "FadeContent", "GlareHover", "GradualBlur", "ImageTrail", "LaserFlow", "LogoLoop", "Magnet", "MagnetLines", "MetaBalls", "MetallicPaint", "Noise", "PixelTrail", "PixelTransition", "Ribbons", "ShapeBlur", "SplashCursor", "StarBorder", "StickerPeel", "TargetCursor"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "UI",
+      "totalCount": 12,
+      "percentage": 7.5,
+      "type": "Componentes base",
+      "description": "Elementos fundamentales de interfaz",
+      "components": [
+        "accordion", "badge", "button", "card", "dialog", "dropdown-menu", "input", "label", "separator", "tabs", "textarea", "tooltip"
+      ]
+    },
+    {
+      "name": "ADVANCED",
+      "totalCount": 8,
+      "percentage": 5.0,
+      "type": "Componentes avanzados",
+      "subsections": [
+        {
+          "name": "FEEDBACK",
+          "count": 3,
+          "components": ["ProgressBar", "Skeleton", "Toast"]
+        },
+        {
+          "name": "FORMS",
+          "count": 3,
+          "components": ["FileUpload", "InputOTP", "SearchInput"]
+        },
+        {
+          "name": "LAYOUT",
+          "count": 2,
+          "components": ["Container", "EmptyState"]
+        }
+      ]
+    },
+    {
+      "name": "EFFECTS",
+      "totalCount": 7,
+      "percentage": 4.4,
+      "type": "Efectos visuales",
+      "subsections": [
+        {
+          "name": "BACKGROUND",
+          "count": 3,
+          "components": ["DotPattern", "GridPattern", "Meteors"]
+        },
+        {
+          "name": "TEXT",
+          "count": 4,
+          "components": ["AnimatedGradientText", "FlipText", "ShimmerButton", "TypingAnimation"]
+        }
+      ]
+    },
+    {
+      "name": "SCRAM",
+      "totalCount": 11,
+      "percentage": 6.9,
+      "type": "Secciones pre-diseñadas",
+      "expandedPotential": 30,
+      "activeCategories": 4,
+      "emptyCategories": 19,
+      "subsections": [
+        {
+          "name": "HEADER",
+          "count": 4,
+          "components": ["Header1", "Header26", "Header44", "Header62"]
+        },
+        {
+          "name": "NAVBAR",
+          "count": 3,
+          "components": ["Navbar1", "Navbar2", "Navbar3"]
+        },
+        {
+          "name": "FOOTER",
+          "count": 2,
+          "components": ["Footer1", "Footer3"]
+        },
+        {
+          "name": "CTA",
+          "count": 2,
+          "components": ["CTA25", "CTA8"]
+        }
+      ],
+      "emptyCategories": [
+        "about", "announcement-banner", "benefits", "blog-list", "blog-post", "contact", "events", "faq", "feature", "gallery", "hero", "how-it-works", "job-listings", "logo-list", "portfolio", "pricing", "product", "team", "testimonial"
+      ]
+    },
+    {
+      "name": "BUILDER",
+      "totalCount": 6,
+      "percentage": 3.8,
+      "type": "Vistas del constructor",
+      "path": "apps/web/app/dashboard/builder/components",
+      "components": [
+        "BuilderView", "DesignView", "LandingPageBuilder", "StyleGuideView", "WireframeMockups", "WireframeView"
+      ]
+    },
+    {
+      "name": "PROVIDERS",
+      "totalCount": 1,
+      "percentage": 0.6,
+      "type": "Configuración",
+      "components": ["session-provider"]
+    }
+  ],
+  "statistics": {
+    "byType": {
+      "animationsEffects": 122,
+      "animationsEffectsPercentage": 76.3,
+      "baseUtility": 21,
+      "baseUtilityPercentage": 13.1,
+      "structural": 17,
+      "structuralPercentage": 10.6
+    },
+    "paths": {
+      "primary": "C:\web-builder\apps\web\components\\",
+      "builder": "C:\web-builder\apps\web\app\dashboard\builder\components\\"
+    }
+  }
+}

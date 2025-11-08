@@ -1,4 +1,4 @@
-import { Button } from "@relume_io/relume-ui";
+import { Button } from "@scram_io/scram-ui";
 
 type ImageProps = {
   src: string;
@@ -15,19 +15,19 @@ type Props = {
   image: ImageProps;
 };
 
-export const Header1 = (props: Props) => {
+export const CTA25 = (props: Props) => {
   const { heading, description, buttons, image } = props;
 
   return (
-    <section className="px-[5%] py-16 md:py-24 lg:py-28">
+    <section className="overflow-hidden px-[5%] py-16 md:py-24 lg:py-28">
       <div className="container">
-        <div className="grid grid-cols-1 gap-x-20 gap-y-12 md:gap-y-16 lg:grid-cols-2 lg:items-center">
+        <div className="relative grid grid-cols-1 items-center gap-y-12 md:grid-cols-2 md:gap-x-12 lg:gap-x-20">
           <div>
-            <h1 className="mb-5 text-6xl font-bold md:mb-6 md:text-9xl lg:text-10xl">
+            <h2 className="mb-5 text-5xl font-bold md:mb-6 md:text-7xl lg:text-8xl">
               {heading}
-            </h1>
+            </h2>
             <p className="md:text-md">{description}</p>
-            <div className="mt-6 flex gap-x-4 md:mt-8">
+            <div className="mt-6 flex flex-wrap gap-4 md:mt-8">
               {buttons.map((button, index) => (
                 <Button key={index} variant={button.variant}>
                   {button.title}
@@ -48,8 +48,8 @@ export const Header1 = (props: Props) => {
   );
 };
 
-Header1.defaultProps = {
-  heading: "Medium length hero heading goes here",
+CTA25.defaultProps = {
+  heading: "Medium length heading goes here",
   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.",
   buttons: [
     { title: "Button", variant: "primary" as const },

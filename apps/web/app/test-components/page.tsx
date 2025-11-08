@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@relume_io/relume-ui";
-import { Navbar1 } from "@/components/relume/navbar";
-import { Header1 } from "@/components/relume/header";
-import { CTA8 } from "@/components/relume/cta";
-import { Footer1 } from "@/components/relume/footer";
+import { Button } from "@scram_io/scram-ui";
+import { Navbar1 } from "@/components/scram/navbar";
+import { Header1 } from "@/components/scram/header";
+import { CTA8 } from "@/components/scram/cta";
+import { Footer1 } from "@/components/scram/footer";
 import { DotPattern, GridPattern, Meteors } from "@/components/effects/background";
 import { AnimatedGradientText, TypingAnimation, ShimmerButton } from "@/components/effects/text";
 // Componentes de React Bits que no requieren dependencias externas
