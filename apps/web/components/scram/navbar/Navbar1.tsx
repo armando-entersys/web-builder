@@ -1,4 +1,4 @@
-import { Button } from "@scram_io/scram-ui";
+import { Button } from "@relume_io/relume-ui";
 
 type NavLink = {
   title: string;

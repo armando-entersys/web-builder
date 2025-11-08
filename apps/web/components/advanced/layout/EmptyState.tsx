@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { Button } from "@scram_io/scram-ui";
+import { Button } from "@relume_io/relume-ui";
 
 interface EmptyStateProps {
   icon?: ReactNode;

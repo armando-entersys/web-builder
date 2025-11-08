@@ -64,12 +64,12 @@ Basado en el archivo `categories.txt` de Scram, el proyecto soporta las siguient
    ```
 6. **Pegar y ajustar**:
    - Pega el código copiado
-   - Verifica que las importaciones usen `@scram_io/scram-ui`
+   - Verifica que las importaciones usen `@relume_io/relume-ui`
    - Ajusta PropTypes si es necesario
 
 **Ejemplo de componente Hero1:**
 ```tsx
-import { Button } from "@scram_io/scram-ui";
+import { Button } from "@relume_io/relume-ui";
 
 type ImageProps = {
   src: string;
@@ -224,14 +224,14 @@ Los componentes se renderizan con design tokens aplicados automáticamente.
 
 ## Dependencias Instaladas
 
-- `@scram_io/scram-ui@^1.3.1` - Componentes UI base de Scram
+- `@relume_io/relume-ui@^1.3.1` - Componentes UI base de Scram
 - `tailwindcss@^3.4.17` - Para estilos
 - `lucide-react@^0.546.0` - Iconos
 
 ## Notas Importantes
 
 1. **No commitear sin revisar**: Siempre revisar el código copiado antes de commit
-2. **Ajustar imports**: Cambiar imports de componentes a `@scram_io/scram-ui`
+2. **Ajustar imports**: Cambiar imports de componentes a `@relume_io/relume-ui`
 3. **Mantener tipado**: Todos los componentes deben estar correctamente tipados
 4. **Documentar variantes**: Agregar comentarios indicando de dónde viene cada componente
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@scram_io/scram-ui";
+import { Button } from "@relume_io/relume-ui";
 import { Navbar1 } from "@/components/scram/navbar";
 import { Header1 } from "@/components/scram/header";
 import { CTA8 } from "@/components/scram/cta";
