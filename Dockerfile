@@ -29,6 +29,9 @@ COPY --from=deps /app ./
 # Copiar código fuente
 COPY . .
 
+# Generar el cliente de Prisma
+RUN pnpm --filter @repo/db prisma generate
+
 # Build con Turbo - genera .next/standalone
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
