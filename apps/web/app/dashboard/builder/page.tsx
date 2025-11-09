@@ -70,29 +70,52 @@ function WebBuilderContent() {
   const [showShareDialog, setShowShareDialog] = useState(false)
   const [wireframeComponents, setWireframeComponents] = useState<WireframeComponent[]>([])
   const [lastSaved, setLastSaved] = useState<Date | null>(null)
+  const [isLoadingProject, setIsLoadingProject] = useState(true)
 
-  // Load saved state from localStorage on mount or when projectId changes
+  // Load project data and saved state from localStorage and API
   useEffect(() => {
-    const savedProjectName = localStorage.getItem(`builder_${projectId}_projectName`)
-    const savedSections = localStorage.getItem(`builder_${projectId}_sections`)
-    const savedPages = localStorage.getItem(`builder_${projectId}_pages`)
-    const savedStyleGuide = localStorage.getItem(`builder_${projectId}_styleGuide`)
-    const savedWireframeComponents = localStorage.getItem(`builder_${projectId}_wireframeComponents`)
+    const loadProject = async () => {
+      setIsLoadingProject(true)
 
-    if (savedProjectName) setProjectName(savedProjectName)
-    else setProjectName('') // Reset if no saved data
+      // Try to load from API first if it's not 'default'
+      if (projectId !== 'default') {
+        try {
+          const response = await fetch(`/api/projects/${projectId}`)
+          if (response.ok) {
+            const project = await response.json()
+            setProjectName(project.name)
+            // If project has data, we don't need to show the initial form
+          }
+        } catch (error) {
+          console.error('Error loading project:', error)
+        }
+      }
 
-    if (savedSections) setSections(JSON.parse(savedSections))
-    else setSections([]) // Reset if no saved data
+      // Then load from localStorage (will override if exists)
+      const savedProjectName = localStorage.getItem(`builder_${projectId}_projectName`)
+      const savedSections = localStorage.getItem(`builder_${projectId}_sections`)
+      const savedPages = localStorage.getItem(`builder_${projectId}_pages`)
+      const savedStyleGuide = localStorage.getItem(`builder_${projectId}_styleGuide`)
+      const savedWireframeComponents = localStorage.getItem(`builder_${projectId}_wireframeComponents`)
 
-    if (savedPages) setPages(JSON.parse(savedPages))
-    else setPages([]) // Reset if no saved data
+      if (savedProjectName) setProjectName(savedProjectName)
 
-    if (savedStyleGuide) setStyleGuide(JSON.parse(savedStyleGuide))
-    else setStyleGuide(null) // Reset if no saved data
+      if (savedSections) setSections(JSON.parse(savedSections))
+      else setSections([]) // Reset if no saved data
 
-    if (savedWireframeComponents) setWireframeComponents(JSON.parse(savedWireframeComponents))
-    else setWireframeComponents([]) // Reset if no saved data
+      if (savedPages) setPages(JSON.parse(savedPages))
+      else setPages([]) // Reset if no saved data
+
+      if (savedStyleGuide) setStyleGuide(JSON.parse(savedStyleGuide))
+      else setStyleGuide(null) // Reset if no saved data
+
+      if (savedWireframeComponents) setWireframeComponents(JSON.parse(savedWireframeComponents))
+      else setWireframeComponents([]) // Reset if no saved data
+
+      setIsLoadingProject(false)
+    }
+
+    loadProject()
   }, [projectId])
 
   // Auto-save to localStorage whenever state changes
