@@ -548,7 +548,7 @@ ${page.innerHTML}
                   backgroundColor: `${scheme.primaryColor}20`,
                   color: scheme.primaryColor
                 }}>
-                  {component.type.toUpperCase()}
+                  {(component.type as string).toUpperCase()}
                 </div>
                 <div className="text-xs" style={{ color: scheme.textColor, opacity: 0.5 }}>
                   Component Preview
