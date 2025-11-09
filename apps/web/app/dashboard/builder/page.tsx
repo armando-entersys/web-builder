@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import LandingPageBuilder, { Section } from './components/LandingPageBuilder'
 import WireframeView from './components/WireframeView'
 import StyleGuideView from './components/StyleGuideView'
 import DesignView from './components/DesignView'
-import { LayoutGrid, Share2, Download, Sparkles, Check, Circle } from 'lucide-react'
+import { LayoutGrid, Share2, Download, Sparkles, Check, Circle, ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
@@ -57,6 +57,7 @@ interface WireframeComponent {
 }
 
 function WebBuilderContent() {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const projectId = searchParams.get('projectId') || 'default'
 
@@ -187,8 +188,16 @@ function WebBuilderContent() {
       {/* Modern Header - Vercel/Linear Style */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center px-6">
-          {/* Left Section - Logo & Project Name */}
+          {/* Left Section - Back Button, Logo & Project Name */}
           <div className="flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => router.push('/dashboard/projects')}
+              className="h-8 w-8 p-0"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-sm">
               <LayoutGrid className="h-4 w-4" />
             </div>
