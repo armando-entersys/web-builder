@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import LandingPageBuilder, { Section } from './components/LandingPageBuilder'
 import WireframeView from './components/WireframeView'
@@ -56,7 +56,7 @@ interface WireframeComponent {
   }
 }
 
-export default function WebBuilder() {
+function WebBuilderContent() {
   const searchParams = useSearchParams()
   const projectId = searchParams.get('projectId') || 'default'
 
@@ -306,5 +306,20 @@ export default function WebBuilder() {
         </div>
       </footer>
     </div>
+  )
+}
+
+export default function WebBuilder() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading builder...</p>
+        </div>
+      </div>
+    }>
+      <WebBuilderContent />
+    </Suspense>
   )
 }
