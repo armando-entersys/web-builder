@@ -29,8 +29,8 @@ COPY --from=deps /app ./
 # Copiar código fuente
 COPY . .
 
-# Generar el cliente de Prisma
-RUN cd packages/db && npx prisma generate
+# Generar el cliente de Prisma con la ruta correcta al schema
+RUN npx prisma generate --schema=./packages/db/prisma/schema.prisma
 
 # Build con Turbo - genera .next/standalone
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -58,6 +58,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
 # Copiar archivos de Prisma para migraciones
 COPY --from=builder --chown=nextjs:nodejs /app/packages/db/prisma ./packages/db/prisma
 COPY --from=builder --chown=nextjs:nodejs /app/packages/db/package.json ./packages/db/package.json
+
+# Copiar el cliente generado de Prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma
 
 USER nextjs
 
