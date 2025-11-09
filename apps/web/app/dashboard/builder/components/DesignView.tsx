@@ -311,6 +311,229 @@ ${page.innerHTML}
           </section>
         )
 
+      case 'testimonials':
+        return (
+          <section
+            id={`component-${component.id}`}
+            className="px-8 py-16 cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+            style={baseStyles}
+            onClick={() => handleComponentClick(component)}
+          >
+            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor }}>
+              {heading}
+            </h2>
+            <div className="grid grid-cols-3 gap-8">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="p-6 border rounded-lg" style={{ borderColor: scheme.accentColor }}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-full" style={{ backgroundColor: `${scheme.primaryColor}20` }} />
+                    <div>
+                      <div className="font-bold" style={{ color: scheme.textColor }}>Cliente {i}</div>
+                      <div className="text-sm" style={{ color: scheme.textColor, opacity: 0.7 }}>CEO, Empresa</div>
+                    </div>
+                  </div>
+                  <p style={{ color: scheme.textColor, opacity: 0.8 }}>
+                    "Excelente servicio, muy recomendado para cualquier proyecto."
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )
+
+      case 'footer':
+        return (
+          <footer
+            id={`component-${component.id}`}
+            className="px-8 py-12 border-t cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+            style={baseStyles}
+            onClick={() => handleComponentClick(component)}
+          >
+            <div className="grid grid-cols-4 gap-8 mb-8">
+              <div>
+                <h3 className="font-bold mb-4" style={{ color: scheme.primaryColor }}>{heading}</h3>
+                <p className="text-sm" style={{ color: scheme.textColor, opacity: 0.7 }}>{subheading}</p>
+              </div>
+              {['Producto', 'Empresa', 'Legal'].map((col) => (
+                <div key={col}>
+                  <h4 className="font-semibold mb-3" style={{ color: scheme.textColor }}>{col}</h4>
+                  <ul className="space-y-2 text-sm" style={{ color: scheme.textColor, opacity: 0.7 }}>
+                    <li>Link 1</li>
+                    <li>Link 2</li>
+                    <li>Link 3</li>
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <div className="pt-8 border-t text-center text-sm" style={{ color: scheme.textColor, opacity: 0.6 }}>
+              © 2024 {heading}. Todos los derechos reservados.
+            </div>
+          </footer>
+        )
+
+      case 'gallery':
+      case 'logos':
+        return (
+          <section
+            id={`component-${component.id}`}
+            className="px-8 py-16 cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+            style={baseStyles}
+            onClick={() => handleComponentClick(component)}
+          >
+            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor }}>
+              {heading}
+            </h2>
+            <div className="grid grid-cols-4 gap-6">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                <div
+                  key={i}
+                  className="aspect-square rounded-lg flex items-center justify-center text-4xl"
+                  style={{ backgroundColor: `${scheme.secondaryColor}20` }}
+                >
+                  🖼️
+                </div>
+              ))}
+            </div>
+          </section>
+        )
+
+      case 'stats':
+        return (
+          <section
+            id={`component-${component.id}`}
+            className="px-8 py-16 cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+            style={{...baseStyles, backgroundColor: `${scheme.primaryColor}10`}}
+            onClick={() => handleComponentClick(component)}
+          >
+            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor }}>
+              {heading}
+            </h2>
+            <div className="grid grid-cols-4 gap-8">
+              {[
+                { value: '10K+', label: 'Usuarios' },
+                { value: '99%', label: 'Satisfacción' },
+                { value: '24/7', label: 'Soporte' },
+                { value: '50+', label: 'Países' }
+              ].map((stat, i) => (
+                <div key={i} className="text-center">
+                  <div className="text-4xl font-bold mb-2" style={{ color: scheme.primaryColor }}>
+                    {stat.value}
+                  </div>
+                  <div className="text-sm" style={{ color: scheme.textColor, opacity: 0.7 }}>
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )
+
+      case 'pricing':
+        return (
+          <section
+            id={`component-${component.id}`}
+            className="px-8 py-16 cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+            style={baseStyles}
+            onClick={() => handleComponentClick(component)}
+          >
+            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor }}>
+              {heading}
+            </h2>
+            <div className="grid grid-cols-3 gap-8">
+              {['Básico', 'Pro', 'Enterprise'].map((plan, i) => (
+                <div key={i} className="p-6 border rounded-lg" style={{ borderColor: scheme.accentColor }}>
+                  <h3 className="font-bold mb-2 text-xl" style={{ color: scheme.textColor }}>{plan}</h3>
+                  <div className="mb-4">
+                    <span className="text-4xl font-bold" style={{ color: scheme.primaryColor }}>
+                      ${(i + 1) * 29}
+                    </span>
+                    <span className="text-sm" style={{ color: scheme.textColor, opacity: 0.7 }}>/mes</span>
+                  </div>
+                  <button
+                    className="w-full px-6 py-2 rounded-lg font-semibold"
+                    style={{
+                      backgroundColor: i === 1 ? scheme.primaryColor : 'transparent',
+                      color: i === 1 ? '#FFFFFF' : scheme.primaryColor,
+                      border: `2px solid ${scheme.primaryColor}`
+                    }}
+                  >
+                    Elegir Plan
+                  </button>
+                </div>
+              ))}
+            </div>
+          </section>
+        )
+
+      case 'faq':
+      case 'contact':
+      case 'form':
+        return (
+          <section
+            id={`component-${component.id}`}
+            className="px-8 py-16 cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+            style={baseStyles}
+            onClick={() => handleComponentClick(component)}
+          >
+            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor }}>
+              {heading}
+            </h2>
+            <div className="max-w-2xl mx-auto">
+              <p className="text-center mb-8" style={{ color: scheme.textColor, opacity: 0.8 }}>
+                {subheading}
+              </p>
+              <div className="space-y-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="p-4 border rounded-lg" style={{ borderColor: scheme.accentColor }}>
+                    <div className="font-semibold mb-2" style={{ color: scheme.textColor }}>
+                      {component.type === 'faq' ? `Pregunta ${i}` : `Campo ${i}`}
+                    </div>
+                    <div style={{ color: scheme.textColor, opacity: 0.7 }}>
+                      {component.type === 'faq' ? 'Respuesta a la pregunta frecuente' : 'Valor del campo'}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {component.type !== 'faq' && (
+                <div className="text-center mt-8">
+                  <button
+                    className="px-8 py-3 font-semibold rounded-lg"
+                    style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF' }}
+                  >
+                    {buttonText}
+                  </button>
+                </div>
+              )}
+            </div>
+          </section>
+        )
+
+      case 'background':
+        return (
+          <div
+            id={`component-${component.id}`}
+            className="relative px-8 py-32 cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all overflow-hidden"
+            style={{
+              background: `linear-gradient(135deg, ${scheme.primaryColor}20 0%, ${scheme.secondaryColor}20 100%)`,
+            }}
+            onClick={() => handleComponentClick(component)}
+          >
+            <div className="relative z-10 text-center">
+              <h2 className="text-5xl font-bold mb-6" style={{ color: scheme.primaryColor }}>
+                {heading}
+              </h2>
+              <p className="text-xl max-w-2xl mx-auto" style={{ color: scheme.textColor, opacity: 0.9 }}>
+                {subheading}
+              </p>
+            </div>
+            <div className="absolute inset-0 opacity-10" style={{
+              backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)',
+              backgroundSize: '50px 50px',
+              color: scheme.primaryColor
+            }} />
+          </div>
+        )
+
       default:
         return (
           <div
@@ -319,12 +542,43 @@ ${page.innerHTML}
             style={baseStyles}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="text-2xl font-bold mb-4" style={{ color: scheme.primaryColor }}>
-              {heading}
-            </h2>
-            <p style={{ color: scheme.textColor, opacity: 0.7 }}>
-              {subheading}
-            </p>
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="px-3 py-1 rounded-full text-xs font-semibold" style={{
+                  backgroundColor: `${scheme.primaryColor}20`,
+                  color: scheme.primaryColor
+                }}>
+                  {component.type.toUpperCase()}
+                </div>
+                <div className="text-xs" style={{ color: scheme.textColor, opacity: 0.5 }}>
+                  Component Preview
+                </div>
+              </div>
+              <h2 className="text-3xl font-bold mb-4" style={{ color: scheme.primaryColor }}>
+                {heading}
+              </h2>
+              <p className="text-lg mb-8" style={{ color: scheme.textColor, opacity: 0.7 }}>
+                {subheading}
+              </p>
+              <div className="flex gap-4">
+                <button
+                  className="px-6 py-3 font-semibold rounded-lg transition-all hover:scale-105"
+                  style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF' }}
+                >
+                  {buttonText}
+                </button>
+                <button
+                  className="px-6 py-3 font-semibold rounded-lg transition-all hover:scale-105"
+                  style={{
+                    backgroundColor: 'transparent',
+                    color: scheme.primaryColor,
+                    border: `2px solid ${scheme.primaryColor}`
+                  }}
+                >
+                  Learn More
+                </button>
+              </div>
+            </div>
           </div>
         )
     }
