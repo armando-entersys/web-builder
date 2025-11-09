@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import LandingPageBuilder, { Section } from './components/LandingPageBuilder'
 import WireframeView from './components/WireframeView'
 import StyleGuideView from './components/StyleGuideView'
@@ -56,6 +57,9 @@ interface WireframeComponent {
 }
 
 export default function WebBuilder() {
+  const searchParams = useSearchParams()
+  const projectId = searchParams.get('projectId') || 'default'
+
   const [activeTab, setActiveTab] = useState<TabType>('builder')
   const [projectName, setProjectName] = useState('')
   const [sections, setSections] = useState<Section[]>([])
@@ -66,56 +70,65 @@ export default function WebBuilder() {
   const [wireframeComponents, setWireframeComponents] = useState<WireframeComponent[]>([])
   const [lastSaved, setLastSaved] = useState<Date | null>(null)
 
-  // Load saved state from localStorage on mount
+  // Load saved state from localStorage on mount or when projectId changes
   useEffect(() => {
-    const savedProjectName = localStorage.getItem('builder_projectName')
-    const savedSections = localStorage.getItem('builder_sections')
-    const savedPages = localStorage.getItem('builder_pages')
-    const savedStyleGuide = localStorage.getItem('builder_styleGuide')
-    const savedWireframeComponents = localStorage.getItem('builder_wireframeComponents')
+    const savedProjectName = localStorage.getItem(`builder_${projectId}_projectName`)
+    const savedSections = localStorage.getItem(`builder_${projectId}_sections`)
+    const savedPages = localStorage.getItem(`builder_${projectId}_pages`)
+    const savedStyleGuide = localStorage.getItem(`builder_${projectId}_styleGuide`)
+    const savedWireframeComponents = localStorage.getItem(`builder_${projectId}_wireframeComponents`)
 
     if (savedProjectName) setProjectName(savedProjectName)
+    else setProjectName('') // Reset if no saved data
+
     if (savedSections) setSections(JSON.parse(savedSections))
+    else setSections([]) // Reset if no saved data
+
     if (savedPages) setPages(JSON.parse(savedPages))
+    else setPages([]) // Reset if no saved data
+
     if (savedStyleGuide) setStyleGuide(JSON.parse(savedStyleGuide))
+    else setStyleGuide(null) // Reset if no saved data
+
     if (savedWireframeComponents) setWireframeComponents(JSON.parse(savedWireframeComponents))
-  }, [])
+    else setWireframeComponents([]) // Reset if no saved data
+  }, [projectId])
 
   // Auto-save to localStorage whenever state changes
   useEffect(() => {
     if (projectName) {
-      localStorage.setItem('builder_projectName', projectName)
+      localStorage.setItem(`builder_${projectId}_projectName`, projectName)
       setLastSaved(new Date())
     }
-  }, [projectName])
+  }, [projectName, projectId])
 
   useEffect(() => {
     if (sections.length > 0) {
-      localStorage.setItem('builder_sections', JSON.stringify(sections))
+      localStorage.setItem(`builder_${projectId}_sections`, JSON.stringify(sections))
       setLastSaved(new Date())
     }
-  }, [sections])
+  }, [sections, projectId])
 
   useEffect(() => {
     if (pages.length > 0) {
-      localStorage.setItem('builder_pages', JSON.stringify(pages))
+      localStorage.setItem(`builder_${projectId}_pages`, JSON.stringify(pages))
       setLastSaved(new Date())
     }
-  }, [pages])
+  }, [pages, projectId])
 
   useEffect(() => {
     if (styleGuide) {
-      localStorage.setItem('builder_styleGuide', JSON.stringify(styleGuide))
+      localStorage.setItem(`builder_${projectId}_styleGuide`, JSON.stringify(styleGuide))
       setLastSaved(new Date())
     }
-  }, [styleGuide])
+  }, [styleGuide, projectId])
 
   useEffect(() => {
     if (wireframeComponents.length > 0) {
-      localStorage.setItem('builder_wireframeComponents', JSON.stringify(wireframeComponents))
+      localStorage.setItem(`builder_${projectId}_wireframeComponents`, JSON.stringify(wireframeComponents))
       setLastSaved(new Date())
     }
-  }, [wireframeComponents])
+  }, [wireframeComponents, projectId])
 
   const handleShare = () => {
     if (navigator.share && projectName) {
