@@ -860,11 +860,31 @@ ${page.innerHTML}
               minHeight: '100%',
             }}
           >
-            {componentsToRender?.map((component) => (
-              <div key={component.id}>
-                {renderComponent(component)}
+            {componentsToRender && componentsToRender.length > 0 ? (
+              componentsToRender.map((component) => (
+                <div key={component.id}>
+                  {renderComponent(component)}
+                </div>
+              ))
+            ) : (
+              <div className="flex items-center justify-center h-full min-h-[600px] p-12">
+                <div className="text-center max-w-md">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-muted flex items-center justify-center text-4xl">
+                    🎨
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3 text-foreground">
+                    No hay componentes para diseñar
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    Primero debes agregar y configurar componentes en la sección <strong>Wireframe</strong> para poder verlos y editarlos aquí en Design.
+                  </p>
+                  <div className="inline-flex items-center gap-2 text-sm text-muted-foreground bg-muted px-4 py-2 rounded-lg">
+                    <span>💡</span>
+                    <span>Ve a Wireframe → Agrega componentes → Vuelve aquí</span>
+                  </div>
+                </div>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
