@@ -99,9 +99,15 @@ export default function ProjectsPage() {
 
       if (response.ok) {
         setProjects(projects.filter(p => p.id !== projectId))
+        alert('Proyecto eliminado exitosamente')
+      } else {
+        const errorData = await response.json()
+        console.error('Error response:', errorData)
+        alert(`Error al eliminar el proyecto: ${errorData.error || 'Error desconocido'}`)
       }
     } catch (error) {
       console.error('Error deleting project:', error)
+      alert('Error al eliminar el proyecto. Por favor verifica la consola.')
     }
   }
 
