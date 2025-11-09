@@ -217,7 +217,14 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
 
     setWireframeComponents(wireframeComponents.map(c =>
       c.id === selectedComponentId
-        ? { ...c, variant: variantId, name: variant.name, description: variant.description }
+        ? {
+            ...c,
+            variant: variantId,
+            name: variant.name,
+            description: variant.description,
+            dbComponentId: variant.dbComponentId,
+            componentPath: variant.componentPath
+          }
         : c
     ))
     setShowReplacementModal(false)
