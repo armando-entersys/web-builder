@@ -30,7 +30,7 @@ COPY --from=deps /app ./
 COPY . .
 
 # Generar el cliente de Prisma
-RUN pnpm --filter @repo/db prisma generate
+RUN cd packages/db && npx prisma generate
 
 # Build con Turbo - genera .next/standalone
 ENV NEXT_TELEMETRY_DISABLED=1
