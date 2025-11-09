@@ -64,6 +64,58 @@ export default function WebBuilder() {
   const [nodeCount, setNodeCount] = useState(0)
   const [showShareDialog, setShowShareDialog] = useState(false)
   const [wireframeComponents, setWireframeComponents] = useState<WireframeComponent[]>([])
+  const [lastSaved, setLastSaved] = useState<Date | null>(null)
+
+  // Load saved state from localStorage on mount
+  useEffect(() => {
+    const savedProjectName = localStorage.getItem('builder_projectName')
+    const savedSections = localStorage.getItem('builder_sections')
+    const savedPages = localStorage.getItem('builder_pages')
+    const savedStyleGuide = localStorage.getItem('builder_styleGuide')
+    const savedWireframeComponents = localStorage.getItem('builder_wireframeComponents')
+
+    if (savedProjectName) setProjectName(savedProjectName)
+    if (savedSections) setSections(JSON.parse(savedSections))
+    if (savedPages) setPages(JSON.parse(savedPages))
+    if (savedStyleGuide) setStyleGuide(JSON.parse(savedStyleGuide))
+    if (savedWireframeComponents) setWireframeComponents(JSON.parse(savedWireframeComponents))
+  }, [])
+
+  // Auto-save to localStorage whenever state changes
+  useEffect(() => {
+    if (projectName) {
+      localStorage.setItem('builder_projectName', projectName)
+      setLastSaved(new Date())
+    }
+  }, [projectName])
+
+  useEffect(() => {
+    if (sections.length > 0) {
+      localStorage.setItem('builder_sections', JSON.stringify(sections))
+      setLastSaved(new Date())
+    }
+  }, [sections])
+
+  useEffect(() => {
+    if (pages.length > 0) {
+      localStorage.setItem('builder_pages', JSON.stringify(pages))
+      setLastSaved(new Date())
+    }
+  }, [pages])
+
+  useEffect(() => {
+    if (styleGuide) {
+      localStorage.setItem('builder_styleGuide', JSON.stringify(styleGuide))
+      setLastSaved(new Date())
+    }
+  }, [styleGuide])
+
+  useEffect(() => {
+    if (wireframeComponents.length > 0) {
+      localStorage.setItem('builder_wireframeComponents', JSON.stringify(wireframeComponents))
+      setLastSaved(new Date())
+    }
+  }, [wireframeComponents])
 
   const handleShare = () => {
     if (navigator.share && projectName) {
@@ -222,13 +274,21 @@ export default function WebBuilder() {
           <div className="flex items-center gap-3 text-xs text-muted-foreground">
             <div className="flex items-center gap-1.5">
               <Check className="h-3 w-3 text-emerald-500" />
-              <span className="font-medium">Saved</span>
+              <span className="font-medium">Auto-saved</span>
             </div>
             <Circle className="h-1 w-1 fill-border" />
             <span>{sections.length} {sections.length === 1 ? 'section' : 'sections'}</span>
+            {wireframeComponents.length > 0 && (
+              <>
+                <Circle className="h-1 w-1 fill-border" />
+                <span>{wireframeComponents.length} {wireframeComponents.length === 1 ? 'component' : 'components'}</span>
+              </>
+            )}
           </div>
           <div className="flex items-center gap-3 text-xs text-muted-foreground">
-            <span>Updated now</span>
+            {lastSaved && (
+              <span>Saved {new Date().getTime() - lastSaved.getTime() < 60000 ? 'just now' : 'recently'}</span>
+            )}
           </div>
         </div>
       </footer>
