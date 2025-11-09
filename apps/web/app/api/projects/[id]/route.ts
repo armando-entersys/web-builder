@@ -147,6 +147,12 @@ export async function DELETE(
       return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
+    // Eliminar primero las páginas asociadas manualmente
+    await prisma.page.deleteMany({
+      where: { projectId: id },
+    })
+
+    // Luego eliminar el proyecto
     await prisma.project.delete({
       where: { id },
     })
