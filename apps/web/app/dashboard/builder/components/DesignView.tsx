@@ -897,7 +897,7 @@ ${page.innerHTML}
           >
             {componentsToRender && componentsToRender.length > 0 ? (
               componentsToRender.map((component) => (
-                <div key={component.id}>
+                <div key={`${component.id}-${designVersion}-${component.variant}-${JSON.stringify(component.content)}`}>
                   {renderComponent(component)}
                 </div>
               ))
