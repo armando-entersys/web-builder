@@ -61,7 +61,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/packages/db/package.json ./packag
 
 # Copiar el cliente generado de Prisma
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma
 
 USER nextjs
 
