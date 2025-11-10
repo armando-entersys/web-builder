@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDesignTokensStore } from '@/lib/stores/design-tokens-store'
 import { Monitor, Tablet, Smartphone, Download, Code, X, ChevronLeft, Image as ImageIcon, Type, Palette, Plus, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -72,8 +72,31 @@ export default function DesignView({ sections, styleGuide, wireframeComponents }
   const [colorSchemes, setColorSchemes] = useState<ColorScheme[]>(DEFAULT_SCHEMES)
   const [componentSchemes, setComponentSchemes] = useState<Record<string, string>>({})
   const [editedComponents, setEditedComponents] = useState<Record<string, any>>({})
+  const [designVersion, setDesignVersion] = useState(0)
 
   const componentsToRender = wireframeComponents.length > 0 ? wireframeComponents : null
+
+  // Regenerate design when wireframe components change
+  useEffect(() => {
+    if (wireframeComponents.length > 0) {
+      setDesignVersion(prev => prev + 1)
+      // Apply styleGuide colors to default schemes if styleGuide exists
+      if (styleGuide?.colors) {
+        setColorSchemes(prevSchemes => {
+          const updatedSchemes = [...prevSchemes]
+          updatedSchemes[0] = {
+            ...updatedSchemes[0],
+            primaryColor: styleGuide.colors.primary || updatedSchemes[0].primaryColor,
+            secondaryColor: styleGuide.colors.secondary || updatedSchemes[0].secondaryColor,
+            accentColor: styleGuide.colors.accent || updatedSchemes[0].accentColor,
+            backgroundColor: styleGuide.colors.background || updatedSchemes[0].backgroundColor,
+            textColor: styleGuide.colors.text || updatedSchemes[0].textColor,
+          }
+          return updatedSchemes
+        })
+      }
+    }
+  }, [wireframeComponents, styleGuide])
 
   const getViewportWidth = () => {
     switch (viewMode) {
@@ -191,6 +214,17 @@ ${page.innerHTML}
       color: scheme.textColor,
     }
 
+    // Apply typography from Style Guide
+    const headingStyles = {
+      fontFamily: styleGuide?.typography?.headingFont || 'inherit',
+      fontSize: styleGuide?.typography?.headingSize || 'inherit',
+    }
+
+    const bodyStyles = {
+      fontFamily: styleGuide?.typography?.bodyFont || 'inherit',
+      fontSize: styleGuide?.typography?.bodySize || 'inherit',
+    }
+
     // TODO: Dynamic component loading disabled due to build issues with some components
     // Need to fix component imports (glb files, missing images, etc.) before enabling
     // if (component.componentPath) {
@@ -218,12 +252,12 @@ ${page.innerHTML}
             style={baseStyles}
             onClick={() => handleComponentClick(component)}
           >
-            <div className="text-xl font-bold" style={{ color: scheme.primaryColor }}>
+            <div className="text-xl font-bold" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </div>
             <nav className="flex gap-6">
               {['Inicio', 'Servicios', 'Contacto'].map((item) => (
-                <a key={item} href="#" className="font-medium transition-colors hover:opacity-70" style={{ color: scheme.textColor }}>
+                <a key={item} href="#" className="font-medium transition-colors hover:opacity-70" style={{ color: scheme.textColor, ...bodyStyles }}>
                   {item}
                 </a>
               ))}
@@ -242,17 +276,17 @@ ${page.innerHTML}
             {image && (
               <img src={image} alt="Hero" className="mx-auto mb-6 max-w-md rounded-lg shadow-lg" />
             )}
-            <h1 className="font-bold mb-6 text-5xl" style={{ color: scheme.primaryColor }}>
+            <h1 className="font-bold mb-6 text-5xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </h1>
             {subheading && (
-              <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: scheme.textColor, opacity: 0.8 }}>
+              <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: scheme.textColor, opacity: 0.8, ...bodyStyles }}>
                 {subheading}
               </p>
             )}
             <button
               className="px-8 py-3 font-semibold rounded-lg transition-all hover:scale-105"
-              style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF' }}
+              style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF', ...bodyStyles }}
             >
               {buttonText}
             </button>
@@ -267,7 +301,7 @@ ${page.innerHTML}
             style={baseStyles}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor }}>
+            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </h2>
             <div className="grid grid-cols-3 gap-8">
@@ -276,10 +310,10 @@ ${page.innerHTML}
                   <div className="w-12 h-12 mb-4 flex items-center justify-center text-2xl rounded-lg" style={{ backgroundColor: `${scheme.secondaryColor}20` }}>
                     ✨
                   </div>
-                  <h3 className="font-bold mb-2 text-xl" style={{ color: scheme.textColor }}>
+                  <h3 className="font-bold mb-2 text-xl" style={{ color: scheme.textColor, ...headingStyles }}>
                     Característica {i}
                   </h3>
-                  <p style={{ color: scheme.textColor, opacity: 0.7 }}>
+                  <p style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
                     Descripción de la característica que hace que tu producto sea único.
                   </p>
                 </div>
@@ -296,15 +330,15 @@ ${page.innerHTML}
             style={{ backgroundColor: scheme.primaryColor }}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="font-bold mb-4 text-3xl" style={{ color: '#FFFFFF' }}>
+            <h2 className="font-bold mb-4 text-3xl" style={{ color: '#FFFFFF', ...headingStyles }}>
               {heading}
             </h2>
-            <p className="text-lg mb-8" style={{ color: '#FFFFFF', opacity: 0.9 }}>
+            <p className="text-lg mb-8" style={{ color: '#FFFFFF', opacity: 0.9, ...bodyStyles }}>
               {subheading}
             </p>
             <button
               className="px-8 py-3 font-semibold rounded-lg transition-all hover:scale-105"
-              style={{ backgroundColor: '#FFFFFF', color: scheme.primaryColor }}
+              style={{ backgroundColor: '#FFFFFF', color: scheme.primaryColor, ...bodyStyles }}
             >
               {buttonText}
             </button>
@@ -319,7 +353,7 @@ ${page.innerHTML}
             style={baseStyles}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor }}>
+            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </h2>
             <div className="grid grid-cols-3 gap-8">
@@ -328,11 +362,11 @@ ${page.innerHTML}
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 rounded-full" style={{ backgroundColor: `${scheme.primaryColor}20` }} />
                     <div>
-                      <div className="font-bold" style={{ color: scheme.textColor }}>Cliente {i}</div>
-                      <div className="text-sm" style={{ color: scheme.textColor, opacity: 0.7 }}>CEO, Empresa</div>
+                      <div className="font-bold" style={{ color: scheme.textColor, ...bodyStyles }}>Cliente {i}</div>
+                      <div className="text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>CEO, Empresa</div>
                     </div>
                   </div>
-                  <p style={{ color: scheme.textColor, opacity: 0.8 }}>
+                  <p style={{ color: scheme.textColor, opacity: 0.8, ...bodyStyles }}>
                     "Excelente servicio, muy recomendado para cualquier proyecto."
                   </p>
                 </div>
@@ -351,13 +385,13 @@ ${page.innerHTML}
           >
             <div className="grid grid-cols-4 gap-8 mb-8">
               <div>
-                <h3 className="font-bold mb-4" style={{ color: scheme.primaryColor }}>{heading}</h3>
-                <p className="text-sm" style={{ color: scheme.textColor, opacity: 0.7 }}>{subheading}</p>
+                <h3 className="font-bold mb-4" style={{ color: scheme.primaryColor, ...headingStyles }}>{heading}</h3>
+                <p className="text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>{subheading}</p>
               </div>
               {['Producto', 'Empresa', 'Legal'].map((col) => (
                 <div key={col}>
-                  <h4 className="font-semibold mb-3" style={{ color: scheme.textColor }}>{col}</h4>
-                  <ul className="space-y-2 text-sm" style={{ color: scheme.textColor, opacity: 0.7 }}>
+                  <h4 className="font-semibold mb-3" style={{ color: scheme.textColor, ...headingStyles }}>{col}</h4>
+                  <ul className="space-y-2 text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
                     <li>Link 1</li>
                     <li>Link 2</li>
                     <li>Link 3</li>
@@ -365,7 +399,7 @@ ${page.innerHTML}
                 </div>
               ))}
             </div>
-            <div className="pt-8 border-t text-center text-sm" style={{ color: scheme.textColor, opacity: 0.6 }}>
+            <div className="pt-8 border-t text-center text-sm" style={{ color: scheme.textColor, opacity: 0.6, ...bodyStyles }}>
               © 2024 {heading}. Todos los derechos reservados.
             </div>
           </footer>
@@ -380,7 +414,7 @@ ${page.innerHTML}
             style={baseStyles}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor }}>
+            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </h2>
             <div className="grid grid-cols-4 gap-6">
@@ -405,7 +439,7 @@ ${page.innerHTML}
             style={{...baseStyles, backgroundColor: `${scheme.primaryColor}10`}}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor }}>
+            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </h2>
             <div className="grid grid-cols-4 gap-8">
@@ -416,10 +450,10 @@ ${page.innerHTML}
                 { value: '50+', label: 'Países' }
               ].map((stat, i) => (
                 <div key={i} className="text-center">
-                  <div className="text-4xl font-bold mb-2" style={{ color: scheme.primaryColor }}>
+                  <div className="text-4xl font-bold mb-2" style={{ color: scheme.primaryColor, ...headingStyles }}>
                     {stat.value}
                   </div>
-                  <div className="text-sm" style={{ color: scheme.textColor, opacity: 0.7 }}>
+                  <div className="text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
                     {stat.label}
                   </div>
                 </div>
@@ -436,25 +470,26 @@ ${page.innerHTML}
             style={baseStyles}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor }}>
+            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </h2>
             <div className="grid grid-cols-3 gap-8">
               {['Básico', 'Pro', 'Enterprise'].map((plan, i) => (
                 <div key={i} className="p-6 border rounded-lg" style={{ borderColor: scheme.accentColor }}>
-                  <h3 className="font-bold mb-2 text-xl" style={{ color: scheme.textColor }}>{plan}</h3>
+                  <h3 className="font-bold mb-2 text-xl" style={{ color: scheme.textColor, ...headingStyles }}>{plan}</h3>
                   <div className="mb-4">
-                    <span className="text-4xl font-bold" style={{ color: scheme.primaryColor }}>
+                    <span className="text-4xl font-bold" style={{ color: scheme.primaryColor, ...headingStyles }}>
                       ${(i + 1) * 29}
                     </span>
-                    <span className="text-sm" style={{ color: scheme.textColor, opacity: 0.7 }}>/mes</span>
+                    <span className="text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>/mes</span>
                   </div>
                   <button
                     className="w-full px-6 py-2 rounded-lg font-semibold"
                     style={{
                       backgroundColor: i === 1 ? scheme.primaryColor : 'transparent',
                       color: i === 1 ? '#FFFFFF' : scheme.primaryColor,
-                      border: `2px solid ${scheme.primaryColor}`
+                      border: `2px solid ${scheme.primaryColor}`,
+                      ...bodyStyles
                     }}
                   >
                     Elegir Plan
@@ -475,20 +510,20 @@ ${page.innerHTML}
             style={baseStyles}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor }}>
+            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </h2>
             <div className="max-w-2xl mx-auto">
-              <p className="text-center mb-8" style={{ color: scheme.textColor, opacity: 0.8 }}>
+              <p className="text-center mb-8" style={{ color: scheme.textColor, opacity: 0.8, ...bodyStyles }}>
                 {subheading}
               </p>
               <div className="space-y-4">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="p-4 border rounded-lg" style={{ borderColor: scheme.accentColor }}>
-                    <div className="font-semibold mb-2" style={{ color: scheme.textColor }}>
+                    <div className="font-semibold mb-2" style={{ color: scheme.textColor, ...bodyStyles }}>
                       {component.type === 'faq' ? `Pregunta ${i}` : `Campo ${i}`}
                     </div>
-                    <div style={{ color: scheme.textColor, opacity: 0.7 }}>
+                    <div style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
                       {component.type === 'faq' ? 'Respuesta a la pregunta frecuente' : 'Valor del campo'}
                     </div>
                   </div>
@@ -498,7 +533,7 @@ ${page.innerHTML}
                 <div className="text-center mt-8">
                   <button
                     className="px-8 py-3 font-semibold rounded-lg"
-                    style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF' }}
+                    style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF', ...bodyStyles }}
                   >
                     {buttonText}
                   </button>
@@ -519,10 +554,10 @@ ${page.innerHTML}
             onClick={() => handleComponentClick(component)}
           >
             <div className="relative z-10 text-center">
-              <h2 className="text-5xl font-bold mb-6" style={{ color: scheme.primaryColor }}>
+              <h2 className="text-5xl font-bold mb-6" style={{ color: scheme.primaryColor, ...headingStyles }}>
                 {heading}
               </h2>
-              <p className="text-xl max-w-2xl mx-auto" style={{ color: scheme.textColor, opacity: 0.9 }}>
+              <p className="text-xl max-w-2xl mx-auto" style={{ color: scheme.textColor, opacity: 0.9, ...bodyStyles }}>
                 {subheading}
               </p>
             </div>
