@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { SessionProvider } from '@/components/providers/session-provider'
+import { VersionChecker } from '@/components/VersionChecker'
 
 export const metadata: Metadata = {
   title: 'Web Builder - AI-Powered Page Creator',
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className="antialiased">
         <SessionProvider>
           {children}
+          <VersionChecker />
         </SessionProvider>
       </body>
     </html>

@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Plus, LayoutGrid, Clock, User, Trash2, Edit, Eye } from 'lucide-react'
+import { Plus, LayoutGrid, Clock, User, Trash2, Edit, Eye, LogOut } from 'lucide-react'
 
 interface Project {
   id: string
@@ -158,6 +158,14 @@ export default function ProjectsPage() {
               <Button onClick={() => setShowCreateModal(true)}>
                 <Plus className="h-4 w-4 mr-2" />
                 New Project
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => signOut({ callbackUrl: '/auth/login' })}
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
               </Button>
             </div>
           </div>
