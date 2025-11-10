@@ -243,84 +243,290 @@ ${page.innerHTML}
     // }
 
     // Fallback to basic HTML rendering
+    // Render based on component type and variant
+    const componentKey = `${component.type}-${component.variant}`
+
     switch (component.type) {
       case 'header':
-        return (
-          <header
-            id={`component-${component.id}`}
-            className="px-8 py-4 border-b flex items-center justify-between transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
-            style={baseStyles}
-            onClick={() => handleComponentClick(component)}
-          >
-            <div className="text-xl font-bold" style={{ color: scheme.primaryColor, ...headingStyles }}>
-              {heading}
-            </div>
-            <nav className="flex gap-6">
-              {['Inicio', 'Servicios', 'Contacto'].map((item) => (
-                <a key={item} href="#" className="font-medium transition-colors hover:opacity-70" style={{ color: scheme.textColor, ...bodyStyles }}>
-                  {item}
-                </a>
-              ))}
-            </nav>
-          </header>
-        )
+        // Different header variants
+        if (component.variant === 1) {
+          return (
+            <header
+              id={`component-${component.id}`}
+              className="px-8 py-4 border-b flex items-center justify-between transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
+              style={baseStyles}
+              onClick={() => handleComponentClick(component)}
+            >
+              <div className="text-xl font-bold" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                {heading}
+              </div>
+              <nav className="flex gap-6">
+                {['Inicio', 'Servicios', 'Contacto'].map((item) => (
+                  <a key={item} href="#" className="font-medium transition-colors hover:opacity-70" style={{ color: scheme.textColor, ...bodyStyles }}>
+                    {item}
+                  </a>
+                ))}
+              </nav>
+            </header>
+          )
+        } else if (component.variant === 2) {
+          return (
+            <header
+              id={`component-${component.id}`}
+              className="px-8 py-6 flex flex-col items-center gap-4 transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
+              style={{...baseStyles, borderBottom: `3px solid ${scheme.primaryColor}`}}
+              onClick={() => handleComponentClick(component)}
+            >
+              <div className="text-2xl font-bold" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                {heading}
+              </div>
+              <nav className="flex gap-8">
+                {['Inicio', 'Características', 'Precios', 'Contacto'].map((item) => (
+                  <a key={item} href="#" className="font-semibold transition-all hover:scale-105" style={{ color: scheme.textColor, ...bodyStyles }}>
+                    {item}
+                  </a>
+                ))}
+              </nav>
+            </header>
+          )
+        } else {
+          // Variant 3+ - Sticky header with button
+          return (
+            <header
+              id={`component-${component.id}`}
+              className="px-8 py-4 flex items-center justify-between shadow-md transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
+              style={baseStyles}
+              onClick={() => handleComponentClick(component)}
+            >
+              <div className="flex items-center gap-8">
+                <div className="text-xl font-bold" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                  {heading}
+                </div>
+                <nav className="flex gap-6">
+                  {['Inicio', 'Nosotros', 'Servicios'].map((item) => (
+                    <a key={item} href="#" className="font-medium transition-colors hover:opacity-70" style={{ color: scheme.textColor, ...bodyStyles }}>
+                      {item}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+              <button
+                className="px-6 py-2 font-semibold rounded-full transition-all hover:scale-105"
+                style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF', ...bodyStyles }}
+              >
+                Contactar
+              </button>
+            </header>
+          )
+        }
 
       case 'hero':
-        return (
-          <section
-            id={`component-${component.id}`}
-            className="px-8 py-20 text-center transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
-            style={{...baseStyles, backgroundColor: `${scheme.primaryColor}10`}}
-            onClick={() => handleComponentClick(component)}
-          >
-            {image && (
-              <img src={image} alt="Hero" className="mx-auto mb-6 max-w-md rounded-lg shadow-lg" />
-            )}
-            <h1 className="font-bold mb-6 text-5xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
-              {heading}
-            </h1>
-            {subheading && (
-              <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: scheme.textColor, opacity: 0.8, ...bodyStyles }}>
-                {subheading}
-              </p>
-            )}
-            <button
-              className="px-8 py-3 font-semibold rounded-lg transition-all hover:scale-105"
-              style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF', ...bodyStyles }}
+        // Different hero variants
+        if (component.variant === 1) {
+          return (
+            <section
+              id={`component-${component.id}`}
+              className="px-8 py-20 text-center transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
+              style={{...baseStyles, backgroundColor: `${scheme.primaryColor}10`}}
+              onClick={() => handleComponentClick(component)}
             >
-              {buttonText}
-            </button>
-          </section>
-        )
+              {image && (
+                <img src={image} alt="Hero" className="mx-auto mb-6 max-w-md rounded-lg shadow-lg" />
+              )}
+              <h1 className="font-bold mb-6 text-5xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                {heading}
+              </h1>
+              {subheading && (
+                <p className="text-xl mb-8 max-w-2xl mx-auto" style={{ color: scheme.textColor, opacity: 0.8, ...bodyStyles }}>
+                  {subheading}
+                </p>
+              )}
+              <button
+                className="px-8 py-3 font-semibold rounded-lg transition-all hover:scale-105"
+                style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF', ...bodyStyles }}
+              >
+                {buttonText}
+              </button>
+            </section>
+          )
+        } else if (component.variant === 2) {
+          return (
+            <section
+              id={`component-${component.id}`}
+              className="px-8 py-20 grid grid-cols-2 gap-12 items-center transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
+              style={baseStyles}
+              onClick={() => handleComponentClick(component)}
+            >
+              <div className="text-left">
+                <h1 className="font-bold mb-6 text-4xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                  {heading}
+                </h1>
+                {subheading && (
+                  <p className="text-lg mb-8" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
+                    {subheading}
+                  </p>
+                )}
+                <div className="flex gap-4">
+                  <button
+                    className="px-6 py-3 font-semibold rounded-lg transition-all hover:scale-105"
+                    style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF', ...bodyStyles }}
+                  >
+                    {buttonText}
+                  </button>
+                  <button
+                    className="px-6 py-3 font-semibold rounded-lg border-2 transition-all hover:scale-105"
+                    style={{ borderColor: scheme.primaryColor, color: scheme.primaryColor, ...bodyStyles }}
+                  >
+                    Ver más
+                  </button>
+                </div>
+              </div>
+              <div className="aspect-square rounded-2xl flex items-center justify-center text-6xl"
+                   style={{ backgroundColor: `${scheme.secondaryColor}20` }}>
+                {image ? <img src={image} alt="Hero" className="w-full h-full object-cover rounded-2xl" /> : '🚀'}
+              </div>
+            </section>
+          )
+        } else {
+          // Variant 3+ - Full width with background
+          return (
+            <section
+              id={`component-${component.id}`}
+              className="px-8 py-32 text-center transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
+              style={{...baseStyles, background: `linear-gradient(135deg, ${scheme.primaryColor}20 0%, ${scheme.secondaryColor}20 100%)`}}
+              onClick={() => handleComponentClick(component)}
+            >
+              <div className="max-w-4xl mx-auto">
+                <div className="inline-block px-4 py-2 rounded-full mb-6" style={{ backgroundColor: `${scheme.accentColor}30`, color: scheme.accentColor, ...bodyStyles }}>
+                  ✨ Nuevo
+                </div>
+                <h1 className="font-bold mb-6 text-6xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                  {heading}
+                </h1>
+                {subheading && (
+                  <p className="text-xl mb-10 max-w-2xl mx-auto" style={{ color: scheme.textColor, opacity: 0.8, ...bodyStyles }}>
+                    {subheading}
+                  </p>
+                )}
+                <button
+                  className="px-10 py-4 font-bold rounded-full text-lg transition-all hover:scale-105 shadow-lg"
+                  style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF', ...bodyStyles }}
+                >
+                  {buttonText}
+                </button>
+              </div>
+            </section>
+          )
+        }
 
       case 'features':
-        return (
-          <section
-            id={`component-${component.id}`}
-            className="px-8 py-16 cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
-            style={baseStyles}
-            onClick={() => handleComponentClick(component)}
-          >
-            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
-              {heading}
-            </h2>
-            <div className="grid grid-cols-3 gap-8">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="p-6 border rounded-lg transition-all hover:scale-105" style={{ borderColor: scheme.accentColor }}>
-                  <div className="w-12 h-12 mb-4 flex items-center justify-center text-2xl rounded-lg" style={{ backgroundColor: `${scheme.secondaryColor}20` }}>
-                    ✨
+        // Different feature variants
+        if (component.variant === 1) {
+          return (
+            <section
+              id={`component-${component.id}`}
+              className="px-8 py-16 cursor-pointer hover:ring-2 hover:ring-2 hover:ring-blue-500 transition-all"
+              style={baseStyles}
+              onClick={() => handleComponentClick(component)}
+            >
+              <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                {heading}
+              </h2>
+              <div className="grid grid-cols-3 gap-8">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="p-6 border rounded-lg transition-all hover:scale-105" style={{ borderColor: scheme.accentColor }}>
+                    <div className="w-12 h-12 mb-4 flex items-center justify-center text-2xl rounded-lg" style={{ backgroundColor: `${scheme.secondaryColor}20` }}>
+                      ✨
+                    </div>
+                    <h3 className="font-bold mb-2 text-xl" style={{ color: scheme.textColor, ...headingStyles }}>
+                      Característica {i}
+                    </h3>
+                    <p style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
+                      Descripción de la característica que hace que tu producto sea único.
+                    </p>
                   </div>
-                  <h3 className="font-bold mb-2 text-xl" style={{ color: scheme.textColor, ...headingStyles }}>
-                    Característica {i}
-                  </h3>
-                  <p style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
-                    Descripción de la característica que hace que tu producto sea único.
+                ))}
+              </div>
+            </section>
+          )
+        } else if (component.variant === 2) {
+          return (
+            <section
+              id={`component-${component.id}`}
+              className="px-8 py-16 cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+              style={{...baseStyles, backgroundColor: `${scheme.primaryColor}05`}}
+              onClick={() => handleComponentClick(component)}
+            >
+              <div className="text-center max-w-2xl mx-auto mb-12">
+                <h2 className="font-bold mb-4 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                  {heading}
+                </h2>
+                {subheading && (
+                  <p className="text-lg" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
+                    {subheading}
                   </p>
+                )}
+              </div>
+              <div className="grid grid-cols-2 gap-6">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="p-8 rounded-xl flex gap-4 transition-all hover:scale-105" style={{ backgroundColor: scheme.backgroundColor, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+                    <div className="flex-shrink-0 w-14 h-14 flex items-center justify-center text-3xl rounded-xl" style={{ backgroundColor: `${scheme.primaryColor}15` }}>
+                      🎯
+                    </div>
+                    <div>
+                      <h3 className="font-bold mb-2 text-lg" style={{ color: scheme.textColor, ...headingStyles }}>
+                        Beneficio {i}
+                      </h3>
+                      <p className="text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
+        } else {
+          // Variant 3+ - List style
+          return (
+            <section
+              id={`component-${component.id}`}
+              className="px-8 py-16 cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+              style={baseStyles}
+              onClick={() => handleComponentClick(component)}
+            >
+              <div className="grid grid-cols-2 gap-16 items-center">
+                <div>
+                  <h2 className="font-bold mb-6 text-4xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                    {heading}
+                  </h2>
+                  {subheading && (
+                    <p className="text-lg mb-8" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
+                      {subheading}
+                    </p>
+                  )}
                 </div>
-              ))}
-            </div>
-          </section>
-        )
+                <div className="space-y-4">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex gap-4 p-4 rounded-lg transition-all hover:scale-105" style={{ backgroundColor: `${scheme.secondaryColor}10` }}>
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: scheme.primaryColor }}>
+                        <span className="text-white text-sm">✓</span>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold mb-1" style={{ color: scheme.textColor, ...headingStyles }}>
+                          Característica Premium {i}
+                        </h3>
+                        <p className="text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
+                          Descripción breve de esta increíble característica.
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )
+        }
 
       case 'cta':
         return (
