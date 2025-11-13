@@ -27,7 +27,7 @@ interface MockupProps {
 
 // Wireframe Box - base component for all wireframe elements
 const Box = ({ className = '', children, label }: { className?: string; children?: React.ReactNode; label?: string }) => (
-  <div className={`border-2 border-dashed border-gray-300 bg-gray-50/50 flex items-center justify-center text-gray-400 text-xs ${className}`}>
+  <div className={`border-2 border-dashed border-blue-200 bg-blue-50/30 flex items-center justify-center text-blue-400 text-xs font-medium ${className}`}>
     {label && <span>{label}</span>}
     {children}
   </div>
@@ -43,12 +43,12 @@ const Text = ({ size = 'base', children }: { size?: 'xs' | 'sm' | 'base' | 'lg' 
     '2xl': 'h-6 w-56',
     '3xl': 'h-8 w-64',
   }
-  return <div className={`${sizeClasses[size]} bg-gray-200 rounded`}></div>
+  return <div className={`${sizeClasses[size]} bg-gradient-to-r from-blue-200 to-blue-100 rounded`}></div>
 }
 
 const Button = ({ children, className = '' }: { children?: React.ReactNode; className?: string }) => (
-  <div className={`h-10 px-6 border-2 border-gray-400 rounded flex items-center justify-center text-xs text-gray-500 font-medium ${className}`}>
-    [Button]
+  <div className={`h-10 px-6 border-2 border-blue-400 bg-blue-500/10 rounded-lg flex items-center justify-center text-xs text-blue-600 font-semibold ${className}`}>
+    Button
   </div>
 )
 
@@ -149,17 +149,17 @@ function HeroMockup({ variant, content, style }: { variant: number; content: any
 
   if (variant === 2) {
     return (
-      <div className="grid grid-cols-2 gap-12 items-center py-16 px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center py-12 md:py-16 px-4 md:px-8">
         <div className="space-y-6">
             <Text size="3xl" > </Text>
             <Text size="lg" > </Text>
             <Text size="base" > </Text>
-          <div className="flex gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row gap-4 mt-8">
             <Button />
             <Button />
           </div>
         </div>
-        <Box className="h-96 w-full" label="[Product Image]" />
+        <Box className="h-64 md:h-96 w-full" label="[Product Image]" />
       </div>
     )
   }
@@ -186,12 +186,12 @@ function HeroMockup({ variant, content, style }: { variant: number; content: any
 function FeaturesMockup({ variant, content }: { variant: number; content: any }) {
   if (variant === 1) {
     return (
-      <div className="py-16 px-8">
-        <div className="text-center mb-12 space-y-4">
+      <div className="py-12 md:py-16 px-4 md:px-8">
+        <div className="text-center mb-8 md:mb-12 space-y-4">
             <Text size="2xl" > </Text>
           <div className="flex justify-center">  <Text size="base" > </Text></div>
         </div>
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           {[1, 2, 3].map((i) => (
             <div key={i} className="space-y-4">
               <Box className="h-16 w-16 mx-auto" label="Icon" />
@@ -207,11 +207,11 @@ function FeaturesMockup({ variant, content }: { variant: number; content: any })
 
   if (variant === 2) {
     return (
-      <div className="py-16 px-8">
-        <div className="text-center mb-12">
+      <div className="py-12 md:py-16 px-4 md:px-8">
+        <div className="text-center mb-8 md:mb-12">
             <Text size="2xl" > </Text>
         </div>
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="space-y-3">
               <Box className="h-12 w-12 mx-auto" label="Icon" />
@@ -226,13 +226,13 @@ function FeaturesMockup({ variant, content }: { variant: number; content: any })
 
   if (variant === 3) {
     return (
-      <div className="py-16 px-8">
-        <div className="text-center mb-12">
+      <div className="py-12 md:py-16 px-4 md:px-8">
+        <div className="text-center mb-8 md:mb-12">
             <Text size="2xl" > </Text>
         </div>
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {[1, 2, 3].map((i) => (
-            <div className="border-2 border-gray-300 rounded-xl p-6 space-y-4">
+            <div className="border-2 border-gray-300 rounded-xl p-4 md:p-6 space-y-4">
               <Box className="h-14 w-14" label="Icon" />
                 <Text size="lg" > </Text>
                 <Text size="sm" > </Text>
@@ -251,16 +251,16 @@ function FeaturesMockup({ variant, content }: { variant: number; content: any })
 function TestimonialsMockup({ variant, content }: { variant: number; content: any }) {
   if (variant === 1) {
     return (
-      <div className="py-16 px-8">
-        <div className="text-center mb-12">
+      <div className="py-12 md:py-16 px-4 md:px-8">
+        <div className="text-center mb-8 md:mb-12">
             <Text size="2xl" > </Text>
         </div>
-        <div className="grid grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {[1, 2].map((i) => (
-            <div key={i} className="border-2 border-gray-300 rounded-xl p-8 space-y-4">
+            <div key={i} className="border-2 border-gray-300 rounded-xl p-6 md:p-8 space-y-4">
               <div className="flex items-center gap-4">
-                <Box className="h-14 w-14 rounded-full" label="" />
-                <div className="space-y-2">
+                <Box className="h-14 w-14 rounded-full flex-shrink-0" label="" />
+                <div className="space-y-2 min-w-0">
                     <Text size="base" > </Text>
                     <Text size="xs" > </Text>
                 </div>
@@ -301,7 +301,7 @@ function CTAMockup({ variant, content, style }: { variant: number; content: any;
 
   if (variant === 2) {
     return (
-      <div className="grid grid-cols-2 gap-12 items-center py-16 px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center py-12 md:py-16 px-4 md:px-8">
         <div className="space-y-6">
             <Text size="2xl" > </Text>
             <Text size="lg" > </Text>
@@ -309,7 +309,7 @@ function CTAMockup({ variant, content, style }: { variant: number; content: any;
             <Button />
           </div>
         </div>
-        <Box className="h-64 w-full" label="[CTA Image]" />
+        <Box className="h-48 md:h-64 w-full" label="[CTA Image]" />
       </div>
     )
   }
@@ -364,8 +364,8 @@ function FormMockup({ variant, content }: { variant: number; content: any }) {
 function GalleryMockup({ variant }: { variant: number }) {
   if (variant === 1) {
     return (
-      <div className="py-16 px-8">
-        <div className="grid grid-cols-4 gap-4">
+      <div className="py-12 md:py-16 px-4 md:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
             <Box key={i} className="aspect-square w-full" label={`[Image ${i}]`} />
           ))}
@@ -381,8 +381,8 @@ function GalleryMockup({ variant }: { variant: number }) {
 function StatsMockup({ variant, content }: { variant: number; content: any }) {
   if (variant === 1) {
     return (
-      <div className="py-16 px-8">
-        <div className="grid grid-cols-4 gap-8 text-center">
+      <div className="py-12 md:py-16 px-4 md:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="space-y-3">
                 <Text size="3xl" > </Text>
@@ -401,12 +401,12 @@ function StatsMockup({ variant, content }: { variant: number; content: any }) {
 function LogosMockup({ variant, content }: { variant: number; content: any }) {
   if (variant === 1) {
     return (
-      <div className="py-16 px-8">
-        <div className="text-center mb-12 space-y-3">
+      <div className="py-12 md:py-16 px-4 md:px-8">
+        <div className="text-center mb-8 md:mb-12 space-y-3">
             <Text size="xs" > </Text>
             <Text size="xl" > </Text>
         </div>
-        <div className="grid grid-cols-5 gap-8 items-center">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 md:gap-8 items-center">
           {[1, 2, 3, 4, 5].map((i) => (
             <Box key={i} className="h-12 w-full" label={`[Logo ${i}]`} />
           ))}
@@ -422,8 +422,8 @@ function LogosMockup({ variant, content }: { variant: number; content: any }) {
 function FooterMockup({ variant }: { variant: number }) {
   if (variant === 1) {
     return (
-      <div className="py-12 px-8 border-t-2 border-gray-300">
-        <div className="grid grid-cols-4 gap-8 mb-8">
+      <div className="py-8 md:py-12 px-4 md:px-8 border-t-2 border-gray-300">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-6 md:mb-8">
           {[1, 2, 3, 4].map((col) => (
             <div key={col} className="space-y-3">
                 <Text size="base" > </Text>
@@ -435,7 +435,7 @@ function FooterMockup({ variant }: { variant: number }) {
             </div>
           ))}
         </div>
-        <div className="pt-8 border-t border-gray-300 flex items-center justify-between">
+        <div className="pt-6 md:pt-8 border-t border-gray-300 flex flex-col sm:flex-row items-center justify-between gap-4">
             <Text size="xs" > </Text>
           <div className="flex gap-4">
             {[1, 2, 3].map((i) => (
@@ -449,10 +449,10 @@ function FooterMockup({ variant }: { variant: number }) {
 
   if (variant === 2) {
     return (
-      <div className="py-8 px-8 border-t-2 border-gray-300">
-        <div className="flex items-center justify-between">
+      <div className="py-6 md:py-8 px-4 md:px-8 border-t-2 border-gray-300">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <Text size="xs" > </Text>
-          <div className="flex gap-6">
+          <div className="flex gap-4 md:gap-6">
             {[1, 2, 3].map((i) => (
                 <Text key={i} size="xs" > </Text>
             ))}

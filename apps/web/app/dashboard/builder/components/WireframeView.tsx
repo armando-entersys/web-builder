@@ -434,7 +434,7 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
               {showAddMenu === -1 && (
                 <Card className="absolute top-full left-0 right-0 mt-2 z-20">
                   <CardContent className="p-4">
-                    <div className="grid grid-cols-2 gap-2 max-h-96 overflow-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-96 overflow-auto">
                       {Object.entries(componentLibrary || {}).map(([type, data]) => (
                         <Button
                           key={type}
@@ -569,7 +569,7 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
                       {showAddMenu === index && (
                         <Card className="absolute top-full left-0 right-0 mt-2 z-20">
                           <CardContent className="p-4">
-                            <div className="grid grid-cols-2 gap-2 max-h-96 overflow-auto">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-96 overflow-auto">
                               {Object.entries(componentLibrary || {}).map(([type, data]) => (
                                 <Button
                                   key={type}
@@ -631,7 +631,7 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
             </CardHeader>
 
             <CardContent className="p-6 overflow-auto flex-1">
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {componentLibrary?.[selectedComponent.type]?.variants.map((variant) => (
                   <Button
                     key={variant.id}

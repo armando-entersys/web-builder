@@ -353,20 +353,20 @@ ${page.innerHTML}
           return (
             <section
               id={`component-${component.id}`}
-              className="px-8 py-20 grid grid-cols-2 gap-12 items-center transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
+              className="px-4 md:px-8 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center transition-all cursor-pointer hover:ring-2 hover:ring-blue-500"
               style={baseStyles}
               onClick={() => handleComponentClick(component)}
             >
               <div className="text-left">
-                <h1 className="font-bold mb-6 text-4xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                <h1 className="font-bold mb-4 md:mb-6 text-3xl md:text-4xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
                   {heading}
                 </h1>
                 {subheading && (
-                  <p className="text-lg mb-8" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
+                  <p className="text-base md:text-lg mb-6 md:mb-8" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
                     {subheading}
                   </p>
                 )}
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <button
                     className="px-6 py-3 font-semibold rounded-lg transition-all hover:scale-105"
                     style={{ backgroundColor: scheme.primaryColor, color: '#FFFFFF', ...bodyStyles }}
@@ -381,7 +381,7 @@ ${page.innerHTML}
                   </button>
                 </div>
               </div>
-              <div className="aspect-square rounded-2xl flex items-center justify-center text-6xl"
+              <div className="aspect-square rounded-2xl flex items-center justify-center text-4xl md:text-6xl"
                    style={{ backgroundColor: `${scheme.secondaryColor}20` }}>
                 {image ? <img src={image} alt="Hero" className="w-full h-full object-cover rounded-2xl" /> : '🚀'}
               </div>
@@ -429,10 +429,10 @@ ${page.innerHTML}
               style={baseStyles}
               onClick={() => handleComponentClick(component)}
             >
-              <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+              <h2 className="font-bold text-center mb-8 md:mb-12 text-2xl md:text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
                 {heading}
               </h2>
-              <div className="grid grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="p-6 border rounded-lg transition-all hover:scale-105" style={{ borderColor: scheme.accentColor }}>
                     <div className="w-12 h-12 mb-4 flex items-center justify-center text-2xl rounded-lg" style={{ backgroundColor: `${scheme.secondaryColor}20` }}>
@@ -457,24 +457,24 @@ ${page.innerHTML}
               style={{...baseStyles, backgroundColor: `${scheme.primaryColor}05`}}
               onClick={() => handleComponentClick(component)}
             >
-              <div className="text-center max-w-2xl mx-auto mb-12">
-                <h2 className="font-bold mb-4 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+              <div className="text-center max-w-2xl mx-auto mb-8 md:mb-12 px-4">
+                <h2 className="font-bold mb-4 text-2xl md:text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
                   {heading}
                 </h2>
                 {subheading && (
-                  <p className="text-lg" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
+                  <p className="text-base md:text-lg" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
                     {subheading}
                   </p>
                 )}
               </div>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 px-4 md:px-0">
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="p-8 rounded-xl flex gap-4 transition-all hover:scale-105" style={{ backgroundColor: scheme.backgroundColor, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-                    <div className="flex-shrink-0 w-14 h-14 flex items-center justify-center text-3xl rounded-xl" style={{ backgroundColor: `${scheme.primaryColor}15` }}>
+                  <div key={i} className="p-6 md:p-8 rounded-xl flex gap-4 transition-all hover:scale-105" style={{ backgroundColor: scheme.backgroundColor, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+                    <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 flex items-center justify-center text-2xl md:text-3xl rounded-xl" style={{ backgroundColor: `${scheme.primaryColor}15` }}>
                       🎯
                     </div>
-                    <div>
-                      <h3 className="font-bold mb-2 text-lg" style={{ color: scheme.textColor, ...headingStyles }}>
+                    <div className="min-w-0">
+                      <h3 className="font-bold mb-2 text-base md:text-lg" style={{ color: scheme.textColor, ...headingStyles }}>
                         Beneficio {i}
                       </h3>
                       <p className="text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
@@ -491,17 +491,17 @@ ${page.innerHTML}
           return (
             <section
               id={`component-${component.id}`}
-              className="px-8 py-16 cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+              className="px-4 md:px-8 py-12 md:py-16 cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
               style={baseStyles}
               onClick={() => handleComponentClick(component)}
             >
-              <div className="grid grid-cols-2 gap-16 items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
                 <div>
-                  <h2 className="font-bold mb-6 text-4xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                  <h2 className="font-bold mb-4 md:mb-6 text-3xl md:text-4xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
                     {heading}
                   </h2>
                   {subheading && (
-                    <p className="text-lg mb-8" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
+                    <p className="text-base md:text-lg mb-6 md:mb-8" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
                       {subheading}
                     </p>
                   )}
@@ -512,7 +512,7 @@ ${page.innerHTML}
                       <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: scheme.primaryColor }}>
                         <span className="text-white text-sm">✓</span>
                       </div>
-                      <div>
+                      <div className="min-w-0">
                         <h3 className="font-semibold mb-1" style={{ color: scheme.textColor, ...headingStyles }}>
                           Característica Premium {i}
                         </h3>
@@ -559,15 +559,15 @@ ${page.innerHTML}
             style={baseStyles}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+            <h2 className="font-bold text-center mb-8 md:mb-12 text-2xl md:text-3xl px-4" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </h2>
-            <div className="grid grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-0">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="p-6 border rounded-lg" style={{ borderColor: scheme.accentColor }}>
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-full" style={{ backgroundColor: `${scheme.primaryColor}20` }} />
-                    <div>
+                    <div className="w-12 h-12 flex-shrink-0 rounded-full" style={{ backgroundColor: `${scheme.primaryColor}20` }} />
+                    <div className="min-w-0">
                       <div className="font-bold" style={{ color: scheme.textColor, ...bodyStyles }}>Cliente {i}</div>
                       <div className="text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>CEO, Empresa</div>
                     </div>
@@ -585,13 +585,13 @@ ${page.innerHTML}
         return (
           <footer
             id={`component-${component.id}`}
-            className="px-8 py-12 border-t cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+            className="px-4 md:px-8 py-8 md:py-12 border-t cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
             style={baseStyles}
             onClick={() => handleComponentClick(component)}
           >
-            <div className="grid grid-cols-4 gap-8 mb-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-6 md:mb-8">
               <div>
-                <h3 className="font-bold mb-4" style={{ color: scheme.primaryColor, ...headingStyles }}>{heading}</h3>
+                <h3 className="font-bold mb-3 md:mb-4" style={{ color: scheme.primaryColor, ...headingStyles }}>{heading}</h3>
                 <p className="text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>{subheading}</p>
               </div>
               {['Producto', 'Empresa', 'Legal'].map((col) => (
@@ -605,7 +605,7 @@ ${page.innerHTML}
                 </div>
               ))}
             </div>
-            <div className="pt-8 border-t text-center text-sm" style={{ color: scheme.textColor, opacity: 0.6, ...bodyStyles }}>
+            <div className="pt-6 md:pt-8 border-t text-center text-sm" style={{ color: scheme.textColor, opacity: 0.6, ...bodyStyles }}>
               © 2024 {heading}. Todos los derechos reservados.
             </div>
           </footer>
@@ -620,14 +620,14 @@ ${page.innerHTML}
             style={baseStyles}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+            <h2 className="font-bold text-center mb-8 md:mb-12 text-2xl md:text-3xl px-4" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </h2>
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6 px-4 md:px-0">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
                 <div
                   key={i}
-                  className="aspect-square rounded-lg flex items-center justify-center text-4xl"
+                  className="aspect-square rounded-lg flex items-center justify-center text-3xl md:text-4xl"
                   style={{ backgroundColor: `${scheme.secondaryColor}20` }}
                 >
                   🖼️
@@ -645,10 +645,10 @@ ${page.innerHTML}
             style={{...baseStyles, backgroundColor: `${scheme.primaryColor}10`}}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+            <h2 className="font-bold text-center mb-8 md:mb-12 text-2xl md:text-3xl px-4" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </h2>
-            <div className="grid grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 px-4 md:px-0">
               {[
                 { value: '10K+', label: 'Usuarios' },
                 { value: '99%', label: 'Satisfacción' },
@@ -656,7 +656,7 @@ ${page.innerHTML}
                 { value: '50+', label: 'Países' }
               ].map((stat, i) => (
                 <div key={i} className="text-center">
-                  <div className="text-4xl font-bold mb-2" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                  <div className="text-3xl md:text-4xl font-bold mb-2" style={{ color: scheme.primaryColor, ...headingStyles }}>
                     {stat.value}
                   </div>
                   <div className="text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>
@@ -676,15 +676,15 @@ ${page.innerHTML}
             style={baseStyles}
             onClick={() => handleComponentClick(component)}
           >
-            <h2 className="font-bold text-center mb-12 text-3xl" style={{ color: scheme.primaryColor, ...headingStyles }}>
+            <h2 className="font-bold text-center mb-8 md:mb-12 text-2xl md:text-3xl px-4" style={{ color: scheme.primaryColor, ...headingStyles }}>
               {heading}
             </h2>
-            <div className="grid grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-0">
               {['Básico', 'Pro', 'Enterprise'].map((plan, i) => (
                 <div key={i} className="p-6 border rounded-lg" style={{ borderColor: scheme.accentColor }}>
                   <h3 className="font-bold mb-2 text-xl" style={{ color: scheme.textColor, ...headingStyles }}>{plan}</h3>
                   <div className="mb-4">
-                    <span className="text-4xl font-bold" style={{ color: scheme.primaryColor, ...headingStyles }}>
+                    <span className="text-3xl md:text-4xl font-bold" style={{ color: scheme.primaryColor, ...headingStyles }}>
                       ${(i + 1) * 29}
                     </span>
                     <span className="text-sm" style={{ color: scheme.textColor, opacity: 0.7, ...bodyStyles }}>/mes</span>
