@@ -474,7 +474,7 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
             ) : (
               <>
                 {wireframeComponents.map((component, index) => (
-                  <div key={component.id}>
+                  <div key={`${component.id}-${component.variant}-${component.type}`}>
                     <div className="mb-1">
                       <Card
                         onClick={() => setSelectedComponentId(component.id)}
@@ -632,20 +632,35 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
 
             <CardContent className="p-6 overflow-auto flex-1">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {componentLibrary?.[selectedComponent.type]?.variants.map((variant) => (
-                  <Button
-                    key={variant.id}
-                    onClick={() => replaceComponentVariant(variant.id)}
-                    variant={selectedComponent.variant === variant.id ? "default" : "outline"}
-                    className="h-auto p-4 flex-col items-start text-left"
-                  >
-                    <div className="aspect-video bg-muted rounded-lg mb-3 w-full flex items-center justify-center">
-                      <span className="text-4xl">{componentLibrary?.[selectedComponent.type]?.icon || '📦'}</span>
+                {componentLibrary?.[selectedComponent.type]?.variants.map((variant) => {
+                  // Crear un componente temporal para mostrar el mockup
+                  const previewComponent: WireframeComponent = {
+                    ...selectedComponent,
+                    variant: variant.id,
+                    name: variant.name,
+                    description: variant.description,
+                  }
+
+                  return (
+                    <div
+                      key={variant.id}
+                      onClick={() => replaceComponentVariant(variant.id)}
+                      className={`cursor-pointer rounded-lg border-2 transition-all hover:scale-[1.02] ${
+                        selectedComponent.variant === variant.id
+                          ? 'border-primary bg-primary/5 shadow-md'
+                          : 'border-border hover:border-primary/50'
+                      }`}
+                    >
+                      <div className="p-2 border-b bg-muted/30">
+                        <div className="font-medium text-sm">{variant.name}</div>
+                        <div className="text-xs text-muted-foreground line-clamp-1">{variant.description}</div>
+                      </div>
+                      <div className="aspect-video bg-background overflow-hidden scale-[0.6] origin-top">
+                        <ComponentMockup component={previewComponent} />
+                      </div>
                     </div>
-                    <div className="font-medium text-sm mb-1">{variant.name}</div>
-                    <div className="text-xs text-muted-foreground">{variant.description}</div>
-                  </Button>
-                )) || <p className="text-sm text-muted-foreground">No variants available</p>}
+                  )
+                }) || <p className="text-sm text-muted-foreground">No variants available</p>}
               </div>
             </CardContent>
           </Card>
