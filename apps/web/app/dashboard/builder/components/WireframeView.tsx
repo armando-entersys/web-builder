@@ -631,7 +631,7 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
             </CardHeader>
 
             <CardContent className="p-6 overflow-auto flex-1">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {componentLibrary?.[selectedComponent.type]?.variants.map((variant) => {
                   // Crear un componente temporal para mostrar el mockup
                   const previewComponent: WireframeComponent = {
@@ -645,18 +645,25 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
                     <div
                       key={variant.id}
                       onClick={() => replaceComponentVariant(variant.id)}
-                      className={`cursor-pointer rounded-lg border-2 transition-all hover:scale-[1.02] ${
+                      className={`cursor-pointer rounded-lg border-2 transition-all hover:scale-[1.01] ${
                         selectedComponent.variant === variant.id
                           ? 'border-primary bg-primary/5 shadow-md'
                           : 'border-border hover:border-primary/50'
                       }`}
                     >
-                      <div className="p-2 border-b bg-muted/30">
+                      <div className="p-3 border-b bg-muted/30">
                         <div className="font-medium text-sm">{variant.name}</div>
                         <div className="text-xs text-muted-foreground line-clamp-1">{variant.description}</div>
                       </div>
-                      <div className="aspect-video bg-background overflow-hidden scale-[0.6] origin-top">
-                        <ComponentMockup component={previewComponent} />
+                      <div className="relative w-full bg-background border-t" style={{ height: '280px' }}>
+                        <div className="absolute inset-0 overflow-auto scrollbar-thin">
+                          <div className="transform scale-[0.35] origin-top-left w-[285%]">
+                            <ComponentMockup component={previewComponent} />
+                          </div>
+                        </div>
+                        <div className="absolute bottom-2 right-2 px-2 py-1 bg-background/90 backdrop-blur-sm border rounded text-[10px] text-muted-foreground">
+                          Variant {variant.id}
+                        </div>
                       </div>
                     </div>
                   )
