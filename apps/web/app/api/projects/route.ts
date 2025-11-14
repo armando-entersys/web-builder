@@ -1,8 +1,7 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { query } from "@/lib/db"
 import { createId } from "@paralleldrive/cuid2"
-import { apiLogger } from "@/lib/api-logger-middleware"
 import { logError } from "@/lib/logger"
 
 export const dynamic = "force-dynamic"

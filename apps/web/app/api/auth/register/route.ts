@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server"
 import { hash } from "bcryptjs"
 import { createId } from "@paralleldrive/cuid2"
 import { query } from "@/lib/db"
-import { apiLogger } from "@/lib/api-logger-middleware"
 import { logError } from "@/lib/logger"
 
 export const dynamic = "force-dynamic"
@@ -18,7 +17,8 @@ interface User {
   updatedAt: Date
 }
 
-async function handler(req: NextRequest) {
+export async function POST(req: NextRequest) {
+  const startTime = Date.now()
   try {
     const { email, password, name } = await req.json()
 
@@ -58,6 +58,10 @@ async function handler(req: NextRequest) {
 
     const user = newUsers[0]
 
+    const duration = Date.now() - startTime
+    const { logRequest } = await import('@/lib/logger')
+    logRequest('POST', '/api/auth/register', 201, duration)
+
     return NextResponse.json(
       {
         user: {
@@ -69,14 +73,11 @@ async function handler(req: NextRequest) {
       { status: 201 }
     )
   } catch (error) {
-    logError(error as Error, { endpoint: '/api/auth/register', action: 'user_registration' })
+    const duration = Date.now() - startTime
+    logError(error as Error, { endpoint: '/api/auth/register', action: 'user_registration', duration: `${duration}ms` })
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }
     )
   }
-}
-
-export async function POST(req: NextRequest) {
-  return apiLogger(handler, req)
 }
