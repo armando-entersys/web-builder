@@ -123,11 +123,11 @@ class ClientLogger {
   }
 
   // Log React errors
-  logReactError(error: Error, errorInfo: { componentStack: string }) {
+  logReactError(error: Error, errorInfo: { componentStack?: string | null }) {
     this.error('React Error Boundary', {
       message: error.message,
       stack: error.stack,
-      componentStack: errorInfo.componentStack,
+      componentStack: errorInfo.componentStack || 'Not available',
     })
   }
 
