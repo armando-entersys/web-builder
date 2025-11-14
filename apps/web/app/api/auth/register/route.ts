@@ -1,7 +1,9 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { hash } from "bcryptjs"
 import { createId } from "@paralleldrive/cuid2"
 import { query } from "@/lib/db"
+import { apiLogger } from "@/lib/api-logger-middleware"
+import { logError } from "@/lib/logger"
 
 export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
@@ -16,7 +18,7 @@ interface User {
   updatedAt: Date
 }
 
-export async function POST(req: Request) {
+async function handler(req: NextRequest) {
   try {
     const { email, password, name } = await req.json()
 
@@ -67,10 +69,14 @@ export async function POST(req: Request) {
       { status: 201 }
     )
   } catch (error) {
-    console.error("Registration error:", error)
+    logError(error as Error, { endpoint: '/api/auth/register', action: 'user_registration' })
     return NextResponse.json(
       { error: "Something went wrong" },
       { status: 500 }
     )
   }
+}
+
+export async function POST(req: NextRequest) {
+  return apiLogger(handler, req)
 }

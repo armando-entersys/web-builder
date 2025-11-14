@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { logError } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,7 +19,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ sections })
   } catch (error) {
-    console.error('Error generating landing page:', error)
+    logError(error as Error, { endpoint: '/api/landing/generate', action: 'generate_landing' })
     return NextResponse.json(
       { error: 'Failed to generate landing page' },
       { status: 500 }

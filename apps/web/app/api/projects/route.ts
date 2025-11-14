@@ -1,7 +1,9 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { query } from "@/lib/db"
 import { createId } from "@paralleldrive/cuid2"
+import { apiLogger } from "@/lib/api-logger-middleware"
+import { logError } from "@/lib/logger"
 
 export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
@@ -144,7 +146,7 @@ export async function GET(req: Request) {
       },
     })
   } catch (error) {
-    console.error("Get projects error:", error)
+    logError(error as Error, { endpoint: '/api/projects', method: 'GET', action: 'fetch_projects' })
     return NextResponse.json(
       { error: "Failed to fetch projects" },
       { status: 500 }
@@ -200,7 +202,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(response, { status: 201 })
   } catch (error) {
-    console.error("Create project error:", error)
+    logError(error as Error, { endpoint: '/api/projects', method: 'POST', action: 'create_project' })
     return NextResponse.json(
       { error: "Failed to create project" },
       { status: 500 }
