@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generateSitemapWithAI } from '@/lib/ai/sitemap-generator'
+import { logError } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,7 +27,7 @@ export async function POST(request: NextRequest) {
       model: model || 'gpt-4o',
     })
   } catch (error) {
-    console.error('Error generando sitemap:', error)
+    logError(error as Error, { endpoint: '/api/sitemap/generate', action: 'generate_sitemap' })
 
     // Mensaje de error más detallado
     const errorMessage = error instanceof Error ? error.message : 'Error desconocido'

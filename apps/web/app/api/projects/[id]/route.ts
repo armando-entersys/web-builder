@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { auth } from "@/lib/auth"
 import { query } from "@/lib/db"
+import { logError } from "@/lib/logger"
 
 export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
@@ -82,7 +83,7 @@ export async function GET(
 
     return NextResponse.json(project)
   } catch (error) {
-    console.error("Get project error:", error)
+    logError(error as Error, { endpoint: '/api/projects/[id]', method: 'GET', action: 'fetch_project' })
     return NextResponse.json(
       { error: "Failed to fetch project" },
       { status: 500 }
@@ -188,7 +189,7 @@ export async function PATCH(
 
     return NextResponse.json(updatedProject)
   } catch (error) {
-    console.error("Update project error:", error)
+    logError(error as Error, { endpoint: '/api/projects/[id]', method: 'PATCH', action: 'update_project' })
     return NextResponse.json(
       { error: "Failed to update project" },
       { status: 500 }
@@ -241,7 +242,7 @@ export async function DELETE(
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error("Delete project error:", error)
+    logError(error as Error, { endpoint: '/api/projects/[id]', method: 'DELETE', action: 'delete_project' })
     return NextResponse.json(
       { error: "Failed to delete project", details: error instanceof Error ? error.message : String(error) },
       { status: 500 }

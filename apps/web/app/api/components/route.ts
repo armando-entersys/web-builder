@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { query } from "@/lib/db"
+import { logError } from "@/lib/logger"
 
 export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
@@ -144,7 +145,7 @@ export async function GET(req: Request) {
       }
     })
   } catch (error) {
-    console.error("Get components error:", error)
+    logError(error as Error, { endpoint: '/api/components', method: 'GET', action: 'fetch_components' })
     return NextResponse.json(
       { error: "Failed to fetch components" },
       { status: 500 }
@@ -213,7 +214,7 @@ export async function OPTIONS(req: Request) {
       })),
     })
   } catch (error) {
-    console.error("Get component categories error:", error)
+    logError(error as Error, { endpoint: '/api/components', method: 'OPTIONS', action: 'fetch_categories' })
     return NextResponse.json(
       { error: "Failed to fetch component categories" },
       { status: 500 }

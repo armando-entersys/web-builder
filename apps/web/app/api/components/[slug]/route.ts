@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { query } from "@/lib/db"
+import { logError } from "@/lib/logger"
 
 export const dynamic = "force-dynamic"
 export const runtime = "nodejs"
@@ -67,7 +68,7 @@ export async function GET(
       variants: variantsResult,
     })
   } catch (error) {
-    console.error("Get component by slug error:", error)
+    logError(error as Error, { endpoint: '/api/components/[slug]', method: 'GET', action: 'fetch_component_by_slug' })
     return NextResponse.json(
       { error: "Failed to fetch component" },
       { status: 500 }
@@ -99,7 +100,7 @@ export async function PATCH(
       { status: 400 }
     )
   } catch (error) {
-    console.error("Update component error:", error)
+    logError(error as Error, { endpoint: '/api/components/[slug]', method: 'PATCH', action: 'update_component' })
     return NextResponse.json(
       { error: "Failed to update component" },
       { status: 500 }
