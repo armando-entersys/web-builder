@@ -47,6 +47,11 @@ Thumbs.db
 
 # Build outputs
 *.tsbuildinfo
+
+# Logs
+logs/
+*.log
+
 # Temporary files
 temp-react-bits/
 *.png

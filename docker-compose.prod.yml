@@ -17,6 +17,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+        labels: "service=postgres"
 
   # Aplicación Web Builder
   web:
@@ -46,8 +52,13 @@ services:
       NEXT_PUBLIC_APP_URL: https://web-builder.scram2k.com
       NODE_ENV: production
 
+      # Logging
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+
       # Database seeding (set to true to seed on first run)
       SEED_DB: ${SEED_DB:-true}
+    volumes:
+      - app_logs:/app/logs
     depends_on:
       postgres:
         condition: service_healthy
@@ -66,9 +77,18 @@ services:
       - "traefik.http.routers.webbuilder-http.rule=Host(`web-builder.scram2k.com`)"
       - "traefik.http.routers.webbuilder-http.entrypoints=web"
       - "traefik.http.routers.webbuilder-http.middlewares=webbuilder-redirect"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
+        labels: "service=web"
+        tag: "{{.Name}}/{{.ID}}"
 
 volumes:
   postgres_data:
+    driver: local
+  app_logs:
     driver: local
 
 networks:
