@@ -13,6 +13,7 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
 COPY packages/db/package.json ./packages/db/
 COPY packages/ui/package.json ./packages/ui/
+COPY packages/ai/package.json ./packages/ai/
 COPY apps/web/package.json ./apps/web/
 
 # ===== DEPENDENCIES =====
