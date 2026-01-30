@@ -29,8 +29,8 @@ COPY --from=deps /app ./
 # Copiar código fuente
 COPY . .
 
-# Generar el cliente de Prisma usando la versión local (no npx que instala la última)
-RUN pnpm exec prisma generate --schema=./packages/db/prisma/schema.prisma
+# Generar el cliente de Prisma usando la versión del paquete @repo/db
+RUN cd packages/db && pnpm exec prisma generate
 
 # Build con Turbo - genera .next/standalone
 ENV NEXT_TELEMETRY_DISABLED=1
