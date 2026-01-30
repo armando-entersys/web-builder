@@ -24,7 +24,7 @@ export class OpenAIProvider {
                 ],
                 temperature: request.temperature ?? 0.7,
                 max_tokens: request.maxTokens ?? 2000,
-                stream: request.stream ?? false
+                stream: false as const
             })
 
             const content = completion.choices[0]?.message?.content || ''
