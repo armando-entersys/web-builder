@@ -62,7 +62,21 @@ gcloud compute ssh prod-server --zone=us-central1-c --command="cd /srv/servicios
 gcloud compute ssh prod-server --zone=us-central1-c --command="cd /srv/servicios/web-builder && docker compose ps"
 ```
 
-### Paso 5: Verificar Despliegue
+### Paso 5: Inicializar Base de Datos (Solo primera vez)
+
+Si es un despliegue nuevo o la base de datos está vacía:
+
+```bash
+# Verificar si hay tablas
+gcloud compute ssh prod-server --zone=us-central1-c --command="cd /srv/servicios/web-builder && docker compose exec -T postgres psql -U postgres -d webbuilder -c '\\dt'"
+
+# Si no hay tablas, ejecutar el script de inicialización
+gcloud compute ssh prod-server --zone=us-central1-c --command="cd /srv/servicios/web-builder && docker compose exec -T postgres psql -U postgres -d webbuilder -f /dev/stdin < packages/db/prisma/init.sql"
+```
+
+O alternativamente, usar Prisma localmente con la URL de producción para crear las tablas.
+
+### Paso 6: Verificar Despliegue
 
 ```bash
 # Verificar que la aplicación responde
