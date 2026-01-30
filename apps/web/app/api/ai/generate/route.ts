@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { getAIOrchestrator } from '@repo/ai'
-import { prompts } from '@repo/ai'
+import { getAIOrchestrator, prompts, systemMessage } from '@repo/ai'
 
 /**
  * POST /api/ai/generate
@@ -33,7 +32,6 @@ export async function POST(request: NextRequest) {
 
         // Generate appropriate prompt based on type
         let prompt = ''
-        let systemMessage = prompts.systemMessage
 
         switch (type) {
             case 'sitemap':
