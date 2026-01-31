@@ -1,6 +1,8 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
+import { compare } from "bcryptjs"
+import { query } from "@/lib/db"
 
 // UserRole type definition (from Prisma schema)
 type UserRole = "USER" | "ADMIN"
@@ -44,9 +46,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!credentials?.email || !credentials?.password) {
           return null
         }
-
-        const { compare } = await import("bcryptjs")
-        const { query } = await import("@/lib/db")
 
         interface User {
           id: string
