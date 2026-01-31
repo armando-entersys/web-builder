@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   transpilePackages: ['@repo/ui', '@repo/ai'],
   // Use standalone mode for production builds
   output: 'standalone',
+  // Include pg in standalone output (needed for database connections)
+  serverExternalPackages: ['pg'],
   turbopack: {
     rules: {
       '*.svg': {
