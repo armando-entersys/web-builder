@@ -63,6 +63,22 @@ COPY --from=builder --chown=nextjs:nodejs /app/packages/db/package.json ./packag
 # Copiar el cliente generado de Prisma
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modules/.prisma
 
+# Copiar pg y bcryptjs (needed for auth, not auto-detected by standalone)
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/pg@8.*/node_modules/pg ./node_modules/pg
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/pg-types@*/node_modules/pg-types ./node_modules/pg-types
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/pg-protocol@*/node_modules/pg-protocol ./node_modules/pg-protocol
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/pg-pool@*/node_modules/pg-pool ./node_modules/pg-pool
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/pgpass@*/node_modules/pgpass ./node_modules/pgpass
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/pg-connection-string@*/node_modules/pg-connection-string ./node_modules/pg-connection-string
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/postgres-bytea@*/node_modules/postgres-bytea ./node_modules/postgres-bytea
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/postgres-date@*/node_modules/postgres-date ./node_modules/postgres-date
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/postgres-interval@*/node_modules/postgres-interval ./node_modules/postgres-interval
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/postgres-array@*/node_modules/postgres-array ./node_modules/postgres-array
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/obuf@*/node_modules/obuf ./node_modules/obuf
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/packet-reader@*/node_modules/packet-reader ./node_modules/packet-reader
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/split2@*/node_modules/split2 ./node_modules/split2
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.pnpm/bcryptjs@*/node_modules/bcryptjs ./node_modules/bcryptjs
+
 USER nextjs
 
 WORKDIR /app
