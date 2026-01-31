@@ -65,14 +65,14 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    volumes:
+    # volumes:
       # Volumen para hot-reload en desarrollo (comentar en producción)
       # - ./apps/web:/app/apps/web
-      - node_modules:/app/node_modules
+      # - node_modules:/app/node_modules  # Deshabilitado: sobrescribe módulos de la imagen
 
 volumes:
   postgres_data:
-  node_modules:
+  # node_modules:  # Deshabilitado: sobrescribe módulos de la imagen
 
 networks:
   traefik-public:
