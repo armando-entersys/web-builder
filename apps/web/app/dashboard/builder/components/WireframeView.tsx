@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { ComponentMockup } from './WireframeMockups'
+import { ComponentPreviewCard } from './DynamicComponentPreview'
 import { Section } from './LandingPageBuilder'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -72,10 +73,24 @@ interface Props {
 export type { WireframeComponent, ComponentType }
 
 // Tipo para la biblioteca de componentes cargada desde la BD
+type ComponentVariant = {
+  id: number
+  name: string
+  displayName: string
+  description: string
+  dbComponentId?: string
+  componentPath?: string
+  icon: string
+  tags: string[]
+  isPremium: boolean
+  isNew: boolean
+  slug: string
+}
+
 type ComponentLibrary = Record<ComponentType, {
   name: string
   icon: string
-  variants: { id: number; name: string; description: string; dbComponentId?: string; componentPath?: string }[]
+  variants: ComponentVariant[]
 }>
 
 export default function WireframeView({ sections, wireframeComponents, setWireframeComponents }: Props) {
@@ -113,10 +128,16 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
 
             library[type]!.variants.push({
               id: comp.variantId,
-              name: comp.displayName,
+              name: comp.name,
+              displayName: comp.displayName,
               description: comp.description,
               dbComponentId: comp.id,
-              componentPath: comp.componentPath
+              componentPath: comp.componentPath,
+              icon: comp.icon,
+              tags: comp.tags || [],
+              isPremium: comp.isPremium,
+              isNew: comp.isNew,
+              slug: comp.slug
             })
           })
 
@@ -631,43 +652,22 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
             </CardHeader>
 
             <CardContent className="p-6 overflow-auto flex-1">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {componentLibrary?.[selectedComponent.type]?.variants.map((variant) => {
-                  // Crear un componente temporal para mostrar el mockup
-                  const previewComponent: WireframeComponent = {
-                    ...selectedComponent,
-                    variant: variant.id,
-                    name: variant.name,
-                    description: variant.description,
-                  }
-
-                  return (
-                    <div
-                      key={variant.id}
-                      onClick={() => replaceComponentVariant(variant.id)}
-                      className={`cursor-pointer rounded-lg border-2 transition-all hover:scale-[1.01] ${
-                        selectedComponent.variant === variant.id
-                          ? 'border-primary bg-primary/5 shadow-md'
-                          : 'border-border hover:border-primary/50'
-                      }`}
-                    >
-                      <div className="p-3 border-b bg-muted/30">
-                        <div className="font-medium text-sm">{variant.name}</div>
-                        <div className="text-xs text-muted-foreground line-clamp-1">{variant.description}</div>
-                      </div>
-                      <div className="relative w-full bg-background border-t" style={{ height: '280px' }}>
-                        <div className="absolute inset-0 overflow-auto scrollbar-thin">
-                          <div className="transform scale-[0.35] origin-top-left w-[285%]">
-                            <ComponentMockup component={previewComponent} />
-                          </div>
-                        </div>
-                        <div className="absolute bottom-2 right-2 px-2 py-1 bg-background/90 backdrop-blur-sm border rounded text-[10px] text-muted-foreground">
-                          Variant {variant.id}
-                        </div>
-                      </div>
-                    </div>
-                  )
-                }) || <p className="text-sm text-muted-foreground">No variants available</p>}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {componentLibrary?.[selectedComponent.type]?.variants.map((variant) => (
+                  <ComponentPreviewCard
+                    key={variant.id}
+                    name={variant.slug}
+                    displayName={variant.displayName}
+                    icon={variant.icon}
+                    description={variant.description}
+                    componentPath={variant.componentPath || ''}
+                    isSelected={selectedComponent.variant === variant.id}
+                    isPremium={variant.isPremium}
+                    isNew={variant.isNew}
+                    tags={variant.tags}
+                    onClick={() => replaceComponentVariant(variant.id)}
+                  />
+                )) || <p className="text-sm text-muted-foreground">No variants available</p>}
               </div>
             </CardContent>
           </Card>
