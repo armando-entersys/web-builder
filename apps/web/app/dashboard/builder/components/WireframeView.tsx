@@ -198,16 +198,17 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
   const addComponent = (type: ComponentType, index: number) => {
     if (!componentLibrary) return
     const library = componentLibrary[type]
-    if (!library) return
+    if (!library || !library.variants.length) return
 
+    const firstVariant = library.variants[0]
     const newComponent: WireframeComponent = {
       id: `component-${Date.now()}`,
       type,
-      variant: 1,
-      name: library.variants[0]?.name || 'Component',
-      description: library.variants[0]?.description || 'Description',
-      dbComponentId: library.variants[0]?.dbComponentId,
-      componentPath: library.variants[0]?.componentPath,
+      variant: firstVariant.id,
+      name: firstVariant.name,
+      description: firstVariant.description,
+      dbComponentId: firstVariant.dbComponentId,
+      componentPath: firstVariant.componentPath,
       content: {
         heading: 'Your heading here',
         subheading: 'Your subheading here',
@@ -563,8 +564,17 @@ export default function WireframeView({ sections, wireframeComponents, setWirefr
                           )}
 
                           {/* Component Label */}
-                          <div className="absolute top-2 left-2 px-3 py-1 rounded-md bg-background/90 backdrop-blur text-xs font-medium border shadow-sm">
-                            {componentLibrary?.[component.type]?.icon || '📦'} {component.name}
+                          <div className="absolute top-2 left-2 px-3 py-1.5 rounded-md bg-background/95 backdrop-blur text-xs border shadow-sm max-w-[80%]">
+                            <div className="font-medium flex items-center gap-1.5">
+                              <span>{componentLibrary?.[component.type]?.icon || '📦'}</span>
+                              <span className="truncate">{component.name}</span>
+                              <span className="text-muted-foreground">v{component.variant}</span>
+                            </div>
+                            {component.description && (
+                              <div className="text-[10px] text-muted-foreground truncate mt-0.5">
+                                {component.description}
+                              </div>
+                            )}
                           </div>
 
                           {/* Mockup */}
