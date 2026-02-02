@@ -113,9 +113,9 @@ def main():
         print("\n⚠️ Advertencia en Paso 3, pero continuando...")
         # Don't fail, just warn
 
-    # Step 3.5: Stop any running containers and clean up
+    # Step 3.5: Stop any running containers (preserve volumes to keep database data)
     if not run_ssh_command(
-        f"cd {PROJECT_DIR} && docker compose down -v",
+        f"cd {PROJECT_DIR} && docker compose down",
         "Paso 3.5: Detener contenedores existentes",
         timeout=60
     ):
